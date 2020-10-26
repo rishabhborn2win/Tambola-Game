@@ -1,0 +1,43 @@
+.number-button{
+    font-size: 15px; 
+    width: 35px;
+    Height: 25px;
+    color: rgb(216, 216, 216);
+    background-color: white;
+    padding: 0;
+border: none;
+background: none;
+
+
+}
+
+#display{
+    position: absolute;
+    width: 200px;
+    height:200px;
+    font-size: 200px;
+    color: Blue;
+    left: 40%;
+    top: 3%;
+    }
+
+
+.show{
+    width:350px;
+    height: 40px;
+    background-color: rgb(158, 80, 158);
+    color: white
+}  
+
+table { 
+   
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid gray;
+}
+
+.display{
+font-size: 10px;
+}

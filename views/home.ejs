@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambola Number Genrator</title>
+    <link rel="stylesheet" href="./style.css">
+        <% include('style.css'); %>
+</head>
+<body>
+    <script>
+window.onload = function(){
+  var a = document.querySelectorAll('.opener'), w = [], url, random, i;
+  for(i = 0; i < a.length; i++){
+    (function(i){
+      a[i].onclick = function(e) {
+        if (!w[i] || w[i].closed) {
+          url = this.href;
+          random = Math.floor((Math.random() * 100) + 1); 
+          w[i] = window.open(url, "_blank", random, "menubar = 0, scrollbars = 0");
+        } else {
+          console.log('window ' + url + ' is already opened');
+        }
+        e.preventDefault();
+        w[i].focus();
+      };
+    })(i);
+  }
+};
+
+
+function reset(){
+location.reload();
+}
+window.onbeforeunload = function() {
+        
+        return "Dude, are you sure you want to leave? Think of the kittens!";
+    }
+function pick(n, min, max){
+        var values = [], i = max;
+        while(i >= min) values.push(i--);
+        var results = [];
+        var maxIndex = max;
+        for(i=1; i <= n; i++){
+            maxIndex--;
+            var index = Math.floor(maxIndex * Math.random());
+            results.push(values[index]);
+            values[index] = values[maxIndex];
+        }
+        return results;
+    }
+var list= pick(90, 1, 90);
+ var i=-1;
+function generate(){
+  document.getElementById('display').style.opacity=1;
+  document.getElementById('nxt').style.opacity=0.5
+setTimeout(function(){
+   document.getElementById('nxt').disabled=false;
+   document.getElementById('nxt').style.opacity=1;
+   document.getElementById('display').style.opacity=0;
+   }, 3000);
+
+
+    i++;
+id = list[i];
+   document.getElementById(id).style.backgroundColor="red";
+     var j;
+     for(j= i-1; j>=0;j--)
+                 {
+               document.getElementById(list[j]).style.backgroundColor="#5959ff";
+                
+                }
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleString();
+            document.getElementById('display').innerHTML= list[i];
+            document.getElementById('current').innerHTML=  list[i]; 
+            document.getElementById('previous').innerHTML= list[i-1]; 
+            document.getElementById('previous1').innerHTML= list[i-2]; 
+            document.getElementById('previous2').innerHTML= list[i-3]; 
+            document.getElementById('previous3').innerHTML= list[i-4]; 
+            document.getElementById('total').innerHTML= i+1;    
+            }
+     function jump(){
+      window.open("http://www.tambolaticketgenerator.eu5.org",'_blank');
+  }
+               
+    </script>
+    
+</body>
+</html>
