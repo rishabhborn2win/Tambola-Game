@@ -1,13 +1,19 @@
 var express = require('express');
 var app = express();
-const { RandomPicture } = require('random-picture');
+var connectDB = require('./config/db')
+
+//Connecting database
+connectDB();
+
+//Init Middleware
+app.use(express.json({ extended: false }));
 
 app.get('/',  async (req, res) => {
-    const image =  await RandomPicture();
-    res.send(`<img width=30% src="${image.url}" />`);
+    res.send("<h1>Api Running</h1>")
 })
 
-
+//Defining routes
+app.use('/game', require("./routes/game"));
 
 
 //Declaring the server
