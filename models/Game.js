@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const GameSchema = new mongoose.Schema({
   gameID: {
     type: Number,
-    default: Math.ceil(Math.random() * 1000),
+    default: Math.ceil(Math.random() * 100000000),
   },
   host: {
     type: String,
@@ -23,6 +23,17 @@ const GameSchema = new mongoose.Schema({
         default: Date.now,
       },
     },
+  ],
+  players: [
+      {
+          name:{
+              type: String,
+              required: true
+          },
+          timeofjoin:{
+              type: Date
+          }
+      }
   ],
   date: {
     type: Date,
