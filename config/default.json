@@ -1,3 +1,3 @@
 {
-    "mongoURI": "mongodb+srv://rishu:12345@devconnector.ao3hi.mongodb.net/tambola?retryWrites=true&w=majority"
-  }
+  "mongoURI": "mongodb+srv://rishu:12345@devconnector.ao3hi.mongodb.net/tambola?retryWrites=true&w=majority"
+}

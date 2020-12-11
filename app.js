@@ -1,6 +1,6 @@
-var express = require('express');
+var express = require("express");
 var app = express();
-var connectDB = require('./config/db')
+var connectDB = require("./config/db");
 
 //Connecting database
 connectDB();
@@ -8,14 +8,15 @@ connectDB();
 //Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get('/',  async (req, res) => {
-    res.send("<h1>Api Running</h1>")
-})
+app.get("/", async (req, res) => {
+  res.send("<h1>Api Running</h1>");
+});
 
 //Defining routes
-app.use('/game', require("./routes/game"));
-
+app.use("/game", require("./routes/game"));
 
 //Declaring the server
-var port = 3000;
-app.listen(process.env.PORT || port, () => console.log(`Server started on ${port}`));
+var port = 3002;
+app.listen(process.env.PORT || port, () =>
+  console.log(`Server started on ${port}`)
+);
