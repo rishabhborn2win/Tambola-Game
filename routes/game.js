@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     });
 
     await game.save();
-    res.json({ msg: "New Game Created", data: game });
+    res.json(game);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
