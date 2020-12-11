@@ -1,4 +1,4 @@
-function Home(){
+function HostForm(){
     return (
         <div>
             <form action='/game'>
@@ -9,3 +9,5 @@ function Home(){
         </div>
     )
 }
+
+export default HostForm;
