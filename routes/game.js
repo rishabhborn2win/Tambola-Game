@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     game = new Game({
       host: host,
       numbers: [],
-      players: []
+      players: [],
     });
 
     function pick(n, min, max) {
@@ -55,102 +55,97 @@ router.put("/numbers", async (req, res) => {
   };
 });
 
-
-
 //route     PUT /game/join/:id
 //desc:     join a game
 //access:   public
-router.put('/join/:id', async (req, res) => {
-    const gameid = req.params.id;
-    const player = req.body.playername
-    try {
-        let game = await Game.findOne({ gameID: gameid });
-    if(!game){
-        return res.status(400).json({msg: "Invalid Game Id"});
+router.put("/join/:id", async (req, res) => {
+  const gameid = req.params.id;
+  const player = req.body.playername;
+  try {
+    let game = await Game.findOne({ gameID: gameid });
+    if (!game) {
+      return res.status(400).json({ msg: "Invalid Game Id" });
     }
 
     game.players.push({
-        name: player,
-        timeofjoin: new Date()
-    })
+      name: player,
+      timeofjoin: new Date(),
+    });
 
     await game.save();
     res.status(200).json(game);
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send("Server Error");
-    }
-    
-})
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 //route     GET /game
 //desc:     get list of the games
 //access:   public
-router.get('/', async (req, res) => {
-    try {
-        let games = await Game.find({});
-        if(!games) res.status(400).json({msg: "No game found!"});
+router.get("/", async (req, res) => {
+  try {
+    let games = await Game.find({});
+    if (!games) res.status(400).json({ msg: "No game found!" });
 
-        res.status(200).json(games);
-
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send("server Error");
-    }
-})
+    res.status(200).json(games);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("server Error");
+  }
+});
 
 //route     GET /game/:id
 //desc:     get game by id
 //access:   public
-router.get('/:id', async (req, res) => {
-    const gameid = req.params.id;
-    try {
-        let game = await Game.findById(gameid);
-        if(!game) res.status(400).json({msg: "No game found!"});
+router.get("/:id", async (req, res) => {
+  const gameid = req.params.id;
+  try {
+    let game = await Game.findById(gameid);
+    if (!game) res.status(400).json({ msg: "No game found!" });
 
-        res.status(200).json(game);
-
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send("server Error");
-    }
-})
+    res.status(200).json(game);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("server Error");
+  }
+});
 
 //route     GET /game/delete/:id
 //desc:     get list of the games
 //access:   private
-router.delete('/delete/:id', async (req, res) => {
-    const gameid = req.params.id;
-    try {
-        let game = await Game.findByIdAndDelete(gameid);
-        res.status(200).json({
-            msg: "game deleted"
-    })
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send("Server Error");
-    }
-})
+router.delete("/delete/:id", async (req, res) => {
+  const gameid = req.params.id;
+  try {
+    let game = await Game.findByIdAndDelete(gameid);
+    res.status(200).json({
+      msg: "game deleted",
+    });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 //route     PUT /game/:id/next
 //desc:     To call the number and save the current status
 //access:   private
-router.put('/:id/next', async (req, res) => {
-    const gameid = req.params.id;
-    try {
-        let game = await Game.findById(gameid);
-        for(var i=0; i<90; i++){
-            if(!game.numbers[i].called){
-                game.numbers[i].called = true;
-                game.numbers[i].calledTime = new Date();
-                break;
-            }
-        }
-        await game.save();
-        res.status(200).json(game);
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send("Server Error");
+router.put("/:id/next", async (req, res) => {
+  const gameid = req.params.id;
+  try {
+    let game = await Game.findById(gameid);
+    for (var i = 0; i < 90; i++) {
+      if (!game.numbers[i].called) {
+        game.numbers[i].called = true;
+        game.numbers[i].calledTime = new Date();
+        break;
+      }
     }
-})
+    await game.save();
+    res.status(200).json(game);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 module.exports = router;

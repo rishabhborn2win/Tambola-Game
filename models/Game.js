@@ -25,15 +25,15 @@ const GameSchema = new mongoose.Schema({
     },
   ],
   players: [
-      {
-          name:{
-              type: String,
-              required: true
-          },
-          timeofjoin:{
-              type: Date
-          }
-      }
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      timeofjoin: {
+        type: Date,
+      },
+    },
   ],
   date: {
     type: Date,

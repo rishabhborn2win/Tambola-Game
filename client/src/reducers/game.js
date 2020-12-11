@@ -1,3 +1,1 @@
-import {
-    SET_ALERT
-  } from "../actions/types";
+import { SET_ALERT } from "../actions/types";
