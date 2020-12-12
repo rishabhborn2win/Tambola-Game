@@ -1,11 +1,41 @@
 import axios from 'axios';
 import { setAlert } from "./alert";
 
-import { CREATE_GAME } from "./types";
+import { CREATE_GAME, CREATE_FAILED, GAME_LOADED, GAME_ERROR } from "./types";
+
+//load game if created(gamedid saved)
+export const loadGame = () => async (dispatch) => {
+  if (localStorage.gameid) {
+    try {
+      const res = await axios.get(`/game/${localStorage.gameid}`);
+  
+      dispatch({
+        type: GAME_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GAME_ERROR,
+        payload: {
+          msg: "Please create a new game"
+        }
+      })
+    }
+  }else{
+    dispatch({
+      type: GAME_ERROR,
+      payload: {
+        msg: "Please create a new game"
+      }
+    })
+  }
+
+ 
+};
 
 //Notify to fill form for creating the game
-export const notifyFill = () => async (dispatch) => {
-  dispatch(setAlert("Write Down your name", "success"));
+export const notifyFill = (msg) => async (dispatch) => {
+  dispatch(setAlert(msg, "success"));
 };
 
 //Create A game
@@ -27,8 +57,15 @@ export const createGame = ({ host }) => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
 
+    dispatch({
+      type: CREATE_FAILED,
+      payload: {
+      msg: "Game Already exist from the host name you entered!"
+      }
+    });
+
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert("Game wasn't created!!", "danger")));
     }
   }
 
