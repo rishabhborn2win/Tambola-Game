@@ -1,4 +1,5 @@
 import axios from "axios";
+import { set } from "mongoose";
 import { setAlert } from "./alert";
 
 import {
@@ -8,6 +9,9 @@ import {
   GAME_ERROR,
   DELETED_GAME,
   NEXT_NUMBER,
+  JOIN_GAME,
+  JOIN_FAILED,
+  GAME_LEAVE
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -28,7 +32,23 @@ export const loadGame = () => async (dispatch) => {
         },
       });
     }
-  } else {
+  }else if(localStorage.playerid){
+    try {
+      const res = await axios.get(`/game/join/${localStorage.playerid}`);
+      dispatch({
+        type: GAME_LOADED,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: GAME_ERROR,
+        payload: {
+          msg: "Please create a new game",
+        },
+      });
+    }
+  } 
+  else {
     dispatch({
       type: GAME_ERROR,
       payload: {
@@ -115,3 +135,37 @@ export const nextNumber = (gameid) => async (dispatch) => {
     });
   }
 };
+
+//Join the game
+export const joinGame = (playername, gameID) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({playername: playername, id: gameID});
+    try {
+      const res = await axios.put('/game/join/play', body, config);
+      dispatch({
+        type: JOIN_GAME,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: JOIN_FAILED,
+        payload: {
+          msg: "Some Error happen"
+        }
+      })
+      dispatch(setAlert("Wrong Room ID", "Danger"));
+
+  }
+
+}
+
+//leave the game
+export const leaveGame = () => async (dispatch) => {
+  dispatch({
+    type: GAME_LEAVE
+  })
+}

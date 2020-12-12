@@ -2,10 +2,11 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { dropGame, loadGame, nextNumber } from "../actions/game";
+import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
+import Player from './Player'
 
-function Board({ game: {game}, dropGame, nextNumber, loadGame }) {
+function Board({ game: {game}, dropGame, nextNumber, loadGame, leaveGame }) {
   useEffect(() => {
     loadGame();
   });
@@ -44,6 +45,11 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame }) {
 
   return (
     <div className="container">
+      <h2>Game/host Name: </h2> {game.host}
+      <h2>Game ID:</h2><span>{game.gameID}</span><br />
+      {localStorage.gameid ? <Fragment>You are Host</Fragment> : <Fragment></Fragment>}
+      {localStorage.playerid ? <Fragment>You are joined as player</Fragment> : <Fragment></Fragment>}
+
       <table>
         <tr>
           <td>
@@ -549,6 +555,8 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame }) {
         <Fragment></Fragment>
       )}
       <br />
+        {localStorage.playerid ? (<Fragment><buton class="show" onClick={() => leaveGame()}>Leave The Game</buton></Fragment>): (<Fragment></Fragment>)}
+
       <h4>
         Made By:- <b>Rishabh Mishra</b>
         <br />
@@ -562,6 +570,7 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame }) {
       <br />
       <br />
       <br />
+      <h4>Players Name:</h4><Player />
     </div>
   );
 }
@@ -576,4 +585,4 @@ const mapStateToProps = (state) => ({
   game: state.game,
 });
 
-export default connect(mapStateToProps, { dropGame, nextNumber, loadGame })(Board);
+export default connect(mapStateToProps, { dropGame, nextNumber, loadGame, leaveGame })(Board);

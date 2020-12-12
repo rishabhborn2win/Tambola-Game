@@ -6,3 +6,6 @@ export const GAME_LOADED = "GAME_LOADED";
 export const GAME_ERROR = "GAME_ERROR";
 export const DELETED_GAME = "DELETED_GAME";
 export const NEXT_NUMBER = "NEXT_NUMBER";
+export const JOIN_GAME = "JOIN_GAME";
+export const JOIN_FAILED = "JOIN_FAILED";
+export const GAME_LEAVE = "GAME_LEAVE";

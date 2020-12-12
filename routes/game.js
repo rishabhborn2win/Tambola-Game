@@ -55,11 +55,11 @@ router.put("/numbers", async (req, res) => {
   };
 });
 
-//route     PUT /game/join/:id
+//route     PUT /game/join/play
 //desc:     join a game
 //access:   public
-router.put("/join/:id", async (req, res) => {
-  const gameid = req.params.id;
+router.put("/join/play", async (req, res) => {
+  const gameid = req.body.id;
   const player = req.body.playername;
   try {
     let game = await Game.findOne({ gameID: gameid });
@@ -79,6 +79,21 @@ router.put("/join/:id", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//route     GET /game/join/playerid
+//desc:     load a join a game
+//access:   private
+router.get('/join/:id', async (req, res) => {
+  const playerid = req.params.id;
+  try {
+    let game = await Game.findOne({gameID: playerid});
+    if(!game) res.status(400).send("No game for the gameid You entered!");
+    res.status(200).json(game);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+})
 
 //route     GET /game
 //desc:     get list of the games
