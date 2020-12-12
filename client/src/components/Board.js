@@ -1,13 +1,46 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Fragment } from "react";
-import { dropGame } from "../actions/game";
+import { Fragment, useEffect } from "react";
+import { dropGame, loadGame, nextNumber } from "../actions/game";
+import Moment from "react-moment";
 
-function Board({ game, dropGame }) {
+function Board({ game: {game}, dropGame, nextNumber, loadGame }) {
+  useEffect(() => {
+    loadGame();
+  });
+
   const deleteGame = () => {
     dropGame(localStorage.gameid);
   };
+
+  const nextNum = () => {
+    nextNumber(localStorage.gameid);
+
+    document.getElementById("nxt").disabled = true;
+    document.getElementById("nxt").style.opacity = 0.5;
+    setTimeout(function () {
+      document.getElementById("nxt").disabled = false;
+      document.getElementById("nxt").style.opacity = 1;
+    }, 3000);
+  };
+
+  var numCalled = [];
+  game.numbers.map((num) => {
+    if (num.called === true) {
+    numCalled.push(num.number);
+    }
+
+  });
+  var i;
+  var numbersArray = game.numbers;
+
+  for (i = 0; i < 90; i++) {
+  
+    if (numbersArray[i].called === false) break;
+  }
+  
+
 
   return (
     <div className="container">
@@ -483,24 +516,27 @@ function Board({ game, dropGame }) {
       </table>
       <div class="display">
         <p>
-          Date/Time: <span id="datetime"></span>
+          Date/Time:{" "}
+          <span id="datetime">
+            <Moment>{i!=0 ? game.numbers[i-1].calledTime : <Fragment>Start The Game</Fragment> }</Moment>
+          </span>
         </p>
-        <label id="current">Current</label>
+        <label id="current">{numCalled[numCalled.length - 1] || 0}</label>
         <label for="">&#8592;</label>
-        <label id="previous">Last 1st</label>
+        <label id="previous">{numCalled[numCalled.length - 2] || 0}</label>
         <label for="">&#8592;</label>
-        <label id="previous1">Last 2nd</label>
+        <label id="previous1">{numCalled[numCalled.length - 3] || 0}</label>
         <label for="">&#8592;</label>
-        <label id="previous2">Last 3rd</label>
+        <label id="previous2">{numCalled[numCalled.length - 4] || 0}</label>
         <label for="">&#8592;</label>
-        <label id="previous3">Last 4th</label>
+        <label id="previous3">{numCalled[numCalled.length - 5] || 0}</label>
         <label>: Total: </label>
-        <label id="total"></label>
+        <label id="total">{numCalled.length}</label>
       </div>
       <br />
-      {game.game._id === localStorage.gameid ? (
+      {game._id === localStorage.gameid ? (
         <Fragment>
-          <button onclick="" class="show" id="nxt">
+          <button onClick={() => nextNum()} class="show" id="nxt">
             Next Number (Wait for 3s)
           </button>
           <br />
@@ -533,10 +569,11 @@ function Board({ game, dropGame }) {
 Board.propTypes = {
   game: PropTypes.object.isRequired,
   dropGame: PropTypes.func.isRequired,
+  nextNumber: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   game: state.game,
 });
 
-export default connect(mapStateToProps, { dropGame })(Board);
+export default connect(mapStateToProps, { dropGame, nextNumber, loadGame })(Board);

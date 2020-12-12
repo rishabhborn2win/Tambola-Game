@@ -7,6 +7,7 @@ import {
   GAME_LOADED,
   GAME_ERROR,
   DELETED_GAME,
+  NEXT_NUMBER,
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -58,8 +59,6 @@ export const createGame = ({ host }) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-
     dispatch({
       type: CREATE_FAILED,
       payload: {
@@ -67,17 +66,12 @@ export const createGame = ({ host }) => async (dispatch) => {
       },
     });
     dispatch(setAlert("Type Unique Game Name", "danger"));
-
-    if (errors) {
-      errors.forEach((error) =>
-        dispatch(setAlert("Game wasn't created!!", "danger"))
-      );
-    }
   }
 };
 
 //Delete the Game
 export const dropGame = (gameid) => async (dispatch) => {
+  if (window.confirm("Are you Sure? This can not be undone")) {
   try {
     await axios.delete(`/game/delete/${gameid}`);
 
@@ -87,7 +81,32 @@ export const dropGame = (gameid) => async (dispatch) => {
         msg: "Game Deleted successfully",
       },
     });
+    dispatch(setAlert("Game Deleted", "danger"));
+
+    
   } catch (err) {
+    dispatch({
+      type: CREATE_FAILED,
+      payload: {
+        msg: "Some error please retry",
+      },
+    });
+  }
+}
+};
+
+//Calling the number
+export const nextNumber = (gameid) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/game/${gameid}/next`);
+    dispatch({
+      type: NEXT_NUMBER,
+    });
+    dispatch({
+      type: GAME_LOADED,
+      payload: res.data,
+    });
+  } catch (error) {
     dispatch({
       type: CREATE_FAILED,
       payload: {

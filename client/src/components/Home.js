@@ -2,6 +2,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Fragment } from "react";
+import Spinner from "./layout/Spinner";
 
 function Home({ game }) {
   if (game.game) {
@@ -10,6 +11,10 @@ function Home({ game }) {
         <Link to="/play">Resume Game</Link>
       </button>
     );
+  }
+
+  if (game.loading) {
+    return <Spinner></Spinner>;
   }
 
   return (

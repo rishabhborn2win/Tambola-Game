@@ -4,6 +4,7 @@ import {
   GAME_LOADED,
   GAME_ERROR,
   DELETED_GAME,
+  NEXT_NUMBER,
 } from "../actions/types";
 
 const initialState = {
@@ -37,11 +38,16 @@ export default function abc(state = initialState, action) {
         game: null,
         loading: false,
       };
+    case NEXT_NUMBER:
+      return {
+        ...state,
+      };
     case CREATE_FAILED:
     case GAME_ERROR:
     default:
       return {
         ...state,
+        loading: false
       };
   }
 }
