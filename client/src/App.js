@@ -7,12 +7,14 @@ import HostForm from "./components/HostForm";
 import Alert from "./components/layout/Alert";
 
 //Redux Tools
+
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadGame } from './actions/game';
 
-function App() {
+function App({game}) {
 
+   
   useEffect(() => {
     store.dispatch(loadGame());
   }, []);
@@ -28,5 +30,6 @@ function App() {
     </Provider>
   );
 }
+
 
 export default App;

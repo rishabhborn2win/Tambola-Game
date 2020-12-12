@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function Home() {
+
+function Home({game}) {
+  if(game){
+    <Redirect to='/play'></Redirect>
+  }
   return (
     <div>
       <button to="/join">
@@ -13,5 +18,12 @@ function Home() {
     </div>
   );
 }
+Home.propTypes = {
+  game: PropTypes.object.isRequired,
+}
 
-export default connect(null)(Home);
+const mapStateToProps = (state) => ({
+  game: state.game.game
+})
+
+export default connect(mapStateToProps)(Home);
