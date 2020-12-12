@@ -1,5 +1,4 @@
 import axios from "axios";
-import { set } from "mongoose";
 import { setAlert } from "./alert";
 
 import {
@@ -147,6 +146,8 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
       type: JOIN_GAME,
       payload: res.data,
     });
+    localStorage.setItem('username', playername);
+    dispatch(setAlert("Joined Successfully", "success"));
   } catch (err) {
     dispatch({
       type: JOIN_FAILED,
@@ -160,7 +161,23 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
 
 //leave the game
 export const leaveGame = () => async (dispatch) => {
-  dispatch({
-    type: GAME_LEAVE,
-  });
+  if (window.confirm("Are you Sure?")) {
+    try {
+      axios.delete('/')
+      dispatch({
+        type: GAME_LEAVE,
+        payload: {
+          msg: "Game Deleted successfully",
+        },
+      });
+      dispatch(setAlert("Game Left", "danger"));
+    } catch (err) {
+      dispatch({
+        type: CREATE_FAILED,
+        payload: {
+          msg: "Some error please retry",
+        },
+      });
+    }
+  }
 };

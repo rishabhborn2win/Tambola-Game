@@ -70,6 +70,7 @@ export default function abc(state = initialState, action) {
     default:
       return {
         ...state,
+        game: null,
         loading: false,
       };
   }

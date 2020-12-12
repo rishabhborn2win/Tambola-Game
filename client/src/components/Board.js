@@ -8,12 +8,19 @@ import Player from "./Player";
 
 function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
   useEffect(() => {
-    loadGame();
-  });
+    setInterval(function() {
+      loadGame();
+    }, 2500);
+  },[loadGame]);
 
   const deleteGame = () => {
     dropGame(localStorage.gameid);
   };
+
+  const leave = (e) => {
+    e.preventDefault();
+    leaveGame()
+  }
 
   const nextNum = () => {
     nextNumber(localStorage.gameid);
@@ -568,7 +575,7 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
       <br />
       {localStorage.playerid ? (
         <Fragment>
-          <buton class="show" onClick={() => leaveGame()}>
+          <buton class="show" onClick={(e) => leave(e)}>
             Leave The Game
           </buton>
         </Fragment>

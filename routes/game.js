@@ -72,7 +72,7 @@ router.put("/join/play", async (req, res) => {
       timeofjoin: new Date(),
     });
 
-    await game.save();
+    await game.save() ;
     res.status(200).json(game);
   } catch (err) {
     console.log(err.message);
@@ -80,13 +80,13 @@ router.put("/join/play", async (req, res) => {
   }
 });
 
-//route     GET /game/join/playerid
-//desc:     load a join a game
+//route     GET /game/join/id
+//desc:     load a joined a game
 //access:   private
 router.get("/join/:id", async (req, res) => {
-  const playerid = req.params.id;
+  const gameID = req.params.id;
   try {
-    let game = await Game.findOne({ gameID: playerid });
+    let game = await Game.findOne({ gameID: gameID });
     if (!game) res.status(400).send("No game for the gameid You entered!");
     res.status(200).json(game);
   } catch (err) {
@@ -94,6 +94,28 @@ router.get("/join/:id", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//route     DELETE /game/leave/username
+//desc:     leave the game
+//access:   private
+router.delete('/:gameID/leave/:username', async (req, res) => {
+  const username = req.params.username;
+  const gameID = req.params.gameID;
+  try {
+    let game = await Game.findOne({ players : [ {name: username}] }, {gameID: gameID});
+
+    let removeIndex = game.players.map((player) => {
+      player.name
+    }).indexOf(username);
+    game.players.splice(removeIndex, 1);
+    await game.save();
+    res.status(200).send("Player Removed");
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+})
+
 
 //route     GET /game
 //desc:     get list of the games

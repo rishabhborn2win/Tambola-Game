@@ -29,7 +29,7 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e)}>
-        <label for="playername">Enter Player Name</label>
+        <label for="playername">Enter <b>Unique</b> Username</label>
         <input
           type="text"
           id="playername"
@@ -43,7 +43,7 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
           name="gameID"
           onChange={(e) => onChange(e)}
         ></input>
-        <input type="submit" value="Create Game"></input>
+        <input type="submit" value="Join Game"></input>
       </form>
     </div>
   );
