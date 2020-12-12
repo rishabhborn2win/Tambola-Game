@@ -1,18 +1,23 @@
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Fragment } from "react";
 
-
-function Home({game}) {
-  if(game){
-    <Redirect to='/play'></Redirect>
+function Home({ game }) {
+  if (game.game) {
+    return (
+      <button>
+        <Link to="/play">Resume Game</Link>
+      </button>
+    );
   }
+
   return (
     <div>
-      <button to="/join">
+      <button>
         <Link to="/join">Join Game</Link>
       </button>
-      <button to="/create">
+      <button>
         <Link to="/create">Create A Game</Link>
       </button>
     </div>
@@ -20,10 +25,10 @@ function Home({game}) {
 }
 Home.propTypes = {
   game: PropTypes.object.isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
-  game: state.game.game
-})
+  game: state.game,
+});
 
 export default connect(mapStateToProps)(Home);

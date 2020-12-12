@@ -1,6 +1,14 @@
 import "./style.css";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Fragment } from "react";
+import { dropGame } from "../actions/game";
 
-function Board() {
+function Board({ game, dropGame }) {
+  const deleteGame = () => {
+    dropGame(localStorage.gameid);
+  };
+
   return (
     <div className="container">
       <table>
@@ -473,8 +481,62 @@ function Board() {
           </td>
         </tr>
       </table>
+      <div class="display">
+        <p>
+          Date/Time: <span id="datetime"></span>
+        </p>
+        <label id="current">Current</label>
+        <label for="">&#8592;</label>
+        <label id="previous">Last 1st</label>
+        <label for="">&#8592;</label>
+        <label id="previous1">Last 2nd</label>
+        <label for="">&#8592;</label>
+        <label id="previous2">Last 3rd</label>
+        <label for="">&#8592;</label>
+        <label id="previous3">Last 4th</label>
+        <label>: Total: </label>
+        <label id="total"></label>
+      </div>
+      <br />
+      {game.game._id === localStorage.gameid ? (
+        <Fragment>
+          <button onclick="" class="show" id="nxt">
+            Next Number (Wait for 3s)
+          </button>
+          <br />
+          <br />
+          <button onClick={() => deleteGame()} class="show">
+            Delete
+          </button>
+        </Fragment>
+      ) : (
+        <Fragment></Fragment>
+      )}
+      <br />
+      <h4>
+        Made By:- <b>Rishabh Mishra</b>
+        <br />
+        Contact:{" "}
+        <a href="mailto: rishabhborn2win@gmail.com">
+          rishabhborn2win@gmail.com
+        </a>
+      </h4>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }
 
-export default Board;
+Board.propTypes = {
+  game: PropTypes.object.isRequired,
+  dropGame: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  game: state.game,
+});
+
+export default connect(mapStateToProps, { dropGame })(Board);

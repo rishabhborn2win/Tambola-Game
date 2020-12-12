@@ -111,8 +111,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//route     GET /game/delete/:id
-//desc:     get list of the games
+//route     DELETE /game/delete/:id
+//desc:     DELETE the game by id
 //access:   private
 router.delete("/delete/:id", async (req, res) => {
   const gameid = req.params.id;
