@@ -7,7 +7,7 @@ import {
   NEXT_NUMBER,
   JOIN_FAILED,
   JOIN_GAME,
-  GAME_LEAVE
+  GAME_LEAVE,
 } from "../actions/types";
 
 const initialState = {
@@ -45,32 +45,32 @@ export default function abc(state = initialState, action) {
       return {
         ...state,
       };
-    case JOIN_GAME: 
-      localStorage.setItem('playerid', payload.gameID)
+    case JOIN_GAME:
+      localStorage.setItem("playerid", payload.gameID);
       return {
         ...state,
         game: payload,
-        loading: false
-      }
+        loading: false,
+      };
     case GAME_LEAVE:
-      localStorage.removeItem('playerid');
+      localStorage.removeItem("playerid");
       return {
         ...state,
         game: null,
-        loading: false
-      }
+        loading: false,
+      };
     case JOIN_FAILED:
       return {
         ...state,
         loading: false,
-        error: payload.msg
-      }
+        error: payload.msg,
+      };
     case CREATE_FAILED:
     case GAME_ERROR:
     default:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
   }
 }

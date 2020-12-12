@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
 import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
-import Player from './Player'
+import Player from "./Player";
 
-function Board({ game: {game}, dropGame, nextNumber, loadGame, leaveGame }) {
+function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
   useEffect(() => {
     loadGame();
   });
@@ -29,27 +29,32 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame, leaveGame }) {
   var numCalled = [];
   game.numbers.map((num) => {
     if (num.called === true) {
-    numCalled.push(num.number);
+      numCalled.push(num.number);
     }
-
   });
   var i;
   var numbersArray = game.numbers;
 
   for (i = 0; i < 90; i++) {
-  
     if (numbersArray[i].called === false) break;
   }
-  
-
 
   return (
     <div className="container">
       <h2>Game/host Name: </h2> {game.host}
-      <h2>Game ID:</h2><span>{game.gameID}</span><br />
-      {localStorage.gameid ? <Fragment>You are Host</Fragment> : <Fragment></Fragment>}
-      {localStorage.playerid ? <Fragment>You are joined as player</Fragment> : <Fragment></Fragment>}
-
+      <h2>Game ID:</h2>
+      <span>{game.gameID}</span>
+      <br />
+      {localStorage.gameid ? (
+        <Fragment>You are Host</Fragment>
+      ) : (
+        <Fragment></Fragment>
+      )}
+      {localStorage.playerid ? (
+        <Fragment>You are joined as player</Fragment>
+      ) : (
+        <Fragment></Fragment>
+      )}
       <table>
         <tr>
           <td>
@@ -524,7 +529,13 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame, leaveGame }) {
         <p>
           Date/Time:{" "}
           <span id="datetime">
-            <Moment>{i!=0 ? game.numbers[i-1].calledTime : <Fragment>Start The Game</Fragment> }</Moment>
+            <Moment>
+              {i != 0 ? (
+                game.numbers[i - 1].calledTime
+              ) : (
+                <Fragment>Start The Game</Fragment>
+              )}
+            </Moment>
           </span>
         </p>
         <label id="current">{numCalled[numCalled.length - 1] || 0}</label>
@@ -555,8 +566,15 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame, leaveGame }) {
         <Fragment></Fragment>
       )}
       <br />
-        {localStorage.playerid ? (<Fragment><buton class="show" onClick={() => leaveGame()}>Leave The Game</buton></Fragment>): (<Fragment></Fragment>)}
-
+      {localStorage.playerid ? (
+        <Fragment>
+          <buton class="show" onClick={() => leaveGame()}>
+            Leave The Game
+          </buton>
+        </Fragment>
+      ) : (
+        <Fragment></Fragment>
+      )}
       <h4>
         Made By:- <b>Rishabh Mishra</b>
         <br />
@@ -570,7 +588,8 @@ function Board({ game: {game}, dropGame, nextNumber, loadGame, leaveGame }) {
       <br />
       <br />
       <br />
-      <h4>Players Name:</h4><Player />
+      <h4>Players Name:</h4>
+      <Player />
     </div>
   );
 }
@@ -585,4 +604,9 @@ const mapStateToProps = (state) => ({
   game: state.game,
 });
 
-export default connect(mapStateToProps, { dropGame, nextNumber, loadGame, leaveGame })(Board);
+export default connect(mapStateToProps, {
+  dropGame,
+  nextNumber,
+  loadGame,
+  leaveGame,
+})(Board);

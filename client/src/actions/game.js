@@ -11,7 +11,7 @@ import {
   NEXT_NUMBER,
   JOIN_GAME,
   JOIN_FAILED,
-  GAME_LEAVE
+  GAME_LEAVE,
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -32,12 +32,12 @@ export const loadGame = () => async (dispatch) => {
         },
       });
     }
-  }else if(localStorage.playerid){
+  } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
       dispatch({
         type: GAME_LOADED,
-        payload: res.data
+        payload: res.data,
       });
     } catch (err) {
       dispatch({
@@ -47,8 +47,7 @@ export const loadGame = () => async (dispatch) => {
         },
       });
     }
-  } 
-  else {
+  } else {
     dispatch({
       type: GAME_ERROR,
       payload: {
@@ -92,27 +91,25 @@ export const createGame = ({ host }) => async (dispatch) => {
 //Delete the Game
 export const dropGame = (gameid) => async (dispatch) => {
   if (window.confirm("Are you Sure? This can not be undone")) {
-  try {
-    await axios.delete(`/game/delete/${gameid}`);
+    try {
+      await axios.delete(`/game/delete/${gameid}`);
 
-    dispatch({
-      type: DELETED_GAME,
-      payload: {
-        msg: "Game Deleted successfully",
-      },
-    });
-    dispatch(setAlert("Game Deleted", "danger"));
-
-    
-  } catch (err) {
-    dispatch({
-      type: CREATE_FAILED,
-      payload: {
-        msg: "Some error please retry",
-      },
-    });
+      dispatch({
+        type: DELETED_GAME,
+        payload: {
+          msg: "Game Deleted successfully",
+        },
+      });
+      dispatch(setAlert("Game Deleted", "danger"));
+    } catch (err) {
+      dispatch({
+        type: CREATE_FAILED,
+        payload: {
+          msg: "Some error please retry",
+        },
+      });
+    }
   }
-}
 };
 
 //Calling the number
@@ -143,29 +140,27 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  const body = JSON.stringify({playername: playername, id: gameID});
-    try {
-      const res = await axios.put('/game/join/play', body, config);
-      dispatch({
-        type: JOIN_GAME,
-        payload: res.data
-      });
-    } catch (err) {
-      dispatch({
-        type: JOIN_FAILED,
-        payload: {
-          msg: "Some Error happen"
-        }
-      })
-      dispatch(setAlert("Wrong Room ID", "Danger"));
-
+  const body = JSON.stringify({ playername: playername, id: gameID });
+  try {
+    const res = await axios.put("/game/join/play", body, config);
+    dispatch({
+      type: JOIN_GAME,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: JOIN_FAILED,
+      payload: {
+        msg: "Some Error happen",
+      },
+    });
+    dispatch(setAlert("Wrong Room ID", "Danger"));
   }
-
-}
+};
 
 //leave the game
 export const leaveGame = () => async (dispatch) => {
   dispatch({
-    type: GAME_LEAVE
-  })
-}
+    type: GAME_LEAVE,
+  });
+};

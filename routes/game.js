@@ -83,17 +83,17 @@ router.put("/join/play", async (req, res) => {
 //route     GET /game/join/playerid
 //desc:     load a join a game
 //access:   private
-router.get('/join/:id', async (req, res) => {
+router.get("/join/:id", async (req, res) => {
   const playerid = req.params.id;
   try {
-    let game = await Game.findOne({gameID: playerid});
-    if(!game) res.status(400).send("No game for the gameid You entered!");
+    let game = await Game.findOne({ gameID: playerid });
+    if (!game) res.status(400).send("No game for the gameid You entered!");
     res.status(200).json(game);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
-})
+});
 
 //route     GET /game
 //desc:     get list of the games
