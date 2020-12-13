@@ -146,7 +146,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
       type: JOIN_GAME,
       payload: res.data,
     });
-    localStorage.setItem('username', playername);
+    localStorage.setItem("username", playername);
     dispatch(setAlert("Joined Successfully", "success"));
   } catch (err) {
     dispatch({
@@ -163,7 +163,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
 export const leaveGame = () => async (dispatch) => {
   if (window.confirm("Are you Sure?")) {
     try {
-      axios.delete('/')
+      axios.delete("/");
       dispatch({
         type: GAME_LEAVE,
         payload: {

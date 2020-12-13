@@ -29,7 +29,9 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e)}>
-        <label for="playername">Enter <b>Unique</b> Username</label>
+        <label for="playername">
+          Enter <b>Unique</b> Username
+        </label>
         <input
           type="text"
           id="playername"

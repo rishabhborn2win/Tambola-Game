@@ -72,7 +72,7 @@ router.put("/join/play", async (req, res) => {
       timeofjoin: new Date(),
     });
 
-    await game.save() ;
+    await game.save();
     res.status(200).json(game);
   } catch (err) {
     console.log(err.message);
@@ -98,15 +98,20 @@ router.get("/join/:id", async (req, res) => {
 //route     DELETE /game/leave/username
 //desc:     leave the game
 //access:   private
-router.delete('/:gameID/leave/:username', async (req, res) => {
+router.delete("/:gameID/leave/:username", async (req, res) => {
   const username = req.params.username;
   const gameID = req.params.gameID;
   try {
-    let game = await Game.findOne({ players : [ {name: username}] }, {gameID: gameID});
+    let game = await Game.findOne(
+      { players: [{ name: username }] },
+      { gameID: gameID }
+    );
 
-    let removeIndex = game.players.map((player) => {
-      player.name
-    }).indexOf(username);
+    let removeIndex = game.players
+      .map((player) => {
+        player.name;
+      })
+      .indexOf(username);
     game.players.splice(removeIndex, 1);
     await game.save();
     res.status(200).send("Player Removed");
@@ -114,8 +119,7 @@ router.delete('/:gameID/leave/:username', async (req, res) => {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
-})
-
+});
 
 //route     GET /game
 //desc:     get list of the games

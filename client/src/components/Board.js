@@ -8,10 +8,10 @@ import Player from "./Player";
 
 function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
   useEffect(() => {
-    setInterval(function() {
+    setInterval(function () {
       loadGame();
     }, 2500);
-  },[loadGame]);
+  }, [loadGame]);
 
   const deleteGame = () => {
     dropGame(localStorage.gameid);
@@ -19,8 +19,8 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
 
   const leave = (e) => {
     e.preventDefault();
-    leaveGame()
-  }
+    leaveGame();
+  };
 
   const nextNum = () => {
     nextNumber(localStorage.gameid);
@@ -49,7 +49,9 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
   return (
     <div className="container">
       <h2>Game/host Name: </h2> {game.host}
-      <div>Game Created At: <Moment format="DD/MM/YYYY">{game.date}</Moment></div>
+      <div>
+        Game Created At: <Moment format="DD/MM/YYYY">{game.date}</Moment>
+      </div>
       <h2>Game ID:</h2>
       <span>{game.gameID}</span>
       <br />

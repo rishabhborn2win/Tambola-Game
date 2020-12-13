@@ -15,7 +15,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 function App() {
   useEffect(() => {
     store.dispatch(loadGame());
-  },[loadGame]);
+  }, [loadGame]);
   return (
     <Provider store={store}>
       <Router>
