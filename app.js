@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
 app.use("/game", require("./routes/game"));
 
 //Declaring the server
-var port = 3001;
+var port = 5000;
 app.listen(process.env.PORT || port, () =>
   console.log(`Server started on ${port}`)
 );
