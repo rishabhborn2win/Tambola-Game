@@ -14,6 +14,7 @@ const initialState = {
   game: null,
   loading: true,
   error: {},
+  numCalled : []
 };
 
 export default function abc(state = initialState, action) {
@@ -28,11 +29,18 @@ export default function abc(state = initialState, action) {
         error: {},
       };
     case GAME_LOADED:
+      var nums =[];
+      payload.numbers.map((num) => {
+        if(num.called === true){
+          nums.push(num.number);
+        }
+      })
       return {
         ...state,
         game: payload,
         loading: false,
         error: {},
+        numCalled: nums
       };
     case DELETED_GAME:
       localStorage.removeItem("gameid");
@@ -43,7 +51,7 @@ export default function abc(state = initialState, action) {
       };
     case NEXT_NUMBER:
       return {
-        ...state,
+        ...state
       };
     case JOIN_GAME:
       localStorage.setItem("playerid", payload.gameID);
@@ -62,7 +70,7 @@ export default function abc(state = initialState, action) {
     case JOIN_FAILED:
       return {
         ...state,
-        loading: false,
+        loading: false, 
         error: payload.msg,
       };
     case CREATE_FAILED:

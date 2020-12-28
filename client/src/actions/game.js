@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Redirect } from "react-router";
 import { setAlert } from "./alert";
 
 import {
@@ -116,11 +117,11 @@ export const nextNumber = (gameid) => async (dispatch) => {
   try {
     const res = await axios.put(`/game/${gameid}/next`);
     dispatch({
-      type: NEXT_NUMBER,
+      type: NEXT_NUMBER
     });
     dispatch({
       type: GAME_LOADED,
-      payload: res.data,
+      payload: res.data
     });
   } catch (error) {
     dispatch({
