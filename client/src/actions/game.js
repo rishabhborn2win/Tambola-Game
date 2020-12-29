@@ -161,10 +161,10 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
 };
 
 //leave the game
-export const leaveGame = () => async (dispatch) => {
+export const leaveGame = (gameid, username) => async (dispatch) => {
   if (window.confirm("Are you Sure?")) {
     try {
-      axios.delete("/");
+      axios.delete(`${gameid}/leave/${username}`);
       dispatch({
         type: GAME_LEAVE,
         payload: {

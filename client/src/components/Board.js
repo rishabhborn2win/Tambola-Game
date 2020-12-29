@@ -19,7 +19,7 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
 
   const leave = (e) => {
     e.preventDefault();
-    leaveGame();
+    leaveGame(localStorage.playerid, localStorage.username);
   };
 
   const nextNum = () => {

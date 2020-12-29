@@ -46,14 +46,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-//route     PUT /game/numbers
-//desc:     Put numbers
-//access:   public
-router.put("/numbers", async (req, res) => {
-  const newNum = {
-    number,
-  };
-});
 
 //route     PUT /game/join/play
 //desc:     join a game
@@ -103,7 +95,6 @@ router.delete("/:gameID/leave/:username", async (req, res) => {
   const gameID = req.params.gameID;
   try {
     let game = await Game.findOne(
-      { players: [{ name: username }] },
       { gameID: gameID }
     );
 
