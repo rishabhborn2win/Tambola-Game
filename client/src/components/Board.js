@@ -1,12 +1,13 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
+import { GAME_ERROR } from "../actions/types";
 
-function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
+function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame, numberCalled }) {
   useEffect(() => {
     setInterval(function () {
       loadGame();
@@ -16,6 +17,16 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
   const deleteGame = () => {
     dropGame(localStorage.gameid);
   };
+
+
+useEffect(() => {
+  game.numbers.map((num, index) => {
+    if(num.called === true){
+      document.getElementById(num.number).style.background ="blue"
+    } 
+  });
+}, [game]);
+
 
   const leave = (e) => {
     e.preventDefault();
@@ -37,8 +48,14 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
   game.numbers.map((num) => {
     if (num.called === true) {
       numCalled.push(num.number);
+      // console.log(numCalled)
     }
   });
+ 
+
+
+  
+  //getting the index value
   var i;
   var numbersArray = game.numbers;
 
@@ -46,6 +63,11 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame }) {
     if (numbersArray[i].called === false) break;
   }
 
+useEffect(() => {
+  if(typeof numCalled.length !== "number"){
+  document.getElementById(numCalled[numCalled.length - 1]).style.background= "red";
+  }
+}, [i])
   return (
     <div className="container">
       <h2>Game/host Name: </h2> {game.host}
@@ -608,10 +630,12 @@ Board.propTypes = {
   game: PropTypes.object.isRequired,
   dropGame: PropTypes.func.isRequired,
   nextNumber: PropTypes.func.isRequired,
+  numberCalled: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   game: state.game,
+  numberCalled:  state.game.numCalled
 });
 
 export default connect(mapStateToProps, {

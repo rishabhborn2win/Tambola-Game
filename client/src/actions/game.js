@@ -156,15 +156,26 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
         msg: "Some Error happen",
       },
     });
-    dispatch(setAlert("Wrong Room ID", "Danger"));
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
   }
 };
 
 //leave the game
 export const leaveGame = (gameid, username) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ username: username, gameID: gameid });
   if (window.confirm("Are you Sure?")) {
     try {
-      axios.delete(`${gameid}/leave/${username}`);
+
+      await axios.delete(`/leave`, body, config);
       dispatch({
         type: GAME_LEAVE,
         payload: {
