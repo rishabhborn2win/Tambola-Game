@@ -174,8 +174,7 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
   const body = JSON.stringify({ username: username, gameID: gameid });
   if (window.confirm("Are you Sure?")) {
     try {
-
-      await axios.delete(`/leave`, body, config);
+      await axios.post('/game/leave', body, config);
       dispatch({
         type: GAME_LEAVE,
         payload: {

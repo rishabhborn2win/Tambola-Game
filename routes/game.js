@@ -94,7 +94,7 @@ router.get("/join/:id", async (req, res) => {
 //route     DELETE /game/leave/username
 //desc:     leave the game
 //access:   private
-router.delete("/leave", async (req, res) => {
+router.post("/leave", async (req, res) => {
   const username = req.body.username;
   const gameID = req.body.gameID;
   try {

@@ -5,7 +5,6 @@ import { Fragment, useEffect, useState } from "react";
 import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
-import { GAME_ERROR } from "../actions/types";
 
 function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame, numberCalled }) {
   useEffect(() => {
@@ -30,7 +29,7 @@ useEffect(() => {
 
   const leave = (e) => {
     e.preventDefault();
-    leaveGame(localStorage.playerid, localStorage.username);
+    leaveGame(localStorage.getItem("playerid"), localStorage.getItem("username"));
   };
 
   const nextNum = () => {

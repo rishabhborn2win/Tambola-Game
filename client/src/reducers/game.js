@@ -62,6 +62,7 @@ export default function abc(state = initialState, action) {
       };
     case GAME_LEAVE:
       localStorage.removeItem("playerid");
+      localStorage.removeItem("username");
       return {
         ...state,
         game: null,
