@@ -13,6 +13,10 @@ import { loadGame } from "./actions/game";
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 function App() {
+ const resetGame = () => {
+    localStorage.removeItem("playerid");
+    localStorage.removeItem("username");
+  }
   useEffect(() => {
     store.dispatch(loadGame());
   }, [loadGame]);
@@ -25,6 +29,9 @@ function App() {
         <Route exact path="/create" component={HostForm} />
         <PrivateRoute exact path="/play" component={Board} />
       </Router>
+      <br></br>
+      <br></br>
+      <a href="" onClick={() => resetGame()}>Click here to Reset the app!</a>
     </Provider>
   );
 }

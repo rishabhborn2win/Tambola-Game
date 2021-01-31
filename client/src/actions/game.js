@@ -35,10 +35,16 @@ export const loadGame = () => async (dispatch) => {
   } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
+      if(!res.data) {
+        localStorage.removeItem("playerid");
+        localStorage.removeItem("username");
+       
+      }else{
       dispatch({
         type: GAME_LOADED,
         payload: res.data,
       });
+    }
     } catch (err) {
       dispatch({
         type: GAME_ERROR,
@@ -46,6 +52,7 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
+      dispatch(setAlert("Please Refresh the Page Once!", "Danger"))
     }
   } else {
     dispatch({
