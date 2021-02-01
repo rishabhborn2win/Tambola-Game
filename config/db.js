@@ -4,7 +4,7 @@ const db = process.env.mongoURI || config.get("mongoURI");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://rishu:12345@devconnector.ao3hi.mongodb.net/tambola?retryWrites=true&w=majority", {
+    await mongoose.connect(db, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
