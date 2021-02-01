@@ -40,7 +40,7 @@ useEffect(() => {
     setTimeout(function () {
       document.getElementById("nxt").disabled = false;
       document.getElementById("nxt").style.opacity = 1;
-    }, 100);
+    }, 3000);
   };
 
   var numCalled = [];
