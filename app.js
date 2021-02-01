@@ -8,10 +8,6 @@ connectDB();
 //Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get("/", async (req, res) => {
-  res.send("<h1>Api Running</h1>");
-});
-
 //Defining routes
 app.use("/game", require("./routes/game"));
 
