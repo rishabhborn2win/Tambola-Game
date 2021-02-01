@@ -40,7 +40,7 @@ useEffect(() => {
     setTimeout(function () {
       document.getElementById("nxt").disabled = false;
       document.getElementById("nxt").style.opacity = 1;
-    }, 3000);
+    }, 100);
   };
 
   var numCalled = [];
@@ -63,8 +63,10 @@ useEffect(() => {
   }
 
 useEffect(() => {
-  if(typeof numCalled.length !== "number"){
-  document.getElementById(numCalled[numCalled.length - 1]).style.background= "red";
+  if(numCalled.length !== undefined){
+    if(numCalled.length !== 0){
+  document.getElementById(numCalled[numCalled.length-1]).style.background= "red";
+    }
   }
 }, [i])
   return (
@@ -584,9 +586,9 @@ useEffect(() => {
       <br />
       {game._id === localStorage.gameid ? (
         <Fragment>
-          <button onClick={() => nextNum()} class="show" id="nxt">
+          {numberCalled !== undefined ? (numberCalled.length < 90 ? (<button onClick={() => nextNum()} class="show" id="nxt">
             Next Number (Wait for 3s)
-          </button>
+          </button>):(<button class="show" style={{opacity:0.5}} >Next Number (Wait for 3s)</button>)): ("")}
           <br />
           <br />
           <button onClick={() => deleteGame()} class="show">
