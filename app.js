@@ -1,12 +1,14 @@
 var express = require("express");
 var app = express();
 var connectDB = require("./config/db");
+var cors = require("cors");
 
 //Connecting database
 connectDB();
 
 //Init Middleware
 app.use(express.json({ extended: false }));
+app.use(cors());
 
 //Defining routes
 app.use("/game", require("./routes/game"));

@@ -19,7 +19,7 @@ function App() {
   }
   useEffect(() => {
     store.dispatch(loadGame());
-  }, [loadGame]);
+  });
   return (
     <Provider store={store}>
       <Router>
@@ -31,7 +31,7 @@ function App() {
       </Router>
       <br></br>
       <br></br>
-      <a href="" onClick={() => resetGame()}>Click here to Reset the app!</a>
+      <a href="#top" onClick={() => resetGame()}>Click here to Reset the app!</a>
     </Provider>
   );
 }

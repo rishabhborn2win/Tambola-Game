@@ -1,7 +1,7 @@
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
@@ -23,6 +23,7 @@ useEffect(() => {
     if(num.called === true){
       document.getElementById(num.number).style.background ="blue"
     } 
+    return 0;
   });
 }, [game]);
 
@@ -49,6 +50,7 @@ useEffect(() => {
       numCalled.push(num.number);
       // console.log(numCalled)
     }
+    return 0;
   });
  
 
@@ -68,7 +70,7 @@ useEffect(() => {
   document.getElementById(numCalled[numCalled.length-1]).style.background= "red";
     }
   }
-}, [i])
+})
   return (
     <div className="container">
       <h2>Game/host Name: </h2> {game.host}
@@ -563,7 +565,7 @@ useEffect(() => {
           Date/Time:{" "}
           <span id="datetime">
             <Moment>
-              {i != 0 ? (
+              {i !== 0 ? (
                 game.numbers[i - 1].calledTime
               ) : (
                 <Fragment>Start The Game</Fragment>

@@ -1,7 +1,6 @@
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
 import Spinner from "./layout/Spinner";
 
 function Home({ game }) {
