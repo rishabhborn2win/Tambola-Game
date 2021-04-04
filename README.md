@@ -5,7 +5,11 @@ This project deals with the number calling and ticket generating which can be vi
 # Installation:-
 
 1) make a .env file with mongoURI=" <your mongodb URI> "
-2) npm run dev ( for development purpose )
+2) npm i
+3) cd client
+4) npm i
+5) cd ..
+6) npm run dev ( for development purpose )
 
 # Contribution
 Designing of the pages are most welcome for the project.
