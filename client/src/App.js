@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import JoinGameForm from "./components/JoinGameForm";
 import HostForm from "./components/HostForm";
 import Alert from "./components/layout/Alert";
+import 'bootstrap/dist/css/bootstrap.min.css';
 //Redux Tools
 
 import { Provider } from "react-redux";
