@@ -34,6 +34,7 @@ export default function abc(state = initialState, action) {
         if(num.called === true){
           nums.push(num.number);
         }
+        return 0;
       })
       return {
         ...state,
