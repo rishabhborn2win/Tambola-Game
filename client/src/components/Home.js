@@ -10,18 +10,17 @@ import { Fragment } from "react";
 function Home({ game }) {
   if (localStorage.gameid || localStorage.playerid) {
     var typeOfPlayer;
-    if(localStorage.gameid) typeOfPlayer="Host";
-    else typeOfPlayer ="Player"
+    if (localStorage.gameid) typeOfPlayer = "Host";
+    else typeOfPlayer = "Player";
     return (
       <Fragment>
-      <Heading text={`Game Dashboard (${typeOfPlayer})`} />
-      <div className="container">
-      <button className="btn btn-lg">
-        <Link to="/play">Resume Game</Link>
-      </button>
-      </div>
+        <Heading text={`Game Dashboard (${typeOfPlayer})`} />
+        <div className="container">
+          <button className="btn btn-lg">
+            <Link to="/play">Resume Game</Link>
+          </button>
+        </div>
       </Fragment>
-      
     );
   }
 

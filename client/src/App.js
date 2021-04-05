@@ -22,7 +22,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Header />
-        
+
         <Alert />
         <Route exact path="/" component={Home} />
         <Route exact path="/join" component={JoinGameForm} />

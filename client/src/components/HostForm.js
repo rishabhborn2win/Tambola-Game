@@ -30,22 +30,25 @@ const HostForm = ({ notifyFill, createGame, game }) => {
   };
   return (
     <Fragment>
-      
       <Heading text="Create Game," />
       {/* <span class="text-span">Create Game:-</span> */}
       <div className="container">
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="form-group">
-          <input
-            placeholder="Host Name"
-            className="input-fields"
-            type="text"
-            id="host"
-            name="host"
-            onChange={(e) => onChange(e)}
-          ></input>
+            <input
+              placeholder="Host Name"
+              className="input-fields"
+              type="text"
+              id="host"
+              name="host"
+              onChange={(e) => onChange(e)}
+            ></input>
           </div>
-          <input type="submit" value="Create Game" class="btn-lg  float-right"></input>
+          <input
+            type="submit"
+            value="Create Game"
+            class="btn-lg  float-right"
+          ></input>
         </form>
       </div>
     </Fragment>

@@ -1,17 +1,18 @@
-.container{
-	margin: 20px;
-}
+
 .number-button{
-    font-size: 15px; 
-    width: 35px;
-    Height: 25px;
+    font-size: 20px; 
+    width: 100%;
+    Height: 37px;
     color: rgb(216, 216, 216);
     background-color: white;
-    padding: 0;
     border: none;
     background: none;
-
-
+}
+@media (max-width: 700px) {
+  .number-button {
+    font-size: 15px;
+    height: 37px;
+  }
 }
 
 #display{
@@ -33,7 +34,7 @@
 }  
 
 table { 
-   width: 90%;
+  width: 90%;
   border-collapse: collapse;
 }
 
@@ -42,7 +43,10 @@ table, th, td {
 }
 
 .display{
-font-size: 10px;
+display: flex;
+justify-content: space-between;
+
+font-size: 15px;
 }
 
 .button-lg {

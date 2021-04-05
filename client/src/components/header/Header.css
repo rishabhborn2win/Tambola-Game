@@ -112,8 +112,9 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      height: 50%;
-      border: 1px;;
+      /* border-style: dotted;  */
+      margin-top: 20px;
+     
   }
 
   .button-lg {
@@ -150,4 +151,48 @@
 
   .btn-lg {
       background-color: #ABB7F8;
+  }
+
+
+  /* Board page Main Game page */
+  .top-row{
+      display: flex;
+      flex-direction: row;
+      margin-top: -95px;
+      justify-content: space-around;
+  }
+  .gameid{
+     width: 50%;
+     font-size: 20px;
+     
+  }
+
+  .gameid-value {
+      background-color: #c4c4c4;
+      border-radius: 15px;
+      padding: 10;
+  }
+
+  .trash {
+      font-size: 30px;
+  }
+
+  .second-row{
+      margin-top: -25px
+  }
+
+  .current  {
+      font-size: 35px;
+      margin: 20px;
+      font-weight: 800;
+      color: #ce414a;
+  }
+  .prev {
+        font-size: 27px;
+        color: #8ca4df;
+        margin: 20px;
+  }
+
+  .datetime{
+      margin-top: 20px;
   }

@@ -5,6 +5,8 @@ import { Fragment, useEffect } from "react";
 import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
+import Heading from "./Heading";
+
 
 function Board({
   game: { game },
@@ -78,25 +80,43 @@ function Board({
       }
     }
   });
+  var typeOfPlayer;
+  if (localStorage.gameid) typeOfPlayer = "Host";
+  else typeOfPlayer = "Player";
   return (
+    <Fragment>
+    <Heading text={`Game Dashboard (${typeOfPlayer})`} />
+    <div className="top-row">
+    <div className="gameid">
+        <span>Game ID:  </span>
+        <span className="gameid-value">{game.gameID} </span>
+    </div>
+    {localStorage.gameid ? (<div className="trash">
+      <a onClick={() => deleteGame()} class="ow">
+       <i class="fa fa-trash-o" ></i>
+      </a>
+    </div>) : (<div className="trash">
+    <a class="" onClick={(e) => leave(e)}>
+    &#9166;
+          </a>
+    </div>)}
+    </div>
+    
     <div className="container">
+    <div className="second-row">
+    <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
+    <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
+      <span className="prev">{numCalled[numCalled.length - 2] || 0}{" "}</span>
+      <span className="current">{numCalled[numCalled.length - 1] || 0}</span>
+    </div>
+      {/* <div className="host-details">
       <h2>Game/host Name: </h2> {game.host}
       <div>
         Game Created At: <Moment format="DD/MM/YYYY">{game.date}</Moment>
       </div>
-      <h2>Game ID:</h2>
-      <span>{game.gameID}</span>
+      </div> */}
+     
       <br />
-      {localStorage.gameid ? (
-        <Fragment>You are Host</Fragment>
-      ) : (
-        <Fragment></Fragment>
-      )}
-      {localStorage.playerid ? (
-        <Fragment>You are joined as player</Fragment>
-      ) : (
-        <Fragment></Fragment>
-      )}
       <table>
         <tr>
           <td>
@@ -569,18 +589,16 @@ function Board({
       </table>
       <div class="display">
         <p>
-          Date/Time:{" "}
-          <span id="datetime">
-            <Moment>
+          <span className="datetime">
+            
               {i !== 0 ? (
-                game.numbers[i - 1].calledTime
+                <span>Last Called:{" "}<b><Moment  date={game.numbers[i - 1].calledTime} format="D MMM YYYY"></Moment>{" "}<Moment date={game.numbers[i - 1].calledTime} format="hh:mm:ss"></Moment></b></span>
               ) : (
                 <Fragment>Start The Game</Fragment>
               )}
-            </Moment>
           </span>
         </p>
-        <label id="current">{numCalled[numCalled.length - 1] || 0}</label>
+        {/* <label id="current">{numCalled[numCalled.length - 1] || 0}</label>
         <label for="">&#8592;</label>
         <label id="previous">{numCalled[numCalled.length - 2] || 0}</label>
         <label for="">&#8592;</label>
@@ -588,17 +606,15 @@ function Board({
         <label for="">&#8592;</label>
         <label id="previous2">{numCalled[numCalled.length - 4] || 0}</label>
         <label for="">&#8592;</label>
-        <label id="previous3">{numCalled[numCalled.length - 5] || 0}</label>
-        <label>: Total: </label>
-        <label id="total">{numCalled.length}</label>
+        <label id="previous3">{numCalled[numCalled.length - 5] || 0}</label> */}
       </div>
       <br />
       {game._id === localStorage.gameid ? (
         <Fragment>
           {numberCalled !== undefined ? (
             numberCalled.length < 90 ? (
-              <button onClick={() => nextNum()} class="show" id="nxt">
-                Next Number (Wait for 3s)
+              <button onClick={() => nextNum()} class="btn-lg" id="nxt">
+                Next Number (Wait for 3s) &#8594;
               </button>
             ) : (
               <button class="show" style={{ opacity: 0.5 }}>
@@ -610,39 +626,25 @@ function Board({
           )}
           <br />
           <br />
-          <button onClick={() => deleteGame()} class="show">
-            Delete
-          </button>
+          
         </Fragment>
       ) : (
         <Fragment></Fragment>
       )}
       <br />
-      {localStorage.playerid ? (
-        <Fragment>
-          <buton class="show" onClick={(e) => leave(e)}>
-            Leave The Game
-          </buton>
-        </Fragment>
-      ) : (
-        <Fragment></Fragment>
-      )}
-      <h4>
+      {/* <h4>
         Made By:- <b>Rishabh Mishra</b>
         <br />
         Contact:{" "}
         <a href="mailto: rishabhborn2win@gmail.com">
           rishabhborn2win@gmail.com
         </a>
-      </h4>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      </h4> */}
+      
       <h4>Players Name:</h4>
       <Player />
     </div>
+    </Fragment>
   );
 }
 

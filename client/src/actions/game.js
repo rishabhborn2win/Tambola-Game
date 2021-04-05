@@ -50,7 +50,12 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("The Game has been deleted by the user, Please Reset the app.", "Danger"));
+      dispatch(
+        setAlert(
+          "The Game has been deleted by the user, Please Reset the app.",
+          "Danger"
+        )
+      );
     }
   } else {
     dispatch({
