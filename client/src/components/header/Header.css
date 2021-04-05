@@ -25,7 +25,7 @@
     justify-items: center;
   }
   .Nav a {
-    color: #fff;
+    color: #000;
     font-size: 20px;
     font-weight: 500;
     transition: 0.5s;
@@ -39,10 +39,10 @@
     outline: none;
     border: none;
     font-size: 20px;
-    color: #fff;
+    color: #000;
     font-weight: 600;
-    background-color: rgba(255, 0, 0, 0.5);
-    box-shadow: 0px 5px 0px 0px rgba(255, 0, 0, 0.25);
+    background-color:#ABB7F8;
+    box-shadow: 0px 5px 0px 0px #0001;
     border-radius: 10px;
     cursor: pointer;
     transition: 70ms;
@@ -106,4 +106,48 @@
     transform: scale(0.5);
     transition: opacity 350ms, transform 350ms;
   }
+
+  .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 50%;
+      border: 1px;;
+  }
+
+  .button-lg {
+      font-size: 30px;
+      color: black;
+      margin: 20px;
+      height: 100px;
+      width: 300px;
+      background-color: #ABB7F8;
+  }
   
+  body {
+      font-family: "cursive";
+  }
+
+  .heading {
+      width: 100%;
+      background-color: #ABB7F8 ;
+      margin-top: 70px;
+      font-size: 35px;
+      margin-bottom: 100px;
+      text-align: center;
+      font-weight: 800;
+  }
+
+  /* text fields */
+  .input-fields {
+    width: 400px;
+    height: 70px;
+    font-size: 30px;
+    color: #2a6dbb;
+    margin-bottom: 20px;
+  }
+
+  .btn-lg {
+      background-color: #ABB7F8;
+  }

@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "./layout/Spinner";
 import { Button } from "react-bootstrap";
-
+import "./style.css";
+import Heading from "./Heading";
+import { Fragment } from "react";
 
 function Home({ game }) {
   if (localStorage.gameid || localStorage.playerid) {
@@ -19,10 +21,22 @@ function Home({ game }) {
   }
 
   return (
-    <div class="container">
-      <Button variant="success" className="button-lg"><Link to="/join">Join Game</Link></Button> {" "}
-      <Button variant="success"><Link to="/create">Create A Game</Link></Button>
-    </div>
+    <Fragment>
+      <Heading text="Welcome to Tambola," />
+      <span class="text-span">Select Option:-</span>
+      <div class="container">
+        <Link to="/join">
+          <Button variant="success" className="button-lg">
+            Join Game
+          </Button>
+        </Link>{" "}
+        <Link to="/create">
+          <Button variant="success" className="button-lg">
+            Create A Game
+          </Button>
+        </Link>
+      </div>
+    </Fragment>
   );
 }
 Home.propTypes = {

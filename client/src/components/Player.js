@@ -9,10 +9,16 @@ const Player = ({ game }) => {
       {game.players.map((player) => {
         return (
           <Fragment>
-            <span><b>Name: </b></span>
-            <span>{player.name}   </span>
-            <span><b>Joined At: </b> </span>
-            <span><Moment>{player.timeofjoin}</Moment></span>
+            <span>
+              <b>Name: </b>
+            </span>
+            <span>{player.name} </span>
+            <span>
+              <b>Joined At: </b>{" "}
+            </span>
+            <span>
+              <Moment>{player.timeofjoin}</Moment>
+            </span>
             <br />
           </Fragment>
         );

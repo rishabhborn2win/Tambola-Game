@@ -45,3 +45,13 @@ table, th, td {
 font-size: 10px;
 }
 
+.button-lg {
+	background-color: #ABB7F8;
+}
+
+.text-span {
+	margin-left: 30%;
+	font-size: 25px;
+}
+
+

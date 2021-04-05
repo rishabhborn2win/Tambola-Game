@@ -47,7 +47,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-
 //route     PUT /game/join/play
 //desc:     join a game
 //access:   public
@@ -57,11 +56,14 @@ router.put("/join/play", async (req, res) => {
   try {
     let game = await Game.findOne({ gameID: gameid });
     if (!game) {
-      return res.status(400).json({errors: [{ msg: "Invalid Game Id" }]});
+      return res.status(400).json({ errors: [{ msg: "Invalid Game Id" }] });
     }
     game.players.map((player) => {
-      if(player.name === playerName) return res.status(400).json({errors: [{ msg: "Use Unique Username" }]});
-    })
+      if (player.name === playerName)
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Use Unique Username" }] });
+    });
 
     game.players.push({
       name: playerName,
@@ -98,17 +100,15 @@ router.post("/leave", async (req, res) => {
   const username = req.body.username;
   const gameID = req.body.gameID;
   try {
-    let game = await Game.findOne(
-      { gameID: gameID }
-    );
+    let game = await Game.findOne({ gameID: gameID });
 
-      let removeIndex=-2;
-      game.players.map((player, index) => {
-        if(player.name === username) removeIndex=index;
-            })
-      if(removeIndex === -2)    return res.status(200).send("Player not found");
+    let removeIndex = -2;
+    game.players.map((player, index) => {
+      if (player.name === username) removeIndex = index;
+    });
+    if (removeIndex === -2) return res.status(200).send("Player not found");
 
-      game.players.splice(removeIndex, 1);
+    game.players.splice(removeIndex, 1);
     await game.save();
     res.status(200).send("Player Removed");
   } catch (err) {

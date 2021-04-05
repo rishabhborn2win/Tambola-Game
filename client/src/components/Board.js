@@ -6,7 +6,14 @@ import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 
-function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame, numberCalled }) {
+function Board({
+  game: { game },
+  dropGame,
+  nextNumber,
+  loadGame,
+  leaveGame,
+  numberCalled,
+}) {
   useEffect(() => {
     setInterval(function () {
       loadGame();
@@ -17,20 +24,21 @@ function Board({ game: { game }, dropGame, nextNumber, loadGame, leaveGame, numb
     dropGame(localStorage.gameid);
   };
 
-
-useEffect(() => {
-  game.numbers.map((num, index) => {
-    if(num.called === true){
-      document.getElementById(num.number).style.background ="blue"
-    } 
-    return 0;
-  });
-}, [game]);
-
+  useEffect(() => {
+    game.numbers.map((num, index) => {
+      if (num.called === true) {
+        document.getElementById(num.number).style.background = "blue";
+      }
+      return 0;
+    });
+  }, [game]);
 
   const leave = (e) => {
     e.preventDefault();
-    leaveGame(localStorage.getItem("playerid"), localStorage.getItem("username"));
+    leaveGame(
+      localStorage.getItem("playerid"),
+      localStorage.getItem("username")
+    );
   };
 
   const nextNum = () => {
@@ -52,10 +60,7 @@ useEffect(() => {
     }
     return 0;
   });
- 
 
-
-  
   //getting the index value
   var i;
   var numbersArray = game.numbers;
@@ -64,13 +69,15 @@ useEffect(() => {
     if (numbersArray[i].called === false) break;
   }
 
-useEffect(() => {
-  if(numCalled.length !== undefined){
-    if(numCalled.length !== 0){
-  document.getElementById(numCalled[numCalled.length-1]).style.background= "red";
+  useEffect(() => {
+    if (numCalled.length !== undefined) {
+      if (numCalled.length !== 0) {
+        document.getElementById(
+          numCalled[numCalled.length - 1]
+        ).style.background = "red";
+      }
     }
-  }
-})
+  });
   return (
     <div className="container">
       <h2>Game/host Name: </h2> {game.host}
@@ -588,9 +595,19 @@ useEffect(() => {
       <br />
       {game._id === localStorage.gameid ? (
         <Fragment>
-          {numberCalled !== undefined ? (numberCalled.length < 90 ? (<button onClick={() => nextNum()} class="show" id="nxt">
-            Next Number (Wait for 3s)
-          </button>):(<button class="show" style={{opacity:0.5}} >Next Number (Wait for 3s)</button>)): ("")}
+          {numberCalled !== undefined ? (
+            numberCalled.length < 90 ? (
+              <button onClick={() => nextNum()} class="show" id="nxt">
+                Next Number (Wait for 3s)
+              </button>
+            ) : (
+              <button class="show" style={{ opacity: 0.5 }}>
+                Next Number (Wait for 3s)
+              </button>
+            )
+          ) : (
+            ""
+          )}
           <br />
           <br />
           <button onClick={() => deleteGame()} class="show">
@@ -638,7 +655,7 @@ Board.propTypes = {
 
 const mapStateToProps = (state) => ({
   game: state.game,
-  numberCalled:  state.game.numCalled
+  numberCalled: state.game.numCalled,
 });
 
 export default connect(mapStateToProps, {
