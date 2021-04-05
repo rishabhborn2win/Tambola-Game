@@ -92,13 +92,13 @@ function Board({
         </div>
         {localStorage.gameid ? (
           <div className="trash">
-            <a onClick={() => deleteGame()} class="ow">
+            <a href="#top" onClick={() => deleteGame()} class="ow">
               <i class="fa fa-trash-o"></i>
             </a>
           </div>
         ) : (
-          <div className="trash">
-            <a class="" onClick={(e) => leave(e)}>
+          <div  className="trash">
+            <a href="#top" class="" onClick={(e) => leave(e)}>
               &#9166;
             </a>
           </div>
