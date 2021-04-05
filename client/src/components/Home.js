@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "./layout/Spinner";
+import { Button } from "react-bootstrap";
+
 
 function Home({ game }) {
-  if (game.game) {
+  if (localStorage.gameid || localStorage.playerid) {
     return (
       <button>
         <Link to="/play">Resume Game</Link>
@@ -17,13 +19,9 @@ function Home({ game }) {
   }
 
   return (
-    <div>
-      <button>
-        <Link to="/join">Join Game</Link>
-      </button>
-      <button>
-        <Link to="/create">Create A Game</Link>
-      </button>
+    <div class="container">
+      <Button variant="success" className="button-lg"><Link to="/join">Join Game</Link></Button> {" "}
+      <Button variant="success"><Link to="/create">Create A Game</Link></Button>
     </div>
   );
 }

@@ -25,6 +25,7 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
       notifyFill("Write down Your name");
     } else {
       joinGame(playername, gameID);
+      <Redirect to='/play' />
     }
   };
   return (
