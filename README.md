@@ -30,10 +30,3 @@ Join Game Screen:
 
 Game Screen:
 <img width="981" alt="Screenshot 2021-04-04 at 11 12 40 PM" src="https://user-images.githubusercontent.com/55771529/113517062-847a2900-959b-11eb-935e-f652463aa1ab.png">
-
-
-
-
-
-
-

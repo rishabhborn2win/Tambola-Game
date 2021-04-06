@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 
-const Player = ({ game }) => {
+export default function Player({ game }) {
   return (
     <div>
+      <h2>Players Joined:-</h2>
       {game.players.map((player) => {
         return (
           <Fragment>
@@ -27,12 +28,3 @@ const Player = ({ game }) => {
   );
 };
 
-Player.prototype = {
-  game: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  game: state.game.game,
-});
-
-export default connect(mapStateToProps, {})(Player);

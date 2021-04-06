@@ -50,7 +50,9 @@ export default function Header() {
           <a href="/">About Us</a>
           <a href="/">Help</a>
           <button>
-            <a href="#top" onClick={() => resetGame()}>Click here to Reset the app!</a>
+            <a href="#top" onClick={() => resetGame()}>
+              Click here to Reset the app!
+            </a>
           </button>
         </nav>
       </CSSTransition>

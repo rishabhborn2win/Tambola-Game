@@ -6,8 +6,21 @@ import { Button } from "react-bootstrap";
 import "./style.css";
 import Heading from "./Heading";
 import { Fragment } from "react";
+import Host from "./Host";
 
 function Home({ game }) {
+
+  var numCalled = [];
+  if(game.game){
+  game.game.numbers.map((num) => {
+    if (num.called === true) {
+      numCalled.push(num.number);
+      // console.log(numCalled)
+    }
+    return 0;
+  });
+}
+
   if (localStorage.gameid || localStorage.playerid) {
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
@@ -16,9 +29,14 @@ function Home({ game }) {
       <Fragment>
         <Heading text={`Game Dashboard (${typeOfPlayer})`} />
         <div className="container">
+        <Link to="/play">
           <button className="btn btn-lg">
-            <Link to="/play">Resume Game</Link>
+            Resume Game
           </button>
+          <br></br>
+          <br></br>
+          </Link>
+          <Host game={game.game} total={numCalled.length}></Host>
         </div>
       </Fragment>
     );

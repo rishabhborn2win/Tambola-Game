@@ -6,6 +6,7 @@ import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
+import Host from "./Host";
 
 function Board({
   game: { game },
@@ -97,7 +98,7 @@ function Board({
             </a>
           </div>
         ) : (
-          <div  className="trash">
+          <div className="trash">
             <a href="#top" class="" onClick={(e) => leave(e)}>
               &#9166;
             </a>
@@ -631,9 +632,10 @@ function Board({
           <Fragment></Fragment>
         )}
         <br />
-
-        <h4>Players Name:</h4>
-        <Player />
+        <div className="host-player">
+        <Host game={game} total={numCalled.length}/>
+        <Player game={game}/>
+        </div>
       </div>
     </Fragment>
   );
