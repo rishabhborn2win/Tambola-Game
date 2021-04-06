@@ -33,6 +33,7 @@ export default function Header() {
   const resetGame = () => {
     alert("Are You sure?");
     localStorage.removeItem("playerid");
+    localStorage.removeItem("gameid");
     localStorage.removeItem("username");
   };
 
