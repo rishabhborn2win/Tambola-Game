@@ -7,36 +7,45 @@ import "./style.css";
 import Heading from "./Heading";
 import { Fragment } from "react";
 import Host from "./Host";
+import Player from "./Player";
 
 function Home({ game }) {
-
   var numCalled = [];
-  if(game.game){
-  game.game.numbers.map((num) => {
-    if (num.called === true) {
-      numCalled.push(num.number);
-      // console.log(numCalled)
-    }
-    return 0;
-  });
-}
+  if (game.game) {
+    game.game.numbers.map((num) => {
+      if (num.called === true) {
+        numCalled.push(num.number);
+        // console.log(numCalled)
+      }
+      return 0;
+    });
+  }
 
   if (localStorage.gameid || localStorage.playerid) {
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
-    else typeOfPlayer = "Player";
+    else if(localStorage.username) typeOfPlayer= `Player : ${localStorage.username}`;
     return (
       <Fragment>
         <Heading text={`Game Dashboard (${typeOfPlayer})`} />
         <div className="container">
-        <Link to="/play">
-          <button className="btn btn-lg">
-            Resume Game
-          </button>
-          <br></br>
-          <br></br>
+          <Link to="/play">
+            <button className="btn btn-lg">Resume Game</button>
+            <br></br>
+            <br></br>
           </Link>
-          <Host game={game.game} total={numCalled.length}></Host>
+          <div className="host-player">
+            <Host game={game.game} total={numCalled.length}></Host>
+            {game.game ? (
+              localStorage.gameid === game.game._id ? (
+                <Player game={game.game ? game.game : {}} />
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </Fragment>
     );

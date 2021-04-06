@@ -82,7 +82,7 @@ function Board({
   });
   var typeOfPlayer;
   if (localStorage.gameid) typeOfPlayer = "Host";
-  else typeOfPlayer = "Player";
+  else if(localStorage.username) typeOfPlayer= `Player : ${localStorage.username}`;
   return (
     <Fragment>
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
@@ -633,8 +633,8 @@ function Board({
         )}
         <br />
         <div className="host-player">
-        <Host game={game} total={numCalled.length}/>
-        <Player game={game}/>
+          <Host game={game} total={numCalled.length} />
+          {localStorage.gameid === game._id ? <Player game={game} /> : ""}
         </div>
       </div>
     </Fragment>

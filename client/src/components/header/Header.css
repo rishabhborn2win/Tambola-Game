@@ -214,12 +214,13 @@
     width: 35%;
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 900px) {
     .game-details{
       width: 80%;
       margin-right: 0%;
       margin-bottom: 20%;
     }
+    
   }
 
   .host-player {
@@ -262,3 +263,55 @@
     opacity: 0.1;
     height: 30px;
   }
+
+  /* Players Details */
+  .player-deatils {
+    display: flex;
+    flex-direction: column;
+    
+    border: #000 1px;
+    border-style: dashed;
+    margin-left: 10%;
+    background-color: #cacfe3;
+    width: 35%;
+    height: 350px;
+    border-radius: 25px;
+    padding: 25px;
+    overflow: scroll;
+  }
+
+  @media (max-width: 900px) {
+    .player-deatils {
+      margin-left: 0%;
+      width: 90%
+    }
+  }
+
+  .player {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-player {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 10%;
+  }
+
+  .play {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    border: #000 1px;
+    border-style: dashed;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #c4c4c4;
+  }
+
+  .design-player{
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+ 
