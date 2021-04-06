@@ -1,9 +1,8 @@
 import { Fragment } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import Moment from "react-moment";
+import players from "./player.png";
 
-const Player = ({ game }) => {
+export default function Player({ game }) {
   return (
     <div className="player-deatils">
       <div className="title-player">
@@ -29,8 +28,7 @@ const Player = ({ game }) => {
                       <b>Joined on: </b>{" "}
                     </span>
                     <span>
-                      <Moment format="D MMM YYYY">{player.timeofjoin}</Moment>
-                      {" at "}
+                      <Moment format="D MMM YYYY">{player.timeofjoin}</Moment>{" at "}
                       <Moment format="hh:mm:ss">{player.timeofjoin}</Moment>
                     </span>
                   </div>
@@ -43,14 +41,4 @@ const Player = ({ game }) => {
       </div>
     </div>
   );
-};
-
-Player.prototype = {
-  game: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  game: state.game.game,
-});
-
-export default connect(mapStateToProps, {})(Player);
+}

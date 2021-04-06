@@ -34,16 +34,15 @@ export const loadGame = () => async (dispatch) => {
   } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
-      if(!res.data) {
+      if (!res.data) {
         localStorage.removeItem("playerid");
         localStorage.removeItem("username");
-       
-      }else{
-      dispatch({
-        type: GAME_LOADED,
-        payload: res.data,
-      });
-    }
+      } else {
+        dispatch({
+          type: GAME_LOADED,
+          payload: res.data,
+        });
+      }
     } catch (err) {
       dispatch({
         type: GAME_ERROR,
@@ -51,7 +50,12 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("Please Refresh the Page Once!", "Danger"))
+      dispatch(
+        setAlert(
+          "The Game has been deleted by the user, Please Reset the app.",
+          "Danger"
+        )
+      );
     }
   } else {
     dispatch({
@@ -123,11 +127,11 @@ export const nextNumber = (gameid) => async (dispatch) => {
   try {
     const res = await axios.put(`/game/${gameid}/next`);
     dispatch({
-      type: NEXT_NUMBER
+      type: NEXT_NUMBER,
     });
     dispatch({
       type: GAME_LOADED,
-      payload: res.data
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
@@ -180,7 +184,7 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
   const body = JSON.stringify({ username: username, gameID: gameid });
   if (window.confirm("Are you Sure?")) {
     try {
-      await axios.post('/game/leave', body, config);
+      await axios.post("/game/leave", body, config);
       dispatch({
         type: GAME_LEAVE,
         payload: {

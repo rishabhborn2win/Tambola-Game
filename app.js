@@ -24,6 +24,4 @@ if (process.env.NODE_ENV === "production") {
 
 //Declaring the servers
 var port = process.env.PORT || 5000;
-app.listen(port, () =>
-  console.log(`Server started on ${port}`)
-);
+app.listen(port, () => console.log(`Server started on ${port}`));

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+// import {Button} from 'react-bootstrap'
 
 import PropTypes from "prop-types";
 import { notifyFill, joinGame } from "../actions/game";
+import Heading from "./Heading";
 const JoinGameForm = ({ notifyFill, joinGame, game }) => {
   const [formData, setFormData] = useState({
     host: "",
@@ -24,30 +26,47 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
       notifyFill("Write down Your name");
     } else {
       joinGame(playername, gameID);
+      <Redirect to="/play" />;
     }
   };
   return (
-    <div>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <label for="playername">
-          Enter <b>Unique</b> Username
-        </label>
-        <input
-          type="text"
-          id="playername"
-          name="playername"
-          onChange={(e) => onChange(e)}
-        ></input>
-        <label for="gameID">Enter GameID</label>
-        <input
-          type="text"
-          id="gameID"
-          name="gameID"
-          onChange={(e) => onChange(e)}
-        ></input>
-        <input type="submit" value="Join Game"></input>
-      </form>
-    </div>
+    <Fragment>
+      <Heading text="Join Game," />
+      {/* <span class="text-span">Join Game Form:-</span> */}
+      <div className="container">
+        <form onSubmit={(e) => onSubmit(e)}>
+          <div class="form-input-group">
+            <label class="omrs-input-underlined">
+              <input
+                className="input-fields"
+                placeholder="Player Name"
+                type="text"
+                id="playername"
+                name="playername"
+                onChange={(e) => onChange(e)}
+              ></input>
+            </label>
+          </div>
+          <div class="omrs-input-group">
+            <label class="omrs-input-underlined">
+              <input
+                className="input-fields"
+                placeholder="GameID"
+                type="text"
+                id="gameID"
+                name="gameID"
+                onChange={(e) => onChange(e)}
+              ></input>
+            </label>
+          </div>
+          <input
+            type="submit"
+            value="Join!"
+            className="btn-lg btn-primary float-right"
+          ></input>
+        </form>
+      </div>
+    </Fragment>
   );
 };
 
