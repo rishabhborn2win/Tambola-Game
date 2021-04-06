@@ -5,6 +5,20 @@ import Spinner from "./layout/Spinner";
 
 function Home({ game }) {
   if (game.game) {
+    game.game.numbers.map((num) => {
+      if (num.called === true) {
+        numCalled.push(num.number);
+        // console.log(numCalled)
+      }
+      return 0;
+    });
+  }
+
+  if (localStorage.gameid || localStorage.playerid) {
+    var typeOfPlayer;
+    if (localStorage.gameid) typeOfPlayer = "Host";
+    else if (localStorage.username)
+      typeOfPlayer = `Player : ${localStorage.username}`;
     return (
       <button>
         <Link to="/play">Resume Game</Link>
