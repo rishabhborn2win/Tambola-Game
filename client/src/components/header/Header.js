@@ -29,7 +29,7 @@ export default function Header() {
     setNavVisibility(!isNavVisible);
   };
 
-  //   Reset the app on local system
+  //Reset the app on local system
   const resetGame = () => {
     alert("Are You sure?");
     localStorage.removeItem("playerid");
