@@ -8,7 +8,7 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import Rules from "../Rules";
 import { Link } from "react-router-dom";
-import e from "cors";
+
 
 export default function Header() {
   const [isNavVisible, setNavVisibility] = useState(false);
