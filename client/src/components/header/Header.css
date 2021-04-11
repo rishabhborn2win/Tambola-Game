@@ -1,6 +1,6 @@
 .Header {
     position: relative;
-    top: 0; /* Stick it to the top */
+    top: 15px; /* Stick it to the top */
     max-height: 70px;
     width: 100vw;
   
@@ -8,7 +8,7 @@
     grid-template-areas: "logo nav";
   
     /* Cosmetics */
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2); */
   }
   
   .Logo {
@@ -70,6 +70,9 @@
   }
   
   @media (max-width: 700px) {
+    .Nav a {
+      color: #fff;
+    }
     .Header {
       grid-template-areas: "logo burger" "nav nav";
     }
@@ -133,7 +136,8 @@
   .heading {
       width: 100%;
       background-color: #ABB7F8 ;
-      margin-top: 70px;
+      margin-top: 35px;
+      margin-bottom: 10px;
       font-size: 35px;
       margin-bottom: 100px;
       text-align: center;
@@ -158,7 +162,7 @@
   .top-row{
       display: flex;
       flex-direction: row;
-      margin-top: -95px;
+      margin-top: -70px;
       justify-content: space-around;
   }
   .gameid{
@@ -312,6 +316,37 @@
   .design-player{
     display: flex;
     margin-bottom: 10px;
+  }
+  .container-whatsapp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+  }
+
+  .whatsapp-container{
+    margin-left: 5%;
+  }
+
+  /* about us page styel */
+  .text-details-game {
+    margin-top: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .steps-play{
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 20%;
+    font-size: 20px;
+  }
+
+  .alert {
+    position: relative;
+    right: 2px;
+    margin-top: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
   }
 
  

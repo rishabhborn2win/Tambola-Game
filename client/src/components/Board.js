@@ -7,6 +7,7 @@ import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
+import { WhatsappIcon } from "react-share";
 
 function Board({
   game: { game },
@@ -84,6 +85,37 @@ function Board({
   if (localStorage.gameid) typeOfPlayer = "Host";
   else if (localStorage.username)
     typeOfPlayer = `Player : ${localStorage.username}`;
+
+  //transform the number using emoji
+  const transform = (n) => {
+    var number = n;
+
+    var output = [];
+    var sNumber = number.toString();
+
+    for (var i = 0, len = sNumber.length; i < len; i += 1) {
+      output.push(+sNumber.charAt(i));
+    }
+    var numString = "";
+    output.map((num) => {
+      if (num === 1) return (numString += "1️⃣");
+      if (num === 2) return (numString += "2️⃣");
+      if (num === 3) return (numString += "3️⃣");
+      if (num === 4) return (numString += "4️⃣");
+      if (num === 5) return (numString += "5️⃣");
+      if (num === 6) return (numString += "6️⃣");
+      if (num === 7) return (numString += "7️⃣");
+      if (num === 8) return (numString += "8️⃣");
+      if (num === 9) return (numString += "9️⃣");
+      if (num === 0) return (numString += "0️⃣");
+    });
+    if (numString === "0️⃣")
+      numString = `Game Is about to begin! Please Join The room (GameID: ${game.gameID} ) ASAP! https://tambola-numbers.herokuapp.com/join`;
+    return numString;
+  };
+
+  var numString = transform(numCalled[numCalled.length - 1] || 0);
+
   return (
     <Fragment>
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
@@ -92,6 +124,16 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
+        {/* <div>
+          <a
+            href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
+            data-action="share/whatsapp/share"
+            target="_blank"
+          >
+            {" "}
+            <WhatsappIcon size={32} round={true} /><span>Invite!</span>
+          </a>
+        </div> */}
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">
@@ -611,27 +653,42 @@ function Board({
           </p>
         </div>
         <br />
-        {game._id === localStorage.gameid ? (
-          <Fragment>
-            {numberCalled !== undefined ? (
-              numberCalled.length < 90 ? (
-                <button onClick={() => nextNum()} class="btn-lg" id="nxt">
-                  Next Number (Wait for 3s) &#8594;
-                </button>
+        <div className="container-whatsapp">
+          {game._id === localStorage.gameid ? (
+            <Fragment>
+              {numberCalled !== undefined ? (
+                numberCalled.length < 90 ? (
+                  <button onClick={() => nextNum()} class="btn-lg" id="nxt">
+                    Next Number (Wait 3s)
+                  </button>
+                ) : (
+                  <button class="show" style={{ opacity: 0.5 }}>
+                    Next Number (Wait for 3s)
+                  </button>
+                )
               ) : (
-                <button class="show" style={{ opacity: 0.5 }}>
-                  Next Number (Wait for 3s)
-                </button>
-              )
-            ) : (
-              ""
-            )}
-            <br />
-            <br />
-          </Fragment>
-        ) : (
-          <Fragment></Fragment>
-        )}
+                ""
+              )}
+
+              <br />
+              <br />
+            </Fragment>
+          ) : (
+            <Fragment></Fragment>
+          )}
+          <div className="whatsapp-container">
+            <a
+              href={`whatsapp://send?text=${numString}`}
+              data-action="share/whatsapp/share"
+              target="_blank"
+              className="btn-lg"
+            >
+              {" "}
+              <WhatsappIcon size={32} round={true} />
+              Share
+            </a>
+          </div>
+        </div>
         <br />
         <div className="host-player">
           <Host game={game} total={numCalled.length} />

@@ -2,6 +2,13 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { CSSTransition } from "react-transition-group";
+import tambolaWrite from "./tambola-write.png";
+import WhatsAppWidget from "react-whatsapp-widget";
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import Rules from "../Rules";
+import { Link } from "react-router-dom";
+import e from "cors";
 
 export default function Header() {
   const [isNavVisible, setNavVisibility] = useState(false);
@@ -29,17 +36,32 @@ export default function Header() {
     setNavVisibility(!isNavVisible);
   };
 
-  //   Reset the app on local system
-  const resetGame = () => {
-    alert("Are You sure?");
+  //Reset the app on local system
+  const resetGame = (e) => {
+    e.preventDefault();
+    prompt("Are You sure?", "");
     localStorage.removeItem("playerid");
     localStorage.removeItem("gameid");
     localStorage.removeItem("username");
   };
 
+  const [open, setOpen] = React.useState(true);
+  const onCloseModal = () => {
+    setOpen(false);
+  };
+  const onOpenModal = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
   return (
     <header className="Header">
-      <img src="./logo192.png" className="Logo circle-img" alt="logo" />
+      <Modal open={open} onClose={onCloseModal} center>
+        <Rules function={onCloseModal} />
+      </Modal>
+      <Link to="/">
+        <img src={tambolaWrite} className="Logo circle-img" alt="logo" />
+      </Link>
       <CSSTransition
         in={!isSmallScreen || isNavVisible}
         timeout={350}
@@ -47,11 +69,17 @@ export default function Header() {
         unmountOnExit
       >
         <nav className="Nav">
-          <a href="/">Home</a>
-          <a href="/">About Us</a>
-          <a href="/">Help</a>
+          <a href="/" onClick={(e) => onOpenModal(e)}>
+            Rules
+          </a>
+          {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
+          <Link to="/aboutus">About Us</Link>
+          {/* </a> */}
+          {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
+          <Link to="/help">Help</Link>
+          {/* </a> */}
           <button>
-            <a href="#top" onClick={() => resetGame()}>
+            <a href="#top" onClick={(e) => resetGame(e)}>
               Click here to Reset the app!
             </a>
           </button>

@@ -22,8 +22,8 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (playername === "") {
-      notifyFill("Write down Your name");
+    if (playername.length < 6) {
+      notifyFill("Player Name Should have more then 6 Char");
     } else {
       joinGame(playername, gameID);
       <Redirect to="/play" />;
