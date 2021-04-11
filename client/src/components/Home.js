@@ -24,7 +24,8 @@ function Home({ game }) {
   if (localStorage.gameid || localStorage.playerid) {
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
-    else if(localStorage.username) typeOfPlayer= `Player : ${localStorage.username}`;
+    else if (localStorage.username)
+      typeOfPlayer = `Player : ${localStorage.username}`;
     return (
       <Fragment>
         <Heading text={`Game Dashboard (${typeOfPlayer})`} />
