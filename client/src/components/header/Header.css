@@ -328,4 +328,17 @@
     margin-left: 5%;
   }
 
+  /* about us page styel */
+  .text-details-game {
+    margin-top: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .steps-play{
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 20%;
+    font-size: 20px;
+  }
+
  

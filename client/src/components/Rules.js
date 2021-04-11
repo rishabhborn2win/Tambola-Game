@@ -8,10 +8,7 @@ const Rules = () => {
           <div class="entry-content">
             <header>
               <h1 class="entry-title">
-                <a
-                  href="/"
-                  title="Tambola Rules"
-                >
+                <a href="/" title="Tambola Rules">
                   Tambola Rules
                 </a>
               </h1>
@@ -20,13 +17,10 @@ const Rules = () => {
                   <div class="date-title">
                     <i class="icon-time"></i> Apr 12, 2021 &nbsp; - &nbsp;{" "}
                     <i class="icon-comments-alt"></i>{" "}
-                    <a
-                      href="/"
-                      class="comments-link"
-                    >
+                    <a href="/" class="comments-link">
                       0 comments
                     </a>{" "}
-                    &nbsp;  &nbsp;{" "}
+                    &nbsp; &nbsp;{" "}
                   </div>
                 </div>
               </div>
@@ -113,7 +107,7 @@ const Rules = () => {
                 for each pattern may vary also depending on the pattern the
                 player claims.
               </p>
-             
+
               <div class="pagelink"></div>
             </div>
           </div>

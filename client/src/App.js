@@ -14,7 +14,8 @@ import { loadGame } from "./actions/game";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-
+import AboutUs from "./components/AboutUs";
+import Help from "./components/Help";
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,9 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/join" component={JoinGameForm} />
         <Route exact path="/create" component={HostForm} />
+        <Route exact path="/aboutus" component={AboutUs} />
+        <Route exact path="/help" component={Help} />
+
         <PrivateRoute exact path="/play" component={Board} />
         <Footer></Footer>
       </Router>

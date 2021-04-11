@@ -7,7 +7,7 @@ import WhatsAppWidget from "react-whatsapp-widget";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import Rules from "../Rules";
-import e from "cors";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isNavVisible, setNavVisibility] = useState(false);
@@ -42,7 +42,7 @@ export default function Header() {
     localStorage.removeItem("playerid");
     localStorage.removeItem("gameid");
     localStorage.removeItem("username");
-  };  
+  };
 
   const [open, setOpen] = React.useState(true);
   const onCloseModal = () => {
@@ -51,14 +51,16 @@ export default function Header() {
   const onOpenModal = (e) => {
     e.preventDefault();
     setOpen(true);
-  }
+  };
 
   return (
     <header className="Header">
       <Modal open={open} onClose={onCloseModal} center>
-          <Rules />
-        </Modal>
-      <img src={tambolaWrite} className="Logo circle-img" alt="logo" />
+        <Rules />
+      </Modal>
+      <Link to="/">
+        <img src={tambolaWrite} className="Logo circle-img" alt="logo" />
+      </Link>
       <CSSTransition
         in={!isSmallScreen || isNavVisible}
         timeout={350}
@@ -66,9 +68,15 @@ export default function Header() {
         unmountOnExit
       >
         <nav className="Nav">
-          <a href="/" onClick={(e) => onOpenModal(e)}>Rules</a>
-          <a href="/" onClick={(e) =>  e.preventDefault()}>About Us</a>
-          <a href="/"onClick={(e) =>  e.preventDefault()}>Help</a>
+          <a href="/" onClick={(e) => onOpenModal(e)}>
+            Rules
+          </a>
+          {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
+          <Link to="/aboutus">About Us</Link>
+          {/* </a> */}
+          {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
+          <Link to="/help">Help</Link>
+          {/* </a> */}
           <button>
             <a href="#top" onClick={(e) => resetGame(e)}>
               Click here to Reset the app!
