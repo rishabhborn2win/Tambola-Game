@@ -33,8 +33,8 @@ const GameSchema = new mongoose.Schema({
         type: Date,
       },
       tickets: {
-        type: Array
-      }
+        type: Array,
+      },
     },
   ],
   date: {

@@ -8,7 +8,6 @@ import "react-responsive-modal/styles.css";
 import Rules from "../Rules";
 import { Link } from "react-router-dom";
 
-
 export default function Header() {
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);

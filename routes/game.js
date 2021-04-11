@@ -2,7 +2,7 @@ const express = require("express");
 const { remove } = require("../models/Game");
 const router = express.Router();
 const Game = require("../models/Game");
-const tambola = require('tambola');
+const tambola = require("tambola");
 const Ticket = require("../models/Ticket");
 //route     POST /game
 //desc:     create a game
@@ -190,28 +190,66 @@ router.put("/:id/next", async (req, res) => {
 //route     GET /generate/ticket
 //desc:     To generate particular number of tambola ticket
 //access:   public
-router.get('/generate/ticket/:number/:name', async (req, res) => {
+router.get("/generate/ticket/:number/:name", async (req, res) => {
+  const gameid = req.body.gameid
   try {
-    let i, tickets = [];
+    let i,
+      tickets = [];
     let n = req.params.number;
     let name = req.params.name;
-    let ticketId= Math.ceil(Math.random() * 999);
-    if(n>=1 && n<=6){
-    for(i=0001; i<=n; i++){
-    let schemaOfTicketDisplay = tambola.generateTicket() //generates the ticket
-    tickets.push(schemaOfTicketDisplay);
+    let ticketId = Math.ceil(Math.random() * 999);
+    if (n >= 1 && n <= 6) {
+      for (i = 0001; i <= n; i++) {
+        let schemaOfTicketDisplay = tambola.generateTicket(); //generates the ticket
+        tickets.push(schemaOfTicketDisplay);
+      }
+      ticket = new Ticket({
+        name,
+        ticketId,
+        tickets,
+      });
+      if(gameid) ticket.gameId = gameid;
+      await ticket.save();
+      res.status(200).json(ticket);
+    } else {
+      res
+        .status(400)
+        .json({
+          errors: [
+            {
+              msg:
+                "There is a limit of generating only min 1 and max 6 tickets at a time.",
+            },
+          ],
+        });
+    }
+  } catch (error) {
+    console.log(error.message);
   }
-  ticket = new Ticket({
-    name,
-    ticketId,
-    tickets
-  })
-  await ticket.save();
-  res.status(200).json(ticket)
+});
+
+//route     GET /ticket/:ticketId
+//desc:     To fectch the ticket by the id
+//access:   public
+router.get('/ticket/:ticketId', async (req, res) => {
+  const ticketId = req.params.ticketId;
+  try {
+    let ticket = await Ticket.findOne({"ticketId": ticketId})
+    if(!ticket) return res.status(400).json({errors: [{msg: "There is no Ticket against this game ID. Either its deleted or expired"}]})
+    res.status(200).json(ticket)
+  } catch (error) {
+    console.log(error.message)
   }
-  else {
-    res.status(400).json({errors: [{msg: "There is a limit of generating only min 1 and max 6 tickets at a time."}]})
-  }
+})
+
+//route     DELETE /ticket/:ticketId
+//desc:     To delete the particular group of ticket
+//access:   public
+router.delete('/ticket/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    await Ticket.findByIdAndDelete(id)
+    res.status(200).json({msg:"Ticket Deleted Successfully!"})
   } catch (error) {
     console.log(error.message)
   }
