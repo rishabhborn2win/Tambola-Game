@@ -6,8 +6,8 @@ import JoinGameForm from "./components/JoinGameForm";
 import HostForm from "./components/HostForm";
 import Alert from "./components/layout/Alert";
 import "bootstrap/dist/css/bootstrap.min.css";
-import WhatsAppWidget from 'react-whatsapp-widget'
-import 'react-whatsapp-widget/dist/index.css'
+import WhatsAppWidget from "react-whatsapp-widget";
+import "react-whatsapp-widget/dist/index.css";
 //Redux Tools
 
 import { Provider } from "react-redux";
@@ -30,7 +30,11 @@ function App() {
         <Route exact path="/join" component={JoinGameForm} />
         <Route exact path="/create" component={HostForm} />
         <PrivateRoute exact path="/play" component={Board} />
-        <WhatsAppWidget phoneNumber='+918840576544' companyName={"Rishabh Mishra"} textReplyTime={"ASAP"}/>
+        <WhatsAppWidget
+          phoneNumber="+918840576544"
+          companyName={"Rishabh Mishra"}
+          textReplyTime={"ASAP"}
+        />
       </Router>
     </Provider>
   );

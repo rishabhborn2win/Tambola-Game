@@ -28,7 +28,8 @@ export default function Player({ game }) {
                       <b>Joined on: </b>{" "}
                     </span>
                     <span>
-                      <Moment format="D MMM YYYY">{player.timeofjoin}</Moment>{" at "}
+                      <Moment format="D MMM YYYY">{player.timeofjoin}</Moment>
+                      {" at "}
                       <Moment format="hh:mm:ss">{player.timeofjoin}</Moment>
                     </span>
                   </div>
