@@ -124,7 +124,7 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
-        <div>
+        {/* <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
@@ -133,7 +133,7 @@ function Board({
             {" "}
             <WhatsappIcon size={32} round={true} /><span>Invite!</span>
           </a>
-        </div>
+        </div> */}
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">

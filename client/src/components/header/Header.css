@@ -1,6 +1,6 @@
 .Header {
     position: relative;
-    top: 0; /* Stick it to the top */
+    top: 15px; /* Stick it to the top */
     max-height: 70px;
     width: 100vw;
   
@@ -8,13 +8,7 @@
     grid-template-areas: "logo nav";
   
     /* Cosmetics */
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  .widget{
-    position: fixed;
-    bottom: 20;
-    right: 20;
+    /* box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2); */
   }
   
   .Logo {
@@ -31,7 +25,7 @@
     justify-items: center;
   }
   .Nav a {
-    color: #FFF;
+    color: #000;
     font-size: 20px;
     font-weight: 500;
     transition: 0.5s;
@@ -76,6 +70,9 @@
   }
   
   @media (max-width: 700px) {
+    .Nav a {
+      color: #fff;
+    }
     .Header {
       grid-template-areas: "logo burger" "nav nav";
     }
@@ -139,7 +136,8 @@
   .heading {
       width: 100%;
       background-color: #ABB7F8 ;
-      margin-top: 70px;
+      margin-top: 35px;
+      margin-bottom: 10px;
       font-size: 35px;
       margin-bottom: 100px;
       text-align: center;
@@ -164,7 +162,7 @@
   .top-row{
       display: flex;
       flex-direction: row;
-      margin-top: -95px;
+      margin-top: -70px;
       justify-content: space-around;
   }
   .gameid{
