@@ -131,7 +131,7 @@ function Board({
             target="_blank"
           >
             {" "}
-            <WhatsappIcon size={32} round={true} />
+            <WhatsappIcon size={32} round={true} /><span>Invite!</span>
           </a>
         </div>
         {localStorage.gameid ? (
