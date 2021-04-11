@@ -1,6 +1,5 @@
 import React from "react";
 import Heading from "./Heading";
-import tambola from "./header/tambola.png";
 
 const AboutUs = () => {
   return (

@@ -108,6 +108,7 @@ function Board({
       if (num === 8) return (numString += "8️⃣");
       if (num === 9) return (numString += "9️⃣");
       if (num === 0) return (numString += "0️⃣");
+      else return 0;
     });
     if (numString === "0️⃣")
       numString = `Game Is about to begin! Please Join The room (GameID: ${game.gameID} ) ASAP! https://tambola-numbers.herokuapp.com/join`;
@@ -681,6 +682,7 @@ function Board({
               href={`whatsapp://send?text=${numString}`}
               data-action="share/whatsapp/share"
               target="_blank"
+              rel="noreferrer"
               className="btn-lg"
             >
               {" "}
