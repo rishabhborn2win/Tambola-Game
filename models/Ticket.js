@@ -21,7 +21,7 @@ const TicketSchema = new mongoose.Schema({
   tickets: {
     type: Array,
   },
-  createdAt: { type: Date, expires: "2m", default: Date.now },
+  createdAt: { type: Date, expires: "24h", default: Date.now },
 });
 
 module.exports = Ticket = mongoose.model("ticket", TicketSchema);

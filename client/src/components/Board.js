@@ -1,3 +1,4 @@
+import React from 'react'
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -8,6 +9,11 @@ import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
+import {Link} from 'react-router-dom'
+import GenerateTicketForm from "./GenerateTicketForm";
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import TicketList from './TicketList';
 
 function Board({
   game: { game },
@@ -117,9 +123,22 @@ function Board({
 
   var numString = transform(numCalled[numCalled.length - 1] || 0);
 
+  //modal function'
+  const [open, setOpen] = React.useState(false);
+  const onCloseModal = () => {
+    setOpen(false);
+  };
+  const onOpenModal = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
   return (
     <Fragment>
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
+      <Modal open={open} onClose={onCloseModal} center>
+        <GenerateTicketForm function={onCloseModal} />
+      </Modal>
       <div className="top-row">
         <div className="gameid">
           <span>Game ID: </span>
@@ -149,6 +168,8 @@ function Board({
           </div>
         )}
       </div>
+      
+     {localStorage.playerid ? <div><TicketList tickets={game.tickets}/> <Link to="#" className="btn-lg" onClick={onOpenModal} >Generate Tickets</Link> </div>: ""}
 
       <div className="container">
         <div className="second-row">

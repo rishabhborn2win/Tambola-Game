@@ -11,3 +11,5 @@ export const JOIN_FAILED = "JOIN_FAILED";
 export const GAME_LEAVE = "GAME_LEAVE";
 export const GENERATE_FAILED = "GENERATE_FAILED";
 export const TICKET_GENERATED = "TICKET_GENERATED";
+export const TICKET_LOADED = "TICKET_LOADED";
+

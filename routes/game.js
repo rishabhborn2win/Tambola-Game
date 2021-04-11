@@ -59,13 +59,16 @@ router.put("/join/play", async (req, res) => {
     if (!game) {
       return res.status(400).json({ errors: [{ msg: "Invalid Game Id" }] });
     }
+    let flag=0
     game.players.map((player) => {
-      if (player.name === playerName)
+      if (player.name === playerName){
+        flag = 1;
         return res
           .status(400)
           .json({ errors: [{ msg: "Use Unique Username" }] });
+      }
     });
-
+    if(flag===0){
     game.players.push({
       name: playerName,
       timeofjoin: new Date(),
@@ -73,6 +76,7 @@ router.put("/join/play", async (req, res) => {
 
     await game.save();
     res.status(200).json(game);
+  }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
@@ -234,16 +238,14 @@ router.get("/ticket/:ticketId", async (req, res) => {
   try {
     let ticket = await Ticket.findOne({ ticketId: ticketId });
     if (!ticket)
-      return res
-        .status(400)
-        .json({
-          errors: [
-            {
-              msg:
-                "There is no Ticket against this game ID. Either its deleted or expired",
-            },
-          ],
-        });
+      return res.status(400).json({
+        errors: [
+          {
+            msg:
+              "There is no Ticket against this game ID. Either its deleted or expired",
+          },
+        ],
+      });
     res.status(200).json(ticket);
   } catch (error) {
     console.log(error.message);

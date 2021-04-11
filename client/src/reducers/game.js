@@ -10,6 +10,7 @@ import {
   GAME_LEAVE,
   GENERATE_FAILED,
   TICKET_GENERATED,
+  TICKET_LOADED,
 } from "../actions/types";
 
 const initialState = {
@@ -17,7 +18,9 @@ const initialState = {
   loading: true,
   error: {},
   numCalled: [],
-  tickets: {},
+  tickets: {
+    tickets: []
+  },
 };
 
 export default function abc(state = initialState, action) {
@@ -84,6 +87,11 @@ export default function abc(state = initialState, action) {
         ...state,
         tickets: payload,
       };
+    case TICKET_LOADED:
+      return {
+        ...state,
+        tickets: payload
+      }
     case GENERATE_FAILED:
     case CREATE_FAILED:
     case GAME_ERROR:

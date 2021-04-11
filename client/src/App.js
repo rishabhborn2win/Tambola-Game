@@ -17,6 +17,7 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
 import GenerateTicketForm from "./components/GenerateTicketForm";
+import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/help" component={Help} />
         <Route exact path="/generate/ticket" component={GenerateTicketForm} />
+        <Route exact path="/ticketlist" component={TicketList} />
         <PrivateRoute exact path="/play" component={Board} />
         <Footer></Footer>
       </Router>
