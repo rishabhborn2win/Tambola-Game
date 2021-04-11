@@ -9,3 +9,5 @@ export const NEXT_NUMBER = "NEXT_NUMBER";
 export const JOIN_GAME = "JOIN_GAME";
 export const JOIN_FAILED = "JOIN_FAILED";
 export const GAME_LEAVE = "GAME_LEAVE";
+export const GENERATE_FAILED = "GENERATE_FAILED";
+export const TICKET_GENERATED = "TICKET_GENERATED";

@@ -16,12 +16,12 @@ const TicketSchema = new mongoose.Schema({
   gameId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "game",
-    default: null
+    default: null,
   },
   tickets: {
     type: Array,
   },
-  createdAt: { type: Date, expires: "24h", default: Date.now },
+  createdAt: { type: Date, expires: "2m", default: Date.now },
 });
 
 module.exports = Ticket = mongoose.model("ticket", TicketSchema);

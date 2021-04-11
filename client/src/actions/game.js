@@ -11,6 +11,8 @@ import {
   JOIN_GAME,
   JOIN_FAILED,
   GAME_LEAVE,
+  GENERATE_FAILED,
+  TICKET_GENERATED,
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -200,5 +202,31 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
         },
       });
     }
+  }
+};
+
+//Generate ticket
+export const generateTicket = (formData) => async (dispatch) => {
+  try {
+    let res = await axios.get(
+      `/game/generate/ticket/${formData.noOfTickets}/${formData.playername}`
+    );
+    dispatch({
+      type: TICKET_GENERATED,
+      payload: res.data,
+    });
+    dispatch(
+      setAlert(
+        `${res.data.name}, Your Tickets are successfully Generated!`,
+        "success"
+      )
+    );
+  } catch (err) {
+    dispatch({
+      type: GENERATE_FAILED,
+      payload: {
+        msg: "There is some error in actions file.",
+      },
+    });
   }
 };

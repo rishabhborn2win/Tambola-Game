@@ -8,6 +8,8 @@ import {
   JOIN_FAILED,
   JOIN_GAME,
   GAME_LEAVE,
+  GENERATE_FAILED,
+  TICKET_GENERATED,
 } from "../actions/types";
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   loading: true,
   error: {},
   numCalled: [],
+  tickets: {},
 };
 
 export default function abc(state = initialState, action) {
@@ -75,6 +78,13 @@ export default function abc(state = initialState, action) {
         loading: false,
         error: payload.msg,
       };
+    case TICKET_GENERATED:
+      localStorage.setItem("ticket", payload.ticketId);
+      return {
+        ...state,
+        tickets: payload,
+      };
+    case GENERATE_FAILED:
     case CREATE_FAILED:
     case GAME_ERROR:
     default:
@@ -82,6 +92,7 @@ export default function abc(state = initialState, action) {
         ...state,
         game: null,
         loading: false,
+        error: payload,
       };
   }
 }

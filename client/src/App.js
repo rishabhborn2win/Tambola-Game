@@ -16,6 +16,8 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
+import GenerateTicketForm from "./components/GenerateTicketForm";
+// import Ticket from "./components/Ticket";
 
 function App() {
   useEffect(() => {
@@ -31,7 +33,7 @@ function App() {
         <Route exact path="/create" component={HostForm} />
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/help" component={Help} />
-
+        <Route exact path="/generate/ticket" component={GenerateTicketForm} />
         <PrivateRoute exact path="/play" component={Board} />
         <Footer></Footer>
       </Router>
