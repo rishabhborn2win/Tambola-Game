@@ -2,7 +2,7 @@ const express = require("express");
 const { remove } = require("../models/Game");
 const router = express.Router();
 const Game = require("../models/Game");
-
+const tambola = require('tambola');
 //route     POST /game
 //desc:     create a game
 //access:   public
@@ -185,4 +185,26 @@ router.put("/:id/next", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//route     GET /generate/ticket
+//desc:     To generate particular number of tambola ticket
+//access:   public
+router.get('/generate/ticket/:number', async (req, res) => {
+  try {
+    let i, tickets = [];
+    let n = req.params.number;
+    if(n>=1 && n<=6){
+    for(i=1; i<=n; i++){
+    let ticket = tambola.generateTicket();
+    tickets.push(ticket);
+  }
+  res.status(200).json(tickets)
+  }
+  else {
+    res.status(400).json({errors: [{msg: "There is a limit of generating only min 1 and max 6 tickets at a time."}]})
+  }
+  } catch (error) {
+    console.log(error.message)
+  }
+})
 module.exports = router;

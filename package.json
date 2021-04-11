@@ -25,7 +25,8 @@
     "random-picture": "^4.0.2",
     "random-profile-generator": "^2.3.0",
     "react-bootstrap": "^1.5.2",
-    "react-moment": "^1.0.0"
+    "react-moment": "^1.0.0",
+    "tambola": "^3.0.3"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

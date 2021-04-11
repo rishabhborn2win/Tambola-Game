@@ -32,6 +32,9 @@ const GameSchema = new mongoose.Schema({
       timeofjoin: {
         type: Date,
       },
+      tickets: {
+        type: Array
+      }
     },
   ],
   date: {
