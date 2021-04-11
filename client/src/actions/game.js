@@ -69,7 +69,7 @@ export const loadGame = () => async (dispatch) => {
 
 //Notify to fill form for creating the game
 export const notifyFill = (msg) => async (dispatch) => {
-  dispatch(setAlert(msg, "success"));
+  dispatch(setAlert(msg, "danger"));
 };
 
 //Create A game

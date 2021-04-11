@@ -22,8 +22,8 @@ const HostForm = ({ notifyFill, createGame, game }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (host === "") {
-      notifyFill("Write down Your name");
+    if (host.length < 6) {
+      notifyFill("Host name is req. (Min : 6 char)");
     } else {
       createGame({ host });
     }

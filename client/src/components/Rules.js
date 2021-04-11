@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Rules = () => {
+const Rules = (props) => {
   return (
     <div class="content-posts">
       <article class="post clearfix post-24 page type-page status-publish hentry">
@@ -15,11 +16,15 @@ const Rules = () => {
               <div class="line">
                 <div class="whitespace">
                   <div class="date-title">
-                    <i class="icon-time"></i> Apr 12, 2021 &nbsp; - &nbsp;{" "}
+                    <i class="icon-time"></i> Apr 11, 2021 &nbsp; - &nbsp;{" "}
                     <i class="icon-comments-alt"></i>{" "}
-                    <a href="/" class="comments-link">
-                      0 comments
-                    </a>{" "}
+                    <Link
+                      to="/aboutus"
+                      className="comments-link"
+                      onClick={(e) => props.function(e)}
+                    >
+                      How To Play?
+                    </Link>{" "}
                     &nbsp; &nbsp;{" "}
                   </div>
                 </div>

@@ -5,6 +5,7 @@ const Help = () => {
   return (
     <div>
       <Heading text={"Help!"} />
+      <h1>Contact Details:-</h1>
       <div className="container steps-play">
         <p>Name: Rishabh Mishra</p>
         <p>
@@ -12,7 +13,9 @@ const Help = () => {
             rishabhborn2win@gmail.com
           </a>
         </p>
-        <p>Phn No: 8840576544</p>
+        <p>
+          <a href="tel:+918840576544">Phn No: 8840576544</a>
+        </p>
       </div>
     </div>
   );

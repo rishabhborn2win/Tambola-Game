@@ -8,6 +8,7 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import Rules from "../Rules";
 import { Link } from "react-router-dom";
+import e from "cors";
 
 export default function Header() {
   const [isNavVisible, setNavVisibility] = useState(false);
@@ -56,7 +57,7 @@ export default function Header() {
   return (
     <header className="Header">
       <Modal open={open} onClose={onCloseModal} center>
-        <Rules />
+        <Rules function={onCloseModal} />
       </Modal>
       <Link to="/">
         <img src={tambolaWrite} className="Logo circle-img" alt="logo" />
