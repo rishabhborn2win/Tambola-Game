@@ -5,13 +5,17 @@ import PropTypes from "prop-types";
 import {loadTicket}  from '../actions/game'
 import Heading from "./Heading";
 
+
 const TicketList = ({ tickets, loadTicket }) => {
+  useEffect(() => {
+    loadTicket()
+  }, [])
     
   return (
     <div>
         <Heading text="Ticket List!" />
           <div>
-            {tickets.tickets !== undefined ? (tickets.tickets.map((serial, index) => {
+            {tickets ? (tickets.tickets !== undefined ? (tickets.tickets.map((serial, index) => {
               return (
                 <div>
                   <p>Name: {tickets.name}</p>
@@ -19,7 +23,7 @@ const TicketList = ({ tickets, loadTicket }) => {
                   <Ticket ticket={serial} />
                 </div>
               );
-            })):("You haven't Generated The Ticket Still!")}
+            })):("You haven't Generated The Ticket Still!")) : ("Loading...")}
           </div>
     </div>
   );

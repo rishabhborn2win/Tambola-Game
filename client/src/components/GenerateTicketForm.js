@@ -8,9 +8,10 @@ import PropTypes from "prop-types";
 
 const GenerateTicketForm = ({ tickets, generateTicket, notifyFill }) => {
   const [formData, setFormData] = useState({
-    playername: localStorage.playerid ? localStorage.username: "",
+    playername: localStorage.username,
     noOfTickets: 0,
-    gameID: localStorage.playerid
+    gameID: localStorage.playerid,
+    playerid: localStorage.player
   });
 //   if(localStorage.username) setFormData({...formData, playername: localStorage.username})
   const onChange = (e) => {

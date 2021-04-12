@@ -4,6 +4,7 @@ const router = express.Router();
 const Game = require("../models/Game");
 const tambola = require("tambola");
 const Ticket = require("../models/Ticket");
+const { generateTicket } = require("tambola");
 //route     POST /game
 //desc:     create a game
 //access:   public
@@ -191,14 +192,15 @@ router.put("/:id/next", async (req, res) => {
   }
 });
 
-//route     GET /generate/ticket
+//route     POST /generate/ticket
 //desc:     To generate particular number of tambola ticket
 //access:   public
-router.get("/generate/ticket/:number/:name", async (req, res) => {
+router.post("/generate/ticket/:number/:name", async (req, res) => {
   const gameid = req.body.gameid;
+  const playerid = req.body.playerid;
   try {
     let i,
-      tickets = [];
+    tickets = [];
     let n = req.params.number;
     let name = req.params.name;
     let ticketId = Math.ceil(Math.random() * 999);
@@ -213,14 +215,34 @@ router.get("/generate/ticket/:number/:name", async (req, res) => {
         tickets,
       });
       if (gameid) ticket.gameId = gameid;
+      if(playerid) ticket.playerId = playerid;
       await ticket.save();
+
+      //saving the ticket in the game schema for the respective player
+      const game  = await Game.findOne({ gameID: gameid});
+      if(!game) return res.status(400).json({errors: [{
+        msg:"The game is not available."
+      }]})
+      var reqIndex;
+      game.players.map((player, index) => {
+        if(player._id = playerid) return reqIndex = index
+      })
+
+      // if(reqIndex<0) return res.status(400).json({errors: [{
+      //   msg:"The player has left the game."
+      // }]})
+
+      game.players[reqIndex].tickets = ticket._id;
+
+
+      await game.save();
       res.status(200).json(ticket);
     } else {
       res.status(400).json({
         errors: [
           {
             msg:
-              "There is a limit of generating only min 1 and max 6 tickets at a time.",
+              "There is a limit of generating only min 1 and max 6 tickets for a player.",
           },
         ],
       });
@@ -236,7 +258,7 @@ router.get("/generate/ticket/:number/:name", async (req, res) => {
 router.get("/ticket/:ticketId", async (req, res) => {
   const ticketId = req.params.ticketId;
   try {
-    let ticket = await Ticket.findOne({ ticketId: ticketId });
+    let ticket = await Ticket.findById( ticketId);
     if (!ticket)
       return res.status(400).json({
         errors: [

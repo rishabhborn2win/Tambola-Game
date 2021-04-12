@@ -5,6 +5,10 @@ const TicketSchema = new mongoose.Schema({
   name: {
     type: String,
   },
+  playeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "game"
+  },
   uuid: {
     type: String,
     default: uuidv4(),
@@ -14,14 +18,11 @@ const TicketSchema = new mongoose.Schema({
     unique: true,
   },
   gameId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "game",
-    default: null,
+    type: Number
   },
   tickets: {
     type: Array,
-  },
-  createdAt: { type: Date, expires: "24h", default: Date.now },
+  }
 });
 
 module.exports = Ticket = mongoose.model("ticket", TicketSchema);

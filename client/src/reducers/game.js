@@ -62,6 +62,7 @@ export default function abc(state = initialState, action) {
       };
     case JOIN_GAME:
       localStorage.setItem("playerid", payload.gameID);
+      localStorage.setItem("player", payload._id);
       return {
         ...state,
         game: payload,
@@ -70,9 +71,12 @@ export default function abc(state = initialState, action) {
     case GAME_LEAVE:
       localStorage.removeItem("playerid");
       localStorage.removeItem("username");
+      localStorage.removeItem("player");
+      localStorage.removeItem("ticket");
       return {
         ...state,
         game: null,
+        tickets: null,
         loading: false,
       };
     case JOIN_FAILED:
@@ -82,7 +86,7 @@ export default function abc(state = initialState, action) {
         error: payload.msg,
       };
     case TICKET_GENERATED:
-      localStorage.setItem("ticket", payload.ticketId);
+      localStorage.setItem("ticket", payload._id);
       return {
         ...state,
         tickets: payload,

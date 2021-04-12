@@ -169,7 +169,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
         msg: "Some Error happen",
       },
     });
-    const errors = err.response.data.errors;
+    const errors = err.response ? err.response.data.errors : {};
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
@@ -208,9 +208,15 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
 
 //Generate ticket
 export const generateTicket = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ gameid: formData.gameID, playerid: formData.playerid });
   try {
-    let res = await axios.get(
-      `/game/generate/ticket/${formData.noOfTickets}/${formData.playername}`
+    let res = await axios.post(
+      `/game/generate/ticket/${formData.noOfTickets}/${formData.playername}`, body, config
     );
     dispatch({
       type: TICKET_GENERATED,
