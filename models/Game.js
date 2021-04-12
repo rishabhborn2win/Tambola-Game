@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const GameSchema = new mongoose.Schema({
   gameID: {
     type: Number,
-    default: Math.ceil(Math.random() * 100000000),
+    default: Math.ceil(Math.random() * 1000),
   },
   host: {
     type: String,
