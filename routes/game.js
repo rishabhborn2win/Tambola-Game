@@ -15,7 +15,14 @@ router.post("/", async (req, res) => {
     if (game) {
       return res.status(400).json({ msg: "One game is already Created" });
     }
+    var gameID = Math.ceil(Math.random()*10000);
+    let gameWithSameId = await Game.find({gameID: gameID});
+    while(gameWithSameId.length>0){
+      gameID = Math.ceil(Math.random()*1000);
+      gameWithSameId = await Game.find({gameID: gameID});
+    }
     game = new Game({
+      gameID: gameID,
       host: host,
       numbers: [],
       players: [],

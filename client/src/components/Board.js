@@ -50,17 +50,7 @@ function Board({
     );
   };
 
-  const nextNum = () => {
-    nextNumber(localStorage.gameid);
-
-    document.getElementById("nxt").disabled = true;
-    document.getElementById("nxt").style.opacity = 0.5;
-    setTimeout(function () {
-      document.getElementById("nxt").disabled = false;
-      document.getElementById("nxt").style.opacity = 1;
-    }, 3000);
-  };
-
+  
   var numCalled = [];
   game.numbers.map((num) => {
     if (num.called === true) {
@@ -69,6 +59,17 @@ function Board({
     }
     return 0;
   });
+  const nextNum = () => {
+    nextNumber(localStorage.gameid);
+    document.getElementById("nxt").disabled = true;
+    document.getElementById("nxt").style.opacity = 0.5;
+    setTimeout(function () {
+      document.getElementById("nxt").disabled = false;
+      document.getElementById("nxt").style.opacity = 1;
+    }, 3000);
+  };
+
+  
 
   //getting the index value
   var i;

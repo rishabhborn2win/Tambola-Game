@@ -41,7 +41,8 @@ const GameSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-  },
-});
+  }
+}, {timestamps: true});
+GameSchema.index({createdAt: 1},{expireAfterSeconds: 86400});
 
 module.exports = Game = mongoose.model("game", GameSchema);
