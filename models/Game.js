@@ -34,8 +34,7 @@ const GameSchema = new mongoose.Schema(
           type: Date,
         },
         tickets: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "ticket",
+          type: String
         },
       },
     ],

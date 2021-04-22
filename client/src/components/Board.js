@@ -135,9 +135,9 @@ function Board({
   return (
     <Fragment>
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
-      <Modal open={open} onClose={onCloseModal} center>
+      {localStorage.gameid ? <Modal open={open} onClose={onCloseModal} center>
         <GenerateTicketForm function={onCloseModal} game={game} />
-      </Modal>
+      </Modal> : ""}
       <div className="top-row">
         <div className="gameid">
           <span>Game ID: </span>
@@ -178,9 +178,12 @@ function Board({
         Generate Tickets
       </Link>
       )): ("")} */}
-      <Link to="#" className="btn-lg" onClick={onOpenModal}>
+      <div>
+          <TicketList tickets={game.tickets} />{" "}
+        </div>
+      {localStorage.gameid ?<Link to="#" className="btn-lg" onClick={onOpenModal}>
         Generate Tickets
-      </Link>
+      </Link>: ""}
 
       <div className="container">
         <div className="second-row">

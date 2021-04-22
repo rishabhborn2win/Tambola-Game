@@ -6,8 +6,7 @@ const TicketSchema = new mongoose.Schema({
     type: String,
   },
   playeId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "game",
+    type: String,
   },
   uuid: {
     type: String,

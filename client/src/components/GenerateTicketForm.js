@@ -5,13 +5,12 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 // import {Button} from 'react-bootstrap'
 import PropTypes from "prop-types";
-import SelectItem from "react-select-item";
 
 const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
 
     const players = game ?  game.players : ["Loading.."];
   const [formData, setFormData] = useState({
-    playername: "",
+    playername: {},
     noOfTickets: 0,
     gameID: game ? game.gameID : "",
     playerid: "",
@@ -33,10 +32,17 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
   };
 
 
-  // const handleChange = (e) => {
-  //   setFormData({...formData, [e.target.name]: e.target.selectedIndex.name, ["playerid"]: e.target.selectedIndex.name})
-  //   alert(" " + playername + " " +playerid)
-  // }
+  const handleChange = (e) => {
+    
+    let data = {
+      ...formData,
+      playername: e.target.value,
+      playerid: e.target.options[e.target.selectedIndex].title
+    }
+    console.log(data)
+    setFormData(data)
+
+  }
   return (
     <div className="content-post">
       <Fragment>
@@ -58,14 +64,13 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
                   onChange={(e) => onChange(e)}
                 ></input>
               </label> */}
-              <select value={playername} name="playername" onChange={(e) => onChange(e)}>
-              {/* <option value={"Select the player.."}>Select The Player</option> */}
-                {players.map((player) => {              
+              <select value={playername} id={playerid} onChange={(e) => handleChange(e)}>
+              <option value={""} title={""}>*Select Player!</option>
+                {players.map((player) => {
                   return (
-                  <option value={player.name}>{player.name}</option>
+                      <option value={player.name} title={player._id}>{player.name}</option>
                   )
-                }
-                )}
+                })}
               </select>
             </div>
             <div class="omrs-input-group">

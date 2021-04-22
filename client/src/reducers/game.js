@@ -11,6 +11,7 @@ import {
   GENERATE_FAILED,
   TICKET_GENERATED,
   TICKET_LOADED,
+  TICKET_LOADING
 } from "../actions/types";
 
 const initialState = {
@@ -86,14 +87,19 @@ export default function abc(state = initialState, action) {
         error: payload.msg,
       };
     case TICKET_GENERATED:
-      localStorage.setItem("ticket", payload._id);
       return {
         ...state,
         tickets: payload,
       };
+    case TICKET_LOADING: 
+      return {
+        ...state,
+        loading: true
+      }
     case TICKET_LOADED:
       return {
         ...state,
+        loading: false,
         tickets: payload,
       };
     case GENERATE_FAILED:
