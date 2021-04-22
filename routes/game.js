@@ -41,6 +41,7 @@ router.post("/", async (req, res) => {
       game.numbers.push({ number: num });
     });
 
+
     await game.save();
     res.json(game);
   } catch (err) {
