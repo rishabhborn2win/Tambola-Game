@@ -213,10 +213,15 @@ export const generateTicket = (formData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  const body = JSON.stringify({ gameid: formData.gameID, playerid: formData.playerid });
+  const body = JSON.stringify({
+    gameid: formData.gameID,
+    playerid: formData.playerid,
+  });
   try {
     let res = await axios.post(
-      `/game/generate/ticket/${formData.noOfTickets}/${formData.playername}`, body, config
+      `/game/generate/ticket/${formData.noOfTickets}/${formData.playername}`,
+      body,
+      config
     );
     dispatch({
       type: TICKET_GENERATED,
@@ -238,16 +243,16 @@ export const generateTicket = (formData) => async (dispatch) => {
   }
 };
 
-
 //Fetch ticket using ticket id
 export const loadTicket = () => async (dispatch) => {
   try {
-    let res = await axios.get(`/game/ticket/${localStorage.ticket}`)
-    if(!res.data) dispatch(setAlert("There is not ticket Against this ticket id!"));
+    let res = await axios.get(`/game/ticket/${localStorage.ticket}`);
+    if (!res.data)
+      dispatch(setAlert("There is not ticket Against this ticket id!"));
     dispatch({
       type: TICKET_LOADED,
-      payload: res.data
-    })
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: GENERATE_FAILED,
@@ -256,4 +261,4 @@ export const loadTicket = () => async (dispatch) => {
       },
     });
   }
-}
+};

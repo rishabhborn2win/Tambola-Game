@@ -7,7 +7,7 @@ const TicketSchema = new mongoose.Schema({
   },
   playeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "game"
+    ref: "game",
   },
   uuid: {
     type: String,
@@ -18,11 +18,11 @@ const TicketSchema = new mongoose.Schema({
     unique: true,
   },
   gameId: {
-    type: Number
+    type: Number,
   },
   tickets: {
     type: Array,
-  }
+  },
 });
 
 module.exports = Ticket = mongoose.model("ticket", TicketSchema);

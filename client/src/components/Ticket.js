@@ -1,6 +1,6 @@
 import React from "react";
 
-const Ticket = ({ticket}) => {
+const Ticket = ({ ticket }) => {
   return (
     <div>
       <table>

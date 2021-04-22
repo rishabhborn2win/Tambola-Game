@@ -5,19 +5,21 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 // import {Button} from 'react-bootstrap'
 import PropTypes from "prop-types";
+import SelectItem from "react-select-item";
 
-const GenerateTicketForm = ({ tickets, generateTicket, notifyFill }) => {
+const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
+
+    const players = game ?  game.players : ["Loading.."];
   const [formData, setFormData] = useState({
-    playername: localStorage.username,
+    playername: "",
     noOfTickets: 0,
-    gameID: localStorage.playerid,
-    playerid: localStorage.player
+    gameID: game ? game.gameID : "",
+    playerid: "",
   });
-//   if(localStorage.username) setFormData({...formData, playername: localStorage.username})
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const { playername, noOfTickets } = formData;
+  const { playername, noOfTickets, playerid } = formData;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +31,12 @@ const GenerateTicketForm = ({ tickets, generateTicket, notifyFill }) => {
       generateTicket(formData);
     }
   };
+
+
+  // const handleChange = (e) => {
+  //   setFormData({...formData, [e.target.name]: e.target.selectedIndex.name, ["playerid"]: e.target.selectedIndex.name})
+  //   alert(" " + playername + " " +playerid)
+  // }
   return (
     <div className="content-post">
       <Fragment>
@@ -37,8 +45,9 @@ const GenerateTicketForm = ({ tickets, generateTicket, notifyFill }) => {
         <div className="container">
           <form onSubmit={(e) => onSubmit(e)}>
             <div class="form-input-group">
-              <label class="omrs-input-underlined">
+              {/* <label class="omrs-input-underlined">
                 <input
+                  type="select"
                   className="i"
                   placeholder="Name"
                   type="text"
@@ -48,7 +57,16 @@ const GenerateTicketForm = ({ tickets, generateTicket, notifyFill }) => {
                   disabled
                   onChange={(e) => onChange(e)}
                 ></input>
-              </label>
+              </label> */}
+              <select value={playername} name="playername" onChange={(e) => onChange(e)}>
+              {/* <option value={"Select the player.."}>Select The Player</option> */}
+                {players.map((player) => {              
+                  return (
+                  <option value={player.name}>{player.name}</option>
+                  )
+                }
+                )}
+              </select>
             </div>
             <div class="omrs-input-group">
               <label class="omrs-input-underlined">

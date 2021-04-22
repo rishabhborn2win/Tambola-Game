@@ -19,6 +19,7 @@ import Help from "./components/Help";
 import GenerateTicketForm from "./components/GenerateTicketForm";
 import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
+// import 'bootstrap/dist/css/bootstrap.min.js';
 
 function App() {
   useEffect(() => {

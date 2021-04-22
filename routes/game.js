@@ -15,11 +15,11 @@ router.post("/", async (req, res) => {
     if (game) {
       return res.status(400).json({ msg: "One game is already Created" });
     }
-    var gameID = Math.ceil(Math.random()*10000);
-    let gameWithSameId = await Game.find({gameID: gameID});
-    while(gameWithSameId.length>0){
-      gameID = Math.ceil(Math.random()*1000);
-      gameWithSameId = await Game.find({gameID: gameID});
+    var gameID = Math.ceil(Math.random() * 10000);
+    let gameWithSameId = await Game.find({ gameID: gameID });
+    while (gameWithSameId.length > 0) {
+      gameID = Math.ceil(Math.random() * 1000);
+      gameWithSameId = await Game.find({ gameID: gameID });
     }
     game = new Game({
       gameID: gameID,
@@ -48,7 +48,6 @@ router.post("/", async (req, res) => {
       game.numbers.push({ number: num });
     });
 
-
     await game.save();
     res.json(game);
   } catch (err) {
@@ -68,24 +67,24 @@ router.put("/join/play", async (req, res) => {
     if (!game) {
       return res.status(400).json({ errors: [{ msg: "Invalid Game Id" }] });
     }
-    let flag=0
+    let flag = 0;
     game.players.map((player) => {
-      if (player.name === playerName){
+      if (player.name === playerName) {
         flag = 1;
         return res
           .status(400)
           .json({ errors: [{ msg: "Use Unique Username" }] });
       }
     });
-    if(flag===0){
-    game.players.push({
-      name: playerName,
-      timeofjoin: new Date(),
-    });
+    if (flag === 0) {
+      game.players.push({
+        name: playerName,
+        timeofjoin: new Date(),
+      });
 
-    await game.save();
-    res.status(200).json(game);
-  }
+      await game.save();
+      res.status(200).json(game);
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
@@ -121,6 +120,8 @@ router.post("/leave", async (req, res) => {
       if (player.name === username) removeIndex = index;
     });
     if (removeIndex === -2) return res.status(200).send("Player not found");
+    const ticketId = game.players[removeIndex].tickets;
+    await Ticket.findByIdAndDelete(ticketId);
 
     game.players.splice(removeIndex, 1);
     await game.save();
@@ -208,7 +209,7 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
   const playerid = req.body.playerid;
   try {
     let i,
-    tickets = [];
+      tickets = [];
     let n = req.params.number;
     let name = req.params.name;
     let ticketId = Math.ceil(Math.random() * 999);
@@ -223,25 +224,29 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
         tickets,
       });
       if (gameid) ticket.gameId = gameid;
-      if(playerid) ticket.playerId = playerid;
+      if (playerid) ticket.playerId = playerid;
       await ticket.save();
 
       //saving the ticket in the game schema for the respective player
-      const game  = await Game.findOne({ gameID: gameid});
-      if(!game) return res.status(400).json({errors: [{
-        msg:"The game is not available."
-      }]})
+      const game = await Game.findOne({ gameID: gameid });
+      if (!game)
+        return res.status(400).json({
+          errors: [
+            {
+              msg: "The game is not available.",
+            },
+          ],
+        });
       var reqIndex;
       game.players.map((player, index) => {
-        if(player._id = playerid) return reqIndex = index
-      })
+        if ((player._id = playerid)) return (reqIndex = index);
+      });
 
       // if(reqIndex<0) return res.status(400).json({errors: [{
       //   msg:"The player has left the game."
       // }]})
 
       game.players[reqIndex].tickets = ticket._id;
-
 
       await game.save();
       res.status(200).json(ticket);
@@ -266,7 +271,7 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
 router.get("/ticket/:ticketId", async (req, res) => {
   const ticketId = req.params.ticketId;
   try {
-    let ticket = await Ticket.findById( ticketId);
+    let ticket = await Ticket.findById(ticketId);
     if (!ticket)
       return res.status(400).json({
         errors: [

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -9,11 +9,11 @@ import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import GenerateTicketForm from "./GenerateTicketForm";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import TicketList from './TicketList';
+import TicketList from "./TicketList";
 
 function Board({
   game: { game },
@@ -30,7 +30,8 @@ function Board({
   }, [loadGame]);
 
   const deleteGame = () => {
-    dropGame(localStorage.gameid);
+    if (game.players.length === 0) dropGame(localStorage.gameid);
+    else alert("Let all the player leave first!");
   };
 
   useEffect(() => {
@@ -50,7 +51,6 @@ function Board({
     );
   };
 
-  
   var numCalled = [];
   game.numbers.map((num) => {
     if (num.called === true) {
@@ -68,8 +68,6 @@ function Board({
       document.getElementById("nxt").style.opacity = 1;
     }, 3000);
   };
-
-  
 
   //getting the index value
   var i;
@@ -124,7 +122,7 @@ function Board({
 
   var numString = transform(numCalled[numCalled.length - 1] || 0);
 
-  //modal function'
+  //modal function
   const [open, setOpen] = React.useState(false);
   const onCloseModal = () => {
     setOpen(false);
@@ -138,13 +136,14 @@ function Board({
     <Fragment>
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
       <Modal open={open} onClose={onCloseModal} center>
-        <GenerateTicketForm function={onCloseModal} />
+        <GenerateTicketForm function={onCloseModal} game={game} />
       </Modal>
       <div className="top-row">
         <div className="gameid">
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
+
         {/* <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
@@ -169,8 +168,19 @@ function Board({
           </div>
         )}
       </div>
-      
-     {localStorage.playerid ? <div><TicketList tickets={game.tickets}/> <Link to="#" className="btn-lg" onClick={onOpenModal} >Generate Tickets</Link> </div>: ""}
+
+      {/* { localStorage.player !== undefined ? (localStorage.ticket ? (
+        <div>
+          <TicketList tickets={game.tickets} />{" "}
+        </div>
+      ) : (
+        <Link to="#" className="btn-lg" onClick={onOpenModal}>
+        Generate Tickets
+      </Link>
+      )): ("")} */}
+      <Link to="#" className="btn-lg" onClick={onOpenModal}>
+        Generate Tickets
+      </Link>
 
       <div className="container">
         <div className="second-row">

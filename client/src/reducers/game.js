@@ -19,7 +19,7 @@ const initialState = {
   error: {},
   numCalled: [],
   tickets: {
-    tickets: []
+    tickets: [],
   },
 };
 
@@ -94,8 +94,8 @@ export default function abc(state = initialState, action) {
     case TICKET_LOADED:
       return {
         ...state,
-        tickets: payload
-      }
+        tickets: payload,
+      };
     case GENERATE_FAILED:
     case CREATE_FAILED:
     case GAME_ERROR:
