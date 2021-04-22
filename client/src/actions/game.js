@@ -14,6 +14,7 @@ import {
   GENERATE_FAILED,
   TICKET_GENERATED,
   TICKET_LOADED,
+  TICKET_LOADING,
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -246,7 +247,14 @@ export const generateTicket = (formData) => async (dispatch) => {
 //Fetch ticket using ticket id
 export const loadTicket = () => async (dispatch) => {
   try {
-    let res = await axios.get(`/game/ticket/${localStorage.ticket}`);
+    let res;
+    if(!localStorage.ticketId){
+      dispatch({
+        type: TICKET_LOADING
+      })
+    }
+    res = await axios.get(`/game/ticket/${localStorage.ticketId}`);
+
     if (!res.data)
       dispatch(setAlert("There is not ticket Against this ticket id!"));
     dispatch({

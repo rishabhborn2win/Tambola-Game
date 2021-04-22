@@ -3,7 +3,7 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
+import { dropGame, loadGame, nextNumber, leaveGame, loadTicket } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
@@ -42,6 +42,16 @@ function Board({
       return 0;
     });
   }, [game]);
+
+  useEffect(() => {
+    var ticketId = "";
+    game.players.map((player) => {
+      if(player.name === localStorage.username) {
+        ticketId = player.tickets;
+      }
+    });
+    localStorage.setItem("ticketId", ticketId)
+  }, [game])
 
   const leave = (e) => {
     e.preventDefault();
@@ -154,6 +164,8 @@ function Board({
             <WhatsappIcon size={32} round={true} /><span>Invite!</span>
           </a>
         </div> */}
+
+
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">
@@ -168,19 +180,9 @@ function Board({
           </div>
         )}
       </div>
-
-      {/* { localStorage.player !== undefined ? (localStorage.ticket ? (
-        <div>
-          <TicketList tickets={game.tickets} />{" "}
-        </div>
-      ) : (
-        <Link to="#" className="btn-lg" onClick={onOpenModal}>
-        Generate Tickets
-      </Link>
-      )): ("")} */}
-      <div>
-          <TicketList tickets={game.tickets} />{" "}
-        </div>
+       {localStorage.playerid ? <div>
+          <TicketList tickets={game.tickets} game={game}/>{" "}
+        </div> : ""}
       {localStorage.gameid ?<Link to="#" className="btn-lg" onClick={onOpenModal}>
         Generate Tickets
       </Link>: ""}
