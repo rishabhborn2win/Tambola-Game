@@ -67,9 +67,11 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
               <select value={playername} id={playerid} onChange={(e) => handleChange(e)}>
               <option value={""} title={""}>*Select Player!</option>
                 {players.map((player) => {
+                  if(!player.tickets) {
                   return (
                       <option value={player.name} title={player._id}>{player.name}</option>
                   )
+                  }
                 })}
               </select>
             </div>

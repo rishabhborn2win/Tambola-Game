@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Board from "./components/Board";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Redirect, BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/Home";
 import JoinGameForm from "./components/JoinGameForm";
 import HostForm from "./components/HostForm";
@@ -31,13 +31,14 @@ function App() {
         <Header />
         <Alert />
         <Route exact path="/" component={Home} />
-        <Route exact path="/join" component={JoinGameForm} />
+        <Route exact path="/join/:id" component={JoinGameForm} />
         <Route exact path="/create" component={HostForm} />
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/help" component={Help} />
-        <Route exact path="/generate/ticket" component={GenerateTicketForm} />
+        {/* <Route exact path="/generate/ticket" component={GenerateTicketForm} /> */}
         {/* <Route exact path="/ticketlist" component={TicketList} /> */}
         <PrivateRoute exact path="/play" component={Board} />
+        <Redirect to="/join/1234" />
         <Footer></Footer>
       </Router>
     </Provider>

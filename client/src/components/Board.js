@@ -126,7 +126,7 @@ function Board({
       else return 0;
     });
     if (numString === "0️⃣")
-      numString = `Game Is about to begin! Please Join The room (GameID: ${game.gameID} ) ASAP! https://tambola-numbers.herokuapp.com/join`;
+      numString = `Game Is about to begin! Please Join The room (GameID: ${game.gameID} ) ASAP! https://tambola-numbers.herokuapp.com/join/${game.gameID}`;
     return numString;
   };
 
