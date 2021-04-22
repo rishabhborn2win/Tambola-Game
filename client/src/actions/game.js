@@ -248,10 +248,10 @@ export const generateTicket = (formData) => async (dispatch) => {
 export const loadTicket = () => async (dispatch) => {
   try {
     let res;
-    if(!localStorage.ticketId){
+    if (!localStorage.ticketId) {
       dispatch({
-        type: TICKET_LOADING
-      })
+        type: TICKET_LOADING,
+      });
     }
     res = await axios.get(`/game/ticket/${localStorage.ticketId}`);
 

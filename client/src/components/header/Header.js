@@ -37,7 +37,9 @@ export default function Header() {
   //Reset the app on local system
   const resetGame = (e) => {
     e.preventDefault();
-   window.confirm("Are you sure this can't be undone & all your previous history will be deleted!")
+    window.confirm(
+      "Are you sure this can't be undone & all your previous history will be deleted!"
+    );
     localStorage.removeItem("playerid");
     localStorage.removeItem("gameid");
     localStorage.removeItem("username");

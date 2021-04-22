@@ -7,8 +7,7 @@ import { Redirect, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
-
-    const players = game ?  game.players : ["Loading.."];
+  const players = game ? game.players : ["Loading.."];
   const [formData, setFormData] = useState({
     playername: {},
     noOfTickets: 0,
@@ -31,18 +30,15 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
     }
   };
 
-
   const handleChange = (e) => {
-    
     let data = {
       ...formData,
       playername: e.target.value,
-      playerid: e.target.options[e.target.selectedIndex].title
-    }
-    console.log(data)
-    setFormData(data)
-
-  }
+      playerid: e.target.options[e.target.selectedIndex].title,
+    };
+    console.log(data);
+    setFormData(data);
+  };
   return (
     <div className="content-post">
       <Fragment>
@@ -64,13 +60,21 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
                   onChange={(e) => onChange(e)}
                 ></input>
               </label> */}
-              <select value={playername} id={playerid} onChange={(e) => handleChange(e)}>
-              <option value={""} title={""}>*Select Player!</option>
+              <select
+                value={playername}
+                id={playerid}
+                onChange={(e) => handleChange(e)}
+              >
+                <option value={""} title={""}>
+                  *Select Player!
+                </option>
                 {players.map((player) => {
-                  if(!player.tickets) {
-                  return (
-                      <option value={player.name} title={player._id}>{player.name}</option>
-                  )
+                  if (!player.tickets) {
+                    return (
+                      <option value={player.name} title={player._id}>
+                        {player.name}
+                      </option>
+                    );
                   }
                 })}
               </select>

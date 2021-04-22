@@ -34,7 +34,7 @@ const GameSchema = new mongoose.Schema(
           type: Date,
         },
         tickets: {
-          type: String
+          type: String,
         },
       },
     ],

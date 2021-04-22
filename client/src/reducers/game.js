@@ -11,7 +11,7 @@ import {
   GENERATE_FAILED,
   TICKET_GENERATED,
   TICKET_LOADED,
-  TICKET_LOADING
+  TICKET_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -91,11 +91,11 @@ export default function abc(state = initialState, action) {
         ...state,
         tickets: payload,
       };
-    case TICKET_LOADING: 
+    case TICKET_LOADING:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case TICKET_LOADED:
       return {
         ...state,

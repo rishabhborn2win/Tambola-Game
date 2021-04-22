@@ -245,7 +245,7 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
       // if(reqIndex<0) return res.status(400).json({errors: [{
       //   msg:"The player has left the game."
       // }]})
-      console.log(reqIndex)
+      console.log(reqIndex);
 
       game.players[reqIndex].tickets = ticket._id;
 

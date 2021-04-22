@@ -3,7 +3,13 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { dropGame, loadGame, nextNumber, leaveGame, loadTicket } from "../actions/game";
+import {
+  dropGame,
+  loadGame,
+  nextNumber,
+  leaveGame,
+  loadTicket,
+} from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
@@ -46,12 +52,12 @@ function Board({
   useEffect(() => {
     var ticketId = "";
     game.players.map((player) => {
-      if(player.name === localStorage.username) {
+      if (player.name === localStorage.username) {
         ticketId = player.tickets;
       }
     });
-    localStorage.setItem("ticketId", ticketId)
-  }, [game])
+    localStorage.setItem("ticketId", ticketId);
+  }, [game]);
 
   const leave = (e) => {
     e.preventDefault();
@@ -145,9 +151,13 @@ function Board({
   return (
     <Fragment>
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
-      {localStorage.gameid ? <Modal open={open} onClose={onCloseModal} center>
-        <GenerateTicketForm function={onCloseModal} game={game} />
-      </Modal> : ""}
+      {localStorage.gameid ? (
+        <Modal open={open} onClose={onCloseModal} center>
+          <GenerateTicketForm function={onCloseModal} game={game} />
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className="top-row">
         <div className="gameid">
           <span>Game ID: </span>
@@ -165,7 +175,6 @@ function Board({
           </a>
         </div> */}
 
-
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">
@@ -180,12 +189,20 @@ function Board({
           </div>
         )}
       </div>
-       {localStorage.playerid ? <div>
-          <TicketList tickets={game.tickets} game={game}/>{" "}
-        </div> : ""}
-      {localStorage.gameid ?<Link to="#" className="btn-lg" onClick={onOpenModal}>
-        Generate Tickets
-      </Link>: ""}
+      {localStorage.playerid ? (
+        <div>
+          <TicketList tickets={game.tickets} game={game} />{" "}
+        </div>
+      ) : (
+        ""
+      )}
+      {localStorage.gameid ? (
+        <Link to="#" className="btn-lg" onClick={onOpenModal}>
+          Generate Tickets
+        </Link>
+      ) : (
+        ""
+      )}
 
       <div className="container">
         <div className="second-row">
