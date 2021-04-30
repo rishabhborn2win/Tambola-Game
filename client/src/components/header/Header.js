@@ -45,7 +45,7 @@ export default function Header() {
     localStorage.removeItem("username");
   };
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const onCloseModal = () => {
     setOpen(false);
   };

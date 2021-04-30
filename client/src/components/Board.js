@@ -23,12 +23,16 @@ function Board({
 }) {
 
 //making it live as it will call the data from the database every 2.5s
-  useEffect(() => {
-    setInterval(function () {
-      loadGame();
-    }, 2500);
-  }, [loadGame]);
+  // useEffect(() => {
+  //   setInterval(function () {
+  //     loadGame();
+  //   }, 2500);
+  // }, [loadGame]);
 
+
+  // setInterval(function () {
+  //   loadGame();
+  // }, 2500);
 
   //fucntion for deleting the game
   const deleteGame = () => {
@@ -121,16 +125,16 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
-        {/* <div>
+        <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
             target="_blank"
           >
             {" "}
-            <WhatsappIcon size={32} round={true} /><span>Invite!</span>
+            <WhatsappIcon size={32} round={true} />
           </a>
-        </div> */}
+        </div>
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">
@@ -144,6 +148,11 @@ function Board({
             </a>
           </div>
         )}
+        <div>
+          <a href="#top">
+            <i class="fa fa-refresh"></i>
+          </a>
+        </div>
       </div>
 
       <div className="container">
@@ -663,9 +672,7 @@ function Board({
                     Next Number (Wait 3s)
                   </button>
                 ) : (
-                  <button class="show" style={{ opacity: 0.5 }}>
-                    Next Number (Wait for 3s)
-                  </button>
+                  <p>Game FINISHED !!</p>
                 )
               ) : (
                 ""
