@@ -182,7 +182,8 @@
   }
 
   .second-row{
-      margin-top: -25px
+      margin-top: -25px;
+      cursor: pointer;
   }
 
   .current  {
@@ -347,6 +348,29 @@
     margin-top: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
+  }
+
+
+  /* history of numbers */
+  .number-display{
+    height: 60px;
+    width: 60px;
+    font-size: 25px;
+    border: #000;
+    margin: 10px;
+    border-radius: 25px;
+    border-style: dashed;
+    background-color: rgb(206, 206, 140);
+    padding: 10px;
+  }
+
+  .history-number-container{
+    /* height: 70%; */
+    /* width: 50%; */
+    display: flex;
+    flex-wrap: wrap;
+    
+    /* padding: 50px; */
   }
 
  

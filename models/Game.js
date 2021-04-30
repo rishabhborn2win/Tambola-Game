@@ -1,44 +1,47 @@
 const mongoose = require("mongoose");
 
-const GameSchema = new mongoose.Schema({
-  gameID: {
-    type: Number,
-    default: Math.ceil(Math.random() * 100000000),
-  },
-  host: {
-    type: String,
-    required: true,
-  },
-  numbers: [
-    {
-      number: {
-        type: Number,
-      },
-      called: {
-        type: Boolean,
-        default: false,
-      },
-      calledTime: {
-        type: Date,
-        default: Date.now,
-      },
+const GameSchema = new mongoose.Schema(
+  {
+    gameID: {
+      type: Number,
+      default: Math.ceil(Math.random() * 100000000),
     },
-  ],
-  players: [
-    {
-      name: {
-        type: String,
-      },
-      timeofjoin: {
-        type: Date,
-      },
+    host: {
+      type: String,
+      required: true,
     },
-  ],
-  date: {
-    type: Date,
-    default: Date.now,
-  }
-}, {timestamps: true});
-GameSchema.index({createdAt: 1},{expireAfterSeconds: 86400});
+    numbers: [
+      {
+        number: {
+          type: Number,
+        },
+        called: {
+          type: Boolean,
+          default: false,
+        },
+        calledTime: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    players: [
+      {
+        name: {
+          type: String,
+        },
+        timeofjoin: {
+          type: Date,
+        },
+      },
+    ],
+    date: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { timestamps: true }
+);
+GameSchema.index({ createdAt: 1 }, { expireAfterSeconds: 86400 });
 
 module.exports = Game = mongoose.model("game", GameSchema);
