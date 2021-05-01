@@ -11,5 +11,3 @@ export const JOIN_FAILED = "JOIN_FAILED";
 export const GAME_LEAVE = "GAME_LEAVE";
 export const JOIN_LOADING = "JOIN_LOADING";
 export const GAME_LOADING = "GAME_LOADING";
-
-

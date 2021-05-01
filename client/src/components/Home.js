@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {useEffect} from 'react'
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "./layout/Spinner";
@@ -30,14 +30,9 @@ function Home({ game }) {
     });
   }
 
-
-
-
-
-
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();
-    console.log("I am in!")
+    console.log("I am in!");
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
     else if (localStorage.username)
@@ -45,31 +40,34 @@ function Home({ game }) {
     return (
       <Fragment>
         <Heading text={`Game Dashboard (${typeOfPlayer})`} />
-        
-        {game.loading ? <Spinner></Spinner> : (<div className="container">
-          <Link to="/play">
-            <button className="btn btn-lg">Resume Game</button>
-            <br></br>
-            <br></br>
-          </Link>
-          <div className="host-player">
-            <Host game={game.game} total={numCalled.length}></Host>
-            {game.game ? (
-              localStorage.gameid === game.game._id ? (
-                <Player game={game.game ? game.game : {}} />
+
+        {game.loading ? (
+          <Spinner></Spinner>
+        ) : (
+          <div className="container">
+            <Link to="/play">
+              <button className="btn btn-lg">Resume Game</button>
+              <br></br>
+              <br></br>
+            </Link>
+            <div className="host-player">
+              <Host game={game.game} total={numCalled.length}></Host>
+              {game.game ? (
+                localStorage.gameid === game.game._id ? (
+                  <Player game={game.game ? game.game : {}} />
+                ) : (
+                  ""
+                )
               ) : (
                 ""
-              )
-            ) : (
-              ""
-            )}
+              )}
+            </div>
           </div>
-        </div>)}
+        )}
       </Fragment>
     );
   }
 
-  
   return (
     <Fragment>
       <Heading text="Welcome to Tambola," />

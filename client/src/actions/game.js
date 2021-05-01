@@ -12,14 +12,14 @@ import {
   JOIN_FAILED,
   GAME_LEAVE,
   GAME_LOADING,
-  JOIN_LOADING
+  JOIN_LOADING,
 } from "./types";
 
 //load game if created(gamedid saved)
 export const loadGame = () => async (dispatch) => {
   dispatch({
-    type: GAME_LOADING
-  })
+    type: GAME_LOADING,
+  });
   if (localStorage.gameid) {
     try {
       const res = await axios.get(`/game/${localStorage.gameid}`);
@@ -145,8 +145,8 @@ export const nextNumber = (gameid) => async (dispatch) => {
 //Join the game
 export const joinGame = (playername, gameID) => async (dispatch) => {
   dispatch({
-    type: JOIN_LOADING
-  })
+    type: JOIN_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",

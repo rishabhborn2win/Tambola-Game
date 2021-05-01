@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -10,8 +10,8 @@ import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
 import NumberHistory from "./NumberHistory";
-import {transform } from './transformFunction'
-import ReactTooltip from 'react-tooltip';
+import { transform } from "./transformFunction";
+import ReactTooltip from "react-tooltip";
 
 function Board({
   game: { game },
@@ -21,14 +21,12 @@ function Board({
   leaveGame,
   numberCalled,
 }) {
-
-//making it live as it will call the data from the database every 2.5s
+  //making it live as it will call the data from the database every 2.5s
   // useEffect(() => {
   //   setInterval(function () {
   //     loadGame();
   //   }, 2500);
   // }, [loadGame]);
-
 
   // setInterval(function () {
   //   loadGame();
@@ -38,7 +36,6 @@ function Board({
   const deleteGame = () => {
     dropGame(localStorage.gameid);
   };
-
 
   //check which numbers are called and marking them as blue
   useEffect(() => {
@@ -58,7 +55,6 @@ function Board({
       localStorage.getItem("username")
     );
   };
-
 
   //everytime saving all the called numbers from the database when it is updated
   var numCalled = [];
@@ -89,7 +85,6 @@ function Board({
     if (numbersArray[i].called === false) break;
   }
 
-
   //coloring the current number to be red
   useEffect(() => {
     if (numCalled.length !== undefined) {
@@ -107,15 +102,13 @@ function Board({
   else if (localStorage.username)
     typeOfPlayer = `Player : ${localStorage.username}`;
 
-
   //transform the number using emoji
   var numString = transform(numCalled[numCalled.length - 1] || 0, game.gameID);
 
-
   //open numbers history
-  const [openNumbers, setOpenNumbers] = useState(false)
+  const [openNumbers, setOpenNumbers] = useState(false);
 
-//returning JSX
+  //returning JSX
   return (
     <Fragment>
       <ReactTooltip />
@@ -156,17 +149,28 @@ function Board({
       </div>
 
       <div className="container">
-        <div className="second-row" onClick={() => setOpenNumbers(!openNumbers)}>
-        <p data-tip="Click Here, For History!!">
-        <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
-          <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
-          <span className="prev">{numCalled[numCalled.length - 2] || 0} </span>
-          <span className="current">
-            {numCalled[numCalled.length - 1] || 0}
-          </span>
-          {openNumbers ? <NumberHistory numCalled={numCalled} setOpenNumbers={setOpenNumbers} /> : ""}
-        </p>
-          
+        <div
+          className="second-row"
+          onClick={() => setOpenNumbers(!openNumbers)}
+        >
+          <p data-tip="Click Here, For History!!">
+            <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
+            <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
+            <span className="prev">
+              {numCalled[numCalled.length - 2] || 0}{" "}
+            </span>
+            <span className="current">
+              {numCalled[numCalled.length - 1] || 0}
+            </span>
+            {openNumbers ? (
+              <NumberHistory
+                numCalled={numCalled}
+                setOpenNumbers={setOpenNumbers}
+              />
+            ) : (
+              ""
+            )}
+          </p>
         </div>
         <br />
         <table>

@@ -15,11 +15,11 @@ export default function NumberHistory({ numCalled }) {
   return (
     <div>
       <Modal open={open} onClose={onCloseModal} center>
-          <div class="history-number-container">
+        <div class="history-number-container">
           {numCalled.map((num) => {
-            return (<span class="number-display">{num}</span>);
+            return <span class="number-display">{num}</span>;
           })}
-          </div>
+        </div>
       </Modal>
     </div>
   );

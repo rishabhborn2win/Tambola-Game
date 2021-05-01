@@ -9,7 +9,7 @@ import {
   JOIN_GAME,
   GAME_LEAVE,
   GAME_LOADING,
-  JOIN_LOADING
+  JOIN_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -77,12 +77,12 @@ export default function abc(state = initialState, action) {
         loading: false,
         error: payload.msg,
       };
-    case GAME_LOADING: 
+    case GAME_LOADING:
     case JOIN_LOADING:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case CREATE_FAILED:
     case GAME_ERROR:
     default:
