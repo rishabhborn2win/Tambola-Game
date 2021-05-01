@@ -123,6 +123,7 @@ function Board({
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
             target="_blank"
+            rel="noreferrer"
           >
             {" "}
             <WhatsappIcon size={32} round={true} />
@@ -694,6 +695,7 @@ function Board({
               data-action="share/whatsapp/share"
               target="_blank"
               className="btn-lg"
+              rel="noreferrer"
             >
               {" "}
               <WhatsappIcon size={32} round={true} />

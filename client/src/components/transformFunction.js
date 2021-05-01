@@ -19,6 +19,7 @@ export const transform = (n, gameid) => {
     if (num === 8) return (numString += "8️⃣");
     if (num === 9) return (numString += "9️⃣");
     if (num === 0) return (numString += "0️⃣");
+    else return 0;
   });
   if (numString === "0️⃣")
     numString = `Game Is about to begin! Please Join The room (GameID: ${gameid} ) ASAP! https://tambola-numbers.herokuapp.com/join`;

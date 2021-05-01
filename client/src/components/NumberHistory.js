@@ -7,10 +7,7 @@ export default function NumberHistory({ numCalled }) {
   const onCloseModal = () => {
     setOpen(false);
   };
-  const onOpenModal = (e) => {
-    e.preventDefault();
-    setOpen(true);
-  };
+
 
   return (
     <div>

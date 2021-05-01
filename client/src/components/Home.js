@@ -15,7 +15,7 @@ import Player from "./Player";
 function Home({ game }) {
   useEffect(() => {
     loadGame();
-  }, [localStorage.gameid, localStorage.playerid]);
+  });
 
   // loadGame();
 
