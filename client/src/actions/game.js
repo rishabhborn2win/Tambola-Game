@@ -11,14 +11,18 @@ import {
   JOIN_GAME,
   JOIN_FAILED,
   GAME_LEAVE,
+  GAME_LOADING,
+  JOIN_LOADING,
 } from "./types";
 
 //load game if created(gamedid saved)
 export const loadGame = () => async (dispatch) => {
+  dispatch({
+    type: GAME_LOADING,
+  });
   if (localStorage.gameid) {
     try {
       const res = await axios.get(`/game/${localStorage.gameid}`);
-
       dispatch({
         type: GAME_LOADED,
         payload: res.data,
@@ -30,6 +34,7 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
+      dispatch(setAlert("Server Error, Please Wait As we Resume..", 'danger'));
     }
   } else if (localStorage.playerid) {
     try {
@@ -50,12 +55,62 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(
-        setAlert(
-          "The Game has been deleted by the user, Please Reset the app.",
-          "Danger"
-        )
-      );
+      dispatch(setAlert("GAME NOT EXIST!! You will be redirected to Home!", 'danger'))
+      localStorage.removeItem('playerid');
+      localStorage.removeItem('username')
+    }
+  } else {
+    dispatch({
+      type: GAME_ERROR,
+      payload: {
+        msg: "Please create a new game",
+      },
+    });
+    
+
+  }
+};
+
+export const refreshGame = () => async (dispatch) =>  {
+  if (localStorage.gameid) {
+    try {
+      const res = await axios.get(`/game/${localStorage.gameid}`);
+      dispatch({
+        type: GAME_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: GAME_ERROR,
+        payload: {
+          msg: "Please create a new game",
+        },
+      });
+      dispatch(setAlert("Server Error, Please Wait As we Resume..", 'danger'));
+
+    }
+  } else if (localStorage.playerid) {
+    try {
+      const res = await axios.get(`/game/join/${localStorage.playerid}`);
+      if (!res.data) {
+        localStorage.removeItem("playerid");
+        localStorage.removeItem("username");
+      } else {
+        dispatch({
+          type: GAME_LOADED,
+          payload: res.data,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: GAME_ERROR,
+        payload: {
+          msg: "Please create a new game",
+        },
+      });
+      dispatch(setAlert("GAME NOT EXIST!! You will be redirected to Home!", 'danger'))
+      localStorage.removeItem('playerid');
+      localStorage.removeItem('username')
     }
   } else {
     dispatch({
@@ -65,7 +120,7 @@ export const loadGame = () => async (dispatch) => {
       },
     });
   }
-};
+}
 
 //Notify to fill form for creating the game
 export const notifyFill = (msg) => async (dispatch) => {
@@ -145,6 +200,9 @@ export const nextNumber = (gameid) => async (dispatch) => {
 
 //Join the game
 export const joinGame = (playername, gameID) => async (dispatch) => {
+  dispatch({
+    type: JOIN_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -158,7 +216,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
       payload: res.data,
     });
     localStorage.setItem("username", playername);
-    dispatch(setAlert("Joined Successfully", "success"));
+    // dispatch(setAlert("Joined Successfully", "success"));
   } catch (err) {
     dispatch({
       type: JOIN_FAILED,
@@ -191,7 +249,7 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
           msg: "Game Deleted successfully",
         },
       });
-      dispatch(setAlert("Game Left", "danger"));
+      // dispatch(setAlert("Game Left", "danger"));
     } catch (err) {
       dispatch({
         type: CREATE_FAILED,

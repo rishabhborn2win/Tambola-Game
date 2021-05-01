@@ -31,7 +31,6 @@ function App() {
         <Route exact path="/create" component={HostForm} />
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/help" component={Help} />
-
         <PrivateRoute exact path="/play" component={Board} />
         <Footer></Footer>
       </Router>

@@ -1,32 +1,45 @@
+import { useState } from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
+import { dropGame, loadGame, nextNumber, leaveGame, refreshGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
+import NumberHistory from "./NumberHistory";
+import { transform } from "./transformFunction";
+import ReactTooltip from "react-tooltip";
+import Spinner from "./layout/Spinner";
 
 function Board({
-  game: { game },
+  game: { game, loading },
   dropGame,
   nextNumber,
   loadGame,
   leaveGame,
   numberCalled,
+  refreshGame
 }) {
+  // making it live as it will call the data from the database every 2.5s
   useEffect(() => {
     setInterval(function () {
-      loadGame();
-    }, 2500);
+      refreshGame();
+    }, 2000);
   }, [loadGame]);
 
+  // setInterval(function () {
+  //   loadGame();
+  // }, 2500);
+
+  //fucntion for deleting the game
   const deleteGame = () => {
     dropGame(localStorage.gameid);
   };
 
+  //check which numbers are called and marking them as blue
   useEffect(() => {
     game.numbers.map((num, index) => {
       if (num.called === true) {
@@ -36,6 +49,7 @@ function Board({
     });
   }, [game]);
 
+  //leave the game for the player who has joined
   const leave = (e) => {
     e.preventDefault();
     leaveGame(
@@ -44,7 +58,7 @@ function Board({
     );
   };
 
-  
+  //everytime saving all the called numbers from the database when it is updated
   var numCalled = [];
   game.numbers.map((num) => {
     if (num.called === true) {
@@ -53,6 +67,8 @@ function Board({
     }
     return 0;
   });
+
+  //calling necxt num should disable the necxt num button so that a user can't call it uneccesarily
   const nextNum = () => {
     nextNumber(localStorage.gameid);
     document.getElementById("nxt").disabled = true;
@@ -63,8 +79,6 @@ function Board({
     }, 3000);
   };
 
-  
-
   //getting the index value
   var i;
   var numbersArray = game.numbers;
@@ -73,6 +87,7 @@ function Board({
     if (numbersArray[i].called === false) break;
   }
 
+  //coloring the current number to be red
   useEffect(() => {
     if (numCalled.length !== undefined) {
       if (numCalled.length !== 0) {
@@ -82,43 +97,23 @@ function Board({
       }
     }
   });
+
+  //declaring the type of player
   var typeOfPlayer;
   if (localStorage.gameid) typeOfPlayer = "Host";
   else if (localStorage.username)
     typeOfPlayer = `Player : ${localStorage.username}`;
 
   //transform the number using emoji
-  const transform = (n) => {
-    var number = n;
+  var numString = transform(numCalled[numCalled.length - 1] || 0, game.gameID);
 
-    var output = [];
-    var sNumber = number.toString();
+  //open numbers history
+  const [openNumbers, setOpenNumbers] = useState(false);
 
-    for (var i = 0, len = sNumber.length; i < len; i += 1) {
-      output.push(+sNumber.charAt(i));
-    }
-    var numString = "";
-    output.map((num) => {
-      if (num === 1) return (numString += "1️⃣");
-      if (num === 2) return (numString += "2️⃣");
-      if (num === 3) return (numString += "3️⃣");
-      if (num === 4) return (numString += "4️⃣");
-      if (num === 5) return (numString += "5️⃣");
-      if (num === 6) return (numString += "6️⃣");
-      if (num === 7) return (numString += "7️⃣");
-      if (num === 8) return (numString += "8️⃣");
-      if (num === 9) return (numString += "9️⃣");
-      if (num === 0) return (numString += "0️⃣");
-    });
-    if (numString === "0️⃣")
-      numString = `Game Is about to begin! Please Join The room (GameID: ${game.gameID} ) ASAP! https://tambola-numbers.herokuapp.com/join`;
-    return numString;
-  };
-
-  var numString = transform(numCalled[numCalled.length - 1] || 0);
-
+  //returning JSX
   return (
     <Fragment>
+      <ReactTooltip />
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
       <div className="top-row">
         <div className="gameid">
@@ -130,9 +125,10 @@ function Board({
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
             target="_blank"
+            rel="noreferrer"
           >
             {" "}
-            <WhatsappIcon size={32} round={true} /><span>Invite!</span>
+            <WhatsappIcon size={32} round={true} />
           </a>
         </div> */}
         {localStorage.gameid ? (
@@ -149,16 +145,36 @@ function Board({
           </div>
         )}
       </div>
-
+      
       <div className="container">
-        <div className="second-row">
-          <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
-          <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
-          <span className="prev">{numCalled[numCalled.length - 2] || 0} </span>
-          <span className="current">
-            {numCalled[numCalled.length - 1] || 0}
-          </span>
+        <div
+          className="second-row"
+        >
+          <div class="absolute-loading">
+          {/* {loading ? <Spinner></Spinner> : ""} */}
+          </div>
+          <p data-tip="Click Here, For History!!" onClick={() => setOpenNumbers(!openNumbers)}>
+            <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
+            <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
+            <span className="prev">
+              {numCalled[numCalled.length - 2] || 0}{" "}
+            </span>
+            <span className="current">
+              {numCalled[numCalled.length - 1] || 0}
+            </span>
+            {openNumbers ? (
+              <NumberHistory
+                numCalled={numCalled}
+                setOpenNumbers={setOpenNumbers}
+              />
+            ) : (
+              ""
+            )}
+          </p>
         </div>
+        {/* <div>
+            <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
+        </div> */}
         <br />
         <table>
           <tr>
@@ -663,9 +679,7 @@ function Board({
                     Next Number (Wait 3s)
                   </button>
                 ) : (
-                  <button class="show" style={{ opacity: 0.5 }}>
-                    Next Number (Wait for 3s)
-                  </button>
+                  <p>Game FINISHED !!</p>
                 )
               ) : (
                 ""
@@ -677,16 +691,20 @@ function Board({
           ) : (
             <Fragment></Fragment>
           )}
+          {/* <div>
+            <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
+        </div> */}
           <div className="whatsapp-container">
             <a
-              href={`whatsapp://send?text=${numString}`}
+              href={`whatsapp://send?text=${numString} is the last number called!`}
               data-action="share/whatsapp/share"
               target="_blank"
               className="btn-lg"
+              rel="noreferrer"
             >
               {" "}
-              <WhatsappIcon size={32} round={true} />
-              Share
+              <WhatsappIcon size={30} round={true} />
+              
             </a>
           </div>
         </div>
@@ -705,6 +723,7 @@ Board.propTypes = {
   dropGame: PropTypes.func.isRequired,
   nextNumber: PropTypes.func.isRequired,
   numberCalled: PropTypes.array.isRequired,
+  refreshGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -717,4 +736,5 @@ export default connect(mapStateToProps, {
   nextNumber,
   loadGame,
   leaveGame,
+  refreshGame
 })(Board);
