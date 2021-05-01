@@ -3,7 +3,7 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { dropGame, loadGame, nextNumber, leaveGame } from "../actions/game";
+import { dropGame, loadGame, nextNumber, leaveGame, refreshGame } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
@@ -12,21 +12,23 @@ import { WhatsappIcon } from "react-share";
 import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
+import Spinner from "./layout/Spinner";
 
 function Board({
-  game: { game },
+  game: { game, loading },
   dropGame,
   nextNumber,
   loadGame,
   leaveGame,
   numberCalled,
+  refreshGame
 }) {
-  //making it live as it will call the data from the database every 2.5s
-  // useEffect(() => {
-  //   setInterval(function () {
-  //     loadGame();
-  //   }, 2500);
-  // }, [loadGame]);
+  // making it live as it will call the data from the database every 2.5s
+  useEffect(() => {
+    setInterval(function () {
+      refreshGame();
+    }, 2000);
+  }, [loadGame]);
 
   // setInterval(function () {
   //   loadGame();
@@ -118,7 +120,7 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
-        <div>
+        {/* <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
@@ -128,7 +130,7 @@ function Board({
             {" "}
             <WhatsappIcon size={32} round={true} />
           </a>
-        </div>
+        </div> */}
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">
@@ -142,19 +144,16 @@ function Board({
             </a>
           </div>
         )}
-        <div>
-          <a href="#top">
-            <i class="fa fa-refresh"></i>
-          </a>
-        </div>
       </div>
-
+      
       <div className="container">
         <div
           className="second-row"
-          onClick={() => setOpenNumbers(!openNumbers)}
         >
-          <p data-tip="Click Here, For History!!">
+          <div class="absolute-loading">
+          {/* {loading ? <Spinner></Spinner> : ""} */}
+          </div>
+          <p data-tip="Click Here, For History!!" onClick={() => setOpenNumbers(!openNumbers)}>
             <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
             <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
             <span className="prev">
@@ -173,6 +172,9 @@ function Board({
             )}
           </p>
         </div>
+        {/* <div>
+            <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
+        </div> */}
         <br />
         <table>
           <tr>
@@ -689,17 +691,20 @@ function Board({
           ) : (
             <Fragment></Fragment>
           )}
+          {/* <div>
+            <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
+        </div> */}
           <div className="whatsapp-container">
             <a
-              href={`whatsapp://send?text=${numString}`}
+              href={`whatsapp://send?text=${numString} is the last number called!`}
               data-action="share/whatsapp/share"
               target="_blank"
               className="btn-lg"
               rel="noreferrer"
             >
               {" "}
-              <WhatsappIcon size={32} round={true} />
-              Share
+              <WhatsappIcon size={30} round={true} />
+              
             </a>
           </div>
         </div>
@@ -718,6 +723,7 @@ Board.propTypes = {
   dropGame: PropTypes.func.isRequired,
   nextNumber: PropTypes.func.isRequired,
   numberCalled: PropTypes.array.isRequired,
+  refreshGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -730,4 +736,5 @@ export default connect(mapStateToProps, {
   nextNumber,
   loadGame,
   leaveGame,
+  refreshGame
 })(Board);

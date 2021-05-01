@@ -37,6 +37,9 @@ function Home({ game }) {
     if (localStorage.gameid) typeOfPlayer = "Host";
     else if (localStorage.username)
       typeOfPlayer = `Player : ${localStorage.username}`;
+
+    // if(game.game === null) return <Fragment><Spinner></Spinner></Fragment>;
+    // else {
     return (
       <Fragment>
         <Heading text={`Game Dashboard (${typeOfPlayer})`} />
@@ -66,6 +69,7 @@ function Home({ game }) {
         )}
       </Fragment>
     );
+              // }
   }
 
   return (

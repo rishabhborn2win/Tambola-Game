@@ -182,7 +182,7 @@
   }
 
   .second-row{
-      margin-top: -25px;
+      /* margin-top: -20px; */
       cursor: pointer;
   }
 
@@ -201,6 +201,24 @@
   .datetime{
       margin-top: 20px;
   }
+  .refresh-container{
+    margin-left: 10%;
+  }
+
+  @media (max-width: 700px) {
+    .refresh-container{
+      /* font-size: 50px; */
+      margin-left: 10px;
+    }
+  }
+
+  .absolute-loading {
+    position: absolute;
+    height: 5px;
+    width: 5px;
+  }
+
+  
 
 
   /* host page */
@@ -375,5 +393,7 @@
     
     /* padding: 50px; */
   }
+
+  
 
  
