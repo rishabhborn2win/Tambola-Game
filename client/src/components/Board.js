@@ -41,16 +41,10 @@ function Board({
   useEffect(() => {
     setInterval(function () {
       refreshGame();
-    }, 2000);
+    }, 10000);
   });
 
-  // useEffect(() => {
-  //   loadTicket();
-  // }, [game]);
 
-  // setInterval(function () {
-  //   loadGame();
-  // }, 2500);
 
   //fucntion for deleting the game
   const deleteGame = () => {
