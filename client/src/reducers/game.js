@@ -114,7 +114,7 @@ export default function abc(state = initialState, action) {
         ...state,
         game: null,
         error: payload,
-        loading: true,
+        loading: false,
       };
   }
 }
