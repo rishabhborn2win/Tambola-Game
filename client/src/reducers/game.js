@@ -8,10 +8,6 @@ import {
   JOIN_FAILED,
   JOIN_GAME,
   GAME_LEAVE,
-  GENERATE_FAILED,
-  TICKET_GENERATED,
-  TICKET_LOADED,
-  TICKET_LOADING,
   GAME_LOADING,
   JOIN_LOADING,
 } from "../actions/types";
@@ -21,9 +17,6 @@ const initialState = {
   loading: true,
   error: {},
   numCalled: [],
-  tickets: {
-    tickets: [],
-  },
 };
 
 export default function abc(state = initialState, action) {
@@ -65,7 +58,6 @@ export default function abc(state = initialState, action) {
       };
     case JOIN_GAME:
       localStorage.setItem("playerid", payload.gameID);
-      localStorage.setItem("player", payload._id);
       return {
         ...state,
         game: payload,
@@ -74,12 +66,9 @@ export default function abc(state = initialState, action) {
     case GAME_LEAVE:
       localStorage.removeItem("playerid");
       localStorage.removeItem("username");
-      localStorage.removeItem("player");
-      localStorage.removeItem("ticketid");
       return {
         ...state,
         game: null,
-        tickets: null,
         loading: false,
       };
     case JOIN_FAILED:
@@ -88,32 +77,18 @@ export default function abc(state = initialState, action) {
         loading: false,
         error: payload.msg,
       };
-    case TICKET_GENERATED:
-      return {
-        ...state,
-        tickets: payload,
-      };
-    case TICKET_LOADING:
     case GAME_LOADING:
     case JOIN_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case TICKET_LOADED:
-      return {
-        ...state,
-        loading: false,
-        tickets: payload,
-      };
-    case GENERATE_FAILED:
     case CREATE_FAILED:
     case GAME_ERROR:
     default:
       return {
         ...state,
         game: null,
-        error: payload,
         loading: true,
       };
   }
