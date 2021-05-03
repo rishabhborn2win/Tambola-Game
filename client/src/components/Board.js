@@ -1,18 +1,31 @@
+import React from "react";
 import { useState } from "react";
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useEffect } from "react";
-import { dropGame, loadGame, nextNumber, leaveGame, refreshGame } from "../actions/game";
+import {
+  dropGame,
+  loadGame,
+  nextNumber,
+  leaveGame,
+  loadTicket,
+  refreshGame,
+} from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
+import { Link } from "react-router-dom";
+import GenerateTicketForm from "./GenerateTicketForm";
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import TicketList from "./TicketList";
 import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
-import Spinner from "./layout/Spinner";
+// import Spinner from "./layout/Spinner";
 
 function Board({
   game: { game, loading },
@@ -21,14 +34,19 @@ function Board({
   loadGame,
   leaveGame,
   numberCalled,
-  refreshGame
+  loadTicket,
+  refreshGame,
 }) {
   // making it live as it will call the data from the database every 2.5s
   useEffect(() => {
     setInterval(function () {
       refreshGame();
     }, 2000);
-  }, [loadGame]);
+  });
+
+  // useEffect(() => {
+  //   loadTicket();
+  // }, [game]);
 
   // setInterval(function () {
   //   loadGame();
@@ -36,7 +54,8 @@ function Board({
 
   //fucntion for deleting the game
   const deleteGame = () => {
-    dropGame(localStorage.gameid);
+    if (game.players.length === 0) dropGame(localStorage.gameid);
+    else alert("Let all the player leave first!");
   };
 
   //check which numbers are called and marking them as blue
@@ -47,6 +66,17 @@ function Board({
       }
       return 0;
     });
+  }, [game]);
+
+  useEffect(() => {
+    var ticketId = "";
+    game.players.map((player) => {
+      if (player.name === localStorage.username) {
+        return ticketId = player.tickets;
+      }
+      else return 0;
+    });
+    localStorage.setItem("ticketId", ticketId);
   }, [game]);
 
   //leave the game for the player who has joined
@@ -110,16 +140,34 @@ function Board({
   //open numbers history
   const [openNumbers, setOpenNumbers] = useState(false);
 
+  //modal function
+  const [open, setOpen] = React.useState(false);
+  const onCloseModal = () => {
+    setOpen(false);
+  };
+  const onOpenModal = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
   //returning JSX
   return (
     <Fragment>
       <ReactTooltip />
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
+      {localStorage.gameid ? (
+        <Modal open={open} onClose={onCloseModal} center>
+          <GenerateTicketForm function={onCloseModal} game={game} />
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className="top-row">
         <div className="gameid">
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
+
         {/* <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
@@ -131,6 +179,7 @@ function Board({
             <WhatsappIcon size={32} round={true} />
           </a>
         </div> */}
+
         {localStorage.gameid ? (
           <div className="trash">
             <a href="#top" onClick={() => deleteGame()} class="ow">
@@ -145,15 +194,16 @@ function Board({
           </div>
         )}
       </div>
-      
+
       <div className="container">
-        <div
-          className="second-row"
-        >
+        <div className="second-row">
           <div class="absolute-loading">
-          {/* {loading ? <Spinner></Spinner> : ""} */}
+            {/* {loading ? <Spinner></Spinner> : ""} */}
           </div>
-          <p data-tip="Click Here, For History!!" onClick={() => setOpenNumbers(!openNumbers)}>
+          <p
+            data-tip="Click Here, For History!!"
+            onClick={() => setOpenNumbers(!openNumbers)}
+          >
             <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
             <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
             <span className="prev">
@@ -175,6 +225,22 @@ function Board({
         {/* <div>
             <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
         </div> */}
+        <br />
+        {localStorage.playerid ? (
+          <div>
+            <TicketList tickets={game.tickets} game={game} />{" "}
+          </div>
+        ) : (
+          ""
+        )}
+        {localStorage.gameid ? (
+          <Link to="#" className="btn-lg" onClick={onOpenModal}>
+            Generate Tickets
+          </Link>
+        ) : (
+          ""
+        )}
+
         <br />
         <table>
           <tr>
@@ -699,12 +765,11 @@ function Board({
               href={`whatsapp://send?text=${numString} is the last number called!`}
               data-action="share/whatsapp/share"
               target="_blank"
-              className="btn-lg"
               rel="noreferrer"
+              className="btn-lg"
             >
               {" "}
               <WhatsappIcon size={30} round={true} />
-              
             </a>
           </div>
         </div>
@@ -723,6 +788,7 @@ Board.propTypes = {
   dropGame: PropTypes.func.isRequired,
   nextNumber: PropTypes.func.isRequired,
   numberCalled: PropTypes.array.isRequired,
+  loadTicket: PropTypes.func.isRequired,
   refreshGame: PropTypes.func.isRequired,
 };
 
@@ -736,5 +802,6 @@ export default connect(mapStateToProps, {
   nextNumber,
   loadGame,
   leaveGame,
-  refreshGame
+  loadTicket,
+  refreshGame,
 })(Board);
