@@ -12,6 +12,8 @@ import {
   TICKET_GENERATED,
   TICKET_LOADED,
   TICKET_LOADING,
+  GAME_LOADING,
+  JOIN_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -92,6 +94,8 @@ export default function abc(state = initialState, action) {
         tickets: payload,
       };
     case TICKET_LOADING:
+    case GAME_LOADING:
+    case JOIN_LOADING:
       return {
         ...state,
         loading: true,
@@ -111,6 +115,7 @@ export default function abc(state = initialState, action) {
         game: null,
         loading: false,
         error: payload,
+        loading: true,
       };
   }
 }

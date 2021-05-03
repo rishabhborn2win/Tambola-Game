@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { CSSTransition } from "react-transition-group";
 import tambolaWrite from "./tambola-write.png";
+// import WhatsAppWidget from "react-whatsapp-widget";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import Rules from "../Rules";
@@ -47,7 +48,7 @@ export default function Header() {
 
   };
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const onCloseModal = () => {
     setOpen(false);
   };
