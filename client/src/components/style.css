@@ -58,42 +58,4 @@ font-size: 15px;
 	font-size: 25px;
 }
 
-/* ticket designing */
-.tambola-ticket {
-  width: 30%;
-  height: auto;
-}
-
-.ticket{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: #ABB7F8 1px;
-  border-style: solid ;
-  padding: 10px;
-  margin: 10px;
-}
-
-.ticket p{
- background-color: #ABB7F8;
- width: 100%;
- text-align: center;
- text-transform: uppercase ;
-}
-.ticket-list{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-bottom: 6%;
-}
-.tambola-ticket td:nth-child(even) {background: #CCC; }
-.tambola-ticket td:nth-child(odd) {background: #FFF; }
-.tambola-ticket td {
-  font-size: 20px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-
 

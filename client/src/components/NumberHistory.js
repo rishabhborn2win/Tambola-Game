@@ -8,18 +8,15 @@ export default function NumberHistory({ numCalled }) {
     setOpen(false);
   };
 
+
   return (
     <div>
       <Modal open={open} onClose={onCloseModal} center>
-        {numCalled.length > 0 ? (
-          <div class="history-number-container">
-            {numCalled.map((num) => {
-              return <span class="number-display">{num}</span>;
-            })}
-          </div>
-        ) : (
-          <div>Game Is yet To Start!</div>
-        )}
+        <div class="history-number-container">
+          {numCalled.map((num) => {
+            return <span class="number-display">{num}</span>;
+          })}
+        </div>
       </Modal>
     </div>
   );

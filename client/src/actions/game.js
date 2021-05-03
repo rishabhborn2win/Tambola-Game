@@ -11,10 +11,6 @@ import {
   JOIN_GAME,
   JOIN_FAILED,
   GAME_LEAVE,
-  GENERATE_FAILED,
-  TICKET_GENERATED,
-  TICKET_LOADED,
-  TICKET_LOADING,
   GAME_LOADING,
   JOIN_LOADING,
 } from "./types";
@@ -38,12 +34,14 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("Server Error, Please Wait As we Resume..", "danger"));
+      dispatch(setAlert("Server Error, Please Wait As we Resume..", 'danger'));
     }
   } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
       if (!res.data) {
+        localStorage.removeItem("playerid");
+        localStorage.removeItem("username");
       } else {
         dispatch({
           type: GAME_LOADED,
@@ -57,11 +55,9 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(
-        setAlert("GAME NOT EXIST!! You will be redirected to Home!", "danger")
-      );
-      // localStorage.removeItem("playerid");
-      // localStorage.removeItem("username");
+      dispatch(setAlert("GAME NOT EXIST!! You will be redirected to Home!", 'danger'))
+      localStorage.removeItem('playerid');
+      localStorage.removeItem('username')
     }
   } else {
     dispatch({
@@ -70,10 +66,12 @@ export const loadGame = () => async (dispatch) => {
         msg: "Please create a new game",
       },
     });
+    
+
   }
 };
 
-export const refreshGame = () => async (dispatch) => {
+export const refreshGame = () => async (dispatch) =>  {
   if (localStorage.gameid) {
     try {
       const res = await axios.get(`/game/${localStorage.gameid}`);
@@ -88,14 +86,15 @@ export const refreshGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("Server Error, Please Wait As we Resume..", "danger"));
+      dispatch(setAlert("Server Error, Please Wait As we Resume..", 'danger'));
+
     }
   } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
       if (!res.data) {
-        // localStorage.removeItem("playerid");
-        // localStorage.removeItem("username");
+        localStorage.removeItem("playerid");
+        localStorage.removeItem("username");
       } else {
         dispatch({
           type: GAME_LOADED,
@@ -109,11 +108,9 @@ export const refreshGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(
-        setAlert("GAME NOT EXIST!! You will be redirected to Home!", "danger")
-      );
-      localStorage.removeItem("playerid");
-      localStorage.removeItem("username");
+      dispatch(setAlert("GAME NOT EXIST!! You will be redirected to Home!", 'danger'))
+      localStorage.removeItem('playerid');
+      localStorage.removeItem('username')
     }
   } else {
     dispatch({
@@ -123,7 +120,7 @@ export const refreshGame = () => async (dispatch) => {
       },
     });
   }
-};
+}
 
 //Notify to fill form for creating the game
 export const notifyFill = (msg) => async (dispatch) => {
@@ -227,7 +224,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
         msg: "Some Error happen",
       },
     });
-    const errors = err.response ? err.response.data.errors : {};
+    const errors = err.response.data.errors;
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
@@ -261,70 +258,5 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
         },
       });
     }
-  }
-};
-
-//Generate ticket
-export const generateTicket = (formData) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const body = JSON.stringify({
-    gameid: formData.gameID,
-    playerid: formData.playerid,
-  });
-  try {
-    let res = await axios.post(
-      `/game/generate/ticket/${formData.noOfTickets}/${formData.playername}`,
-      body,
-      config
-    );
-    dispatch({
-      type: TICKET_GENERATED,
-      payload: res.data,
-    });
-    dispatch(
-      setAlert(
-        `${res.data.name}, Your Tickets are successfully Generated!`,
-        "success"
-      )
-    );
-  } catch (err) {
-    dispatch({
-      type: GENERATE_FAILED,
-      payload: {
-        msg: err.message,
-      },
-    });
-  }
-};
-
-//Fetch ticket using ticket id
-export const loadTicket = () => async (dispatch) => {
-  try {
-    let res;
-    if (!localStorage.ticketId) {
-      dispatch({
-        type: TICKET_LOADING,
-      });
-    }
-    res = await axios.get(`/game/ticket/${localStorage.ticketId}`);
-
-    if (!res.data)
-      dispatch(setAlert("There is not ticket Against this ticket id!"));
-    dispatch({
-      type: TICKET_LOADED,
-      payload: res.data,
-    });
-    dispatch(loadGame());
-  } catch (err) {
-    dispatch({
-      type: GENERATE_FAILED,
-      payload: {
-        msg: err.message,
-      },
-    });
   }
 };

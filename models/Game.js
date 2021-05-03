@@ -4,7 +4,7 @@ const GameSchema = new mongoose.Schema(
   {
     gameID: {
       type: Number,
-      default: Math.ceil(Math.random() * 1000),
+      default: Math.ceil(Math.random() * 100000000),
     },
     host: {
       type: String,
@@ -32,10 +32,6 @@ const GameSchema = new mongoose.Schema(
         },
         timeofjoin: {
           type: Date,
-        },
-        tickets: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "ticket",
         },
       },
     ],
