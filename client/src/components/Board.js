@@ -28,12 +28,17 @@ function Board({
   loadGame,
   leaveGame,
   numberCalled,
+  loadTicket
 }) {
   useEffect(() => {
     setInterval(function () {
       loadGame();
     }, 2500);
   }, [loadGame]);
+
+  // useEffect(() => {
+  //   loadTicket();
+  // }, [game]);
 
   const deleteGame = () => {
     if (game.players.length === 0) dropGame(localStorage.gameid);
@@ -760,6 +765,7 @@ Board.propTypes = {
   dropGame: PropTypes.func.isRequired,
   nextNumber: PropTypes.func.isRequired,
   numberCalled: PropTypes.array.isRequired,
+  loadTicket: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -772,4 +778,5 @@ export default connect(mapStateToProps, {
   nextNumber,
   loadGame,
   leaveGame,
+  loadTicket
 })(Board);

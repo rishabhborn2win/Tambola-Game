@@ -261,6 +261,7 @@ export const loadTicket = () => async (dispatch) => {
       type: TICKET_LOADED,
       payload: res.data,
     });
+    dispatch(loadGame())
   } catch (err) {
     dispatch({
       type: GENERATE_FAILED,
