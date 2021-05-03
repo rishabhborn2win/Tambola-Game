@@ -75,7 +75,7 @@ export default function abc(state = initialState, action) {
       localStorage.removeItem("playerid");
       localStorage.removeItem("username");
       localStorage.removeItem("player");
-      localStorage.removeItem("ticket");
+      localStorage.removeItem("ticketid");
       return {
         ...state,
         game: null,

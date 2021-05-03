@@ -10,6 +10,7 @@ import {
   nextNumber,
   leaveGame,
   loadTicket,
+  refreshGame
 } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";

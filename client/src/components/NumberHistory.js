@@ -12,11 +12,11 @@ export default function NumberHistory({ numCalled }) {
   return (
     <div>
       <Modal open={open} onClose={onCloseModal} center>
-        <div class="history-number-container">
+        {numCalled.length > 0 ? (<div class="history-number-container">
           {numCalled.map((num) => {
             return <span class="number-display">{num}</span>;
           })}
-        </div>
+        </div>) : <div>Game Is yet To Start!</div>}
       </Modal>
     </div>
   );
