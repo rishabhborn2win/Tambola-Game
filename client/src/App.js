@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Board from "./components/Board";
-import { Redirect, BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/Home";
 import JoinGameForm from "./components/JoinGameForm";
 import HostForm from "./components/HostForm";
@@ -16,8 +16,8 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
-import GenerateTicketForm from "./components/GenerateTicketForm";
-import TicketList from "./components/TicketList";
+// import GenerateTicketForm from "./components/GenerateTicketForm";
+// import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
 // import 'bootstrap/dist/css/bootstrap.min.js';
 

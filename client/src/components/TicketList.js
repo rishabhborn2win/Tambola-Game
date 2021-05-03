@@ -3,7 +3,7 @@ import Ticket from "./Ticket";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadTicket } from "../actions/game";
-import Heading from "./Heading";
+// import Heading from "./Heading";
 
 const TicketList = ({ game, tickets, loadTicket }) => {
   useEffect(() => {
@@ -19,8 +19,14 @@ const TicketList = ({ game, tickets, loadTicket }) => {
             ? tickets.tickets.map((serial, index) => {
                 return (
                   <div class="ticket">
-                    <p>Name: {tickets.name} ({`${tickets.ticketId}-${index + 1}`})</p>
-                    <Ticket ticket={serial} ticketId ={`${tickets.ticketId}-${index + 1}`} />
+                    <p>
+                      Name: {tickets.name} ({`${tickets.ticketId}-${index + 1}`}
+                      )
+                    </p>
+                    <Ticket
+                      ticket={serial}
+                      ticketId={`${tickets.ticketId}-${index + 1}`}
+                    />
                   </div>
                 );
               })

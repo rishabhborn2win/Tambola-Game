@@ -113,7 +113,6 @@ export default function abc(state = initialState, action) {
       return {
         ...state,
         game: null,
-        loading: false,
         error: payload,
         loading: true,
       };

@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { generateTicket, notifyFill } from "../actions/game";
 import Heading from "./Heading";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // import {Button} from 'react-bootstrap'
 import PropTypes from "prop-types";
 
@@ -76,6 +76,7 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
                       </option>
                     );
                   }
+                  else return 0;
                 })}
               </select>
             </div>

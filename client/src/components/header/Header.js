@@ -45,7 +45,6 @@ export default function Header() {
     localStorage.removeItem("gameid");
     localStorage.removeItem("username");
     localStorage.removeItem("ticketid");
-
   };
 
   const [open, setOpen] = React.useState(false);

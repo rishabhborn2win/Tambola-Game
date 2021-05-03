@@ -10,7 +10,7 @@ import {
   nextNumber,
   leaveGame,
   loadTicket,
-  refreshGame
+  refreshGame,
 } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
@@ -25,7 +25,7 @@ import TicketList from "./TicketList";
 import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
-import Spinner from "./layout/Spinner";
+// import Spinner from "./layout/Spinner";
 
 function Board({
   game: { game, loading },
@@ -35,14 +35,14 @@ function Board({
   leaveGame,
   numberCalled,
   loadTicket,
-  refreshGame
+  refreshGame,
 }) {
   // making it live as it will call the data from the database every 2.5s
   useEffect(() => {
     setInterval(function () {
       refreshGame();
     }, 2000);
-  }, [loadGame]);
+  });
 
   // useEffect(() => {
   //   loadTicket();
@@ -72,8 +72,9 @@ function Board({
     var ticketId = "";
     game.players.map((player) => {
       if (player.name === localStorage.username) {
-        ticketId = player.tickets;
+        return ticketId = player.tickets;
       }
+      else return 0;
     });
     localStorage.setItem("ticketId", ticketId);
   }, [game]);
@@ -193,29 +194,16 @@ function Board({
           </div>
         )}
       </div>
-      {localStorage.playerid ? (
-        <div>
-          <TicketList tickets={game.tickets} game={game} />{" "}
-        </div>
-      ) : (
-        ""
-      )}
-      {localStorage.gameid ? (
-        <Link to="#" className="btn-lg" onClick={onOpenModal}>
-          Generate Tickets
-        </Link>
-      ) : (
-        ""
-      )}
 
       <div className="container">
-        <div
-          className="second-row"
-        >
+        <div className="second-row">
           <div class="absolute-loading">
-          {/* {loading ? <Spinner></Spinner> : ""} */}
+            {/* {loading ? <Spinner></Spinner> : ""} */}
           </div>
-          <p data-tip="Click Here, For History!!" onClick={() => setOpenNumbers(!openNumbers)}>
+          <p
+            data-tip="Click Here, For History!!"
+            onClick={() => setOpenNumbers(!openNumbers)}
+          >
             <span className="prev">{numCalled[numCalled.length - 4] || 0}</span>
             <span className="prev">{numCalled[numCalled.length - 3] || 0}</span>
             <span className="prev">
@@ -237,6 +225,22 @@ function Board({
         {/* <div>
             <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
         </div> */}
+        <br />
+        {localStorage.playerid ? (
+          <div>
+            <TicketList tickets={game.tickets} game={game} />{" "}
+          </div>
+        ) : (
+          ""
+        )}
+        {localStorage.gameid ? (
+          <Link to="#" className="btn-lg" onClick={onOpenModal}>
+            Generate Tickets
+          </Link>
+        ) : (
+          ""
+        )}
+
         <br />
         <table>
           <tr>
@@ -763,11 +767,9 @@ function Board({
               target="_blank"
               rel="noreferrer"
               className="btn-lg"
-              rel="noreferrer"
             >
               {" "}
               <WhatsappIcon size={30} round={true} />
-              
             </a>
           </div>
         </div>
@@ -801,5 +803,5 @@ export default connect(mapStateToProps, {
   loadGame,
   leaveGame,
   loadTicket,
-  refreshGame
+  refreshGame,
 })(Board);

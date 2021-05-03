@@ -38,14 +38,12 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("Server Error, Please Wait As we Resume..", 'danger'));
+      dispatch(setAlert("Server Error, Please Wait As we Resume..", "danger"));
     }
   } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
       if (!res.data) {
-        localStorage.removeItem("playerid");
-        localStorage.removeItem("username");
       } else {
         dispatch({
           type: GAME_LOADED,
@@ -59,9 +57,11 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("GAME NOT EXIST!! You will be redirected to Home!", 'danger'))
-      localStorage.removeItem('playerid');
-      localStorage.removeItem('username')
+      dispatch(
+        setAlert("GAME NOT EXIST!! You will be redirected to Home!", "danger")
+      );
+      // localStorage.removeItem("playerid");
+      // localStorage.removeItem("username");
     }
   } else {
     dispatch({
@@ -70,12 +70,10 @@ export const loadGame = () => async (dispatch) => {
         msg: "Please create a new game",
       },
     });
-    
-
   }
 };
 
-export const refreshGame = () => async (dispatch) =>  {
+export const refreshGame = () => async (dispatch) => {
   if (localStorage.gameid) {
     try {
       const res = await axios.get(`/game/${localStorage.gameid}`);
@@ -90,15 +88,14 @@ export const refreshGame = () => async (dispatch) =>  {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("Server Error, Please Wait As we Resume..", 'danger'));
-
+      dispatch(setAlert("Server Error, Please Wait As we Resume..", "danger"));
     }
   } else if (localStorage.playerid) {
     try {
       const res = await axios.get(`/game/join/${localStorage.playerid}`);
       if (!res.data) {
-        localStorage.removeItem("playerid");
-        localStorage.removeItem("username");
+        // localStorage.removeItem("playerid");
+        // localStorage.removeItem("username");
       } else {
         dispatch({
           type: GAME_LOADED,
@@ -112,9 +109,11 @@ export const refreshGame = () => async (dispatch) =>  {
           msg: "Please create a new game",
         },
       });
-      dispatch(setAlert("GAME NOT EXIST!! You will be redirected to Home!", 'danger'))
-      localStorage.removeItem('playerid');
-      localStorage.removeItem('username')
+      dispatch(
+        setAlert("GAME NOT EXIST!! You will be redirected to Home!", "danger")
+      );
+      localStorage.removeItem("playerid");
+      localStorage.removeItem("username");
     }
   } else {
     dispatch({
@@ -124,7 +123,7 @@ export const refreshGame = () => async (dispatch) =>  {
       },
     });
   }
-}
+};
 
 //Notify to fill form for creating the game
 export const notifyFill = (msg) => async (dispatch) => {
@@ -319,7 +318,7 @@ export const loadTicket = () => async (dispatch) => {
       type: TICKET_LOADED,
       payload: res.data,
     });
-    dispatch(loadGame())
+    dispatch(loadGame());
   } catch (err) {
     dispatch({
       type: GENERATE_FAILED,
