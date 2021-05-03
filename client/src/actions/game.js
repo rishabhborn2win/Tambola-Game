@@ -249,7 +249,7 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
           msg: "Game Deleted successfully",
         },
       });
-      // dispatch(setAlert("Game Left", "danger"));
+      dispatch(setAlert("Game Left", "danger"));
     } catch (err) {
       dispatch({
         type: CREATE_FAILED,
