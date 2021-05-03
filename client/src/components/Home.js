@@ -61,7 +61,7 @@ function Home({ game }) {
       <Heading text="Welcome to Tambola," />
       <span class="text-span">Select Option:-</span>
       <div class="container">
-        <Link to="/join">
+        <Link to="/join/1234">
           <Button variant="success" className="button-lg">
             Join Game
           </Button>
