@@ -41,10 +41,34 @@ function Board({
   useEffect(() => {
     setInterval(function () {
       refreshGame();
-    }, 10000);
-  });
+    }, 5000);
+    // loadGame();
+  }, [refreshGame]);
 
+  //find player in the game
+  //we have the username as the player joins the game
+  const findPlayerIndex = (username) => {
+    var playerIndex = -1;
+    if (game.players) {
+      game.players.map((player, index) => {
+        if (player.name === username) {
+          playerIndex = index;
+        }
+        return 0;
+      });
+      return playerIndex;
+    } else {
+      return -1;
+    }
+  };
+  var player;
+  if(localStorage.username) player = findPlayerIndex(localStorage.username);
 
+  var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets
+
+  useEffect(() => {
+    loadTicket()
+  }, [updateIndex])
 
   //fucntion for deleting the game
   const deleteGame = () => {
@@ -66,9 +90,8 @@ function Board({
     var ticketId = "";
     game.players.map((player) => {
       if (player.name === localStorage.username) {
-        return ticketId = player.tickets;
-      }
-      else return 0;
+        return (ticketId = player.tickets);
+      } else return 0;
     });
     localStorage.setItem("ticketId", ticketId);
   }, [game]);

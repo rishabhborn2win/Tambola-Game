@@ -75,8 +75,7 @@ const GenerateTicketForm = ({ game, generateTicket, notifyFill }) => {
                         {player.name}
                       </option>
                     );
-                  }
-                  else return 0;
+                  } else return 0;
                 })}
               </select>
             </div>

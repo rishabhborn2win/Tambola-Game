@@ -237,9 +237,9 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
             },
           ],
         });
-      var reqIndex;
+      var reqIndex = -1;
       game.players.map((player, index) => {
-        if ((player._id = playerid)) return (reqIndex = index);
+        if (player.name === name) return (reqIndex = index);
       });
 
       // if(reqIndex<0) return res.status(400).json({errors: [{

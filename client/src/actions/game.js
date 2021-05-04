@@ -27,8 +27,8 @@ export const loadGame = () => async (dispatch) => {
   if (localStorage.gameid) {
     try {
       const res = await axios.get(`/game/${localStorage.gameid}`);
-      if(!res.data){
-        dispatch(setAlert("There is No Valid game!"))
+      if (!res.data) {
+        dispatch(setAlert("There is No Valid game! Reset The app.."));
       }
       dispatch({
         type: GAME_LOADED,
@@ -67,7 +67,6 @@ export const loadGame = () => async (dispatch) => {
           msg: "Please create a new game",
         },
       });
-
     }
   } else {
     dispatch({
@@ -107,7 +106,6 @@ export const refreshGame = () => async (dispatch) => {
         localStorage.removeItem("username");
         localStorage.removeItem("ticketid");
         localStorage.removeItem("player");
-
       } else {
         dispatch({
           type: GAME_LOADED,
@@ -145,6 +143,9 @@ export const createGame = ({ host }) => async (dispatch) => {
     },
   };
   const body = JSON.stringify({ host });
+  dispatch({
+    type: GAME_LOADING,
+  });
   try {
     const res = await axios.post("/game", body, config);
 
@@ -310,6 +311,9 @@ export const generateTicket = (formData) => async (dispatch) => {
 
 //Fetch ticket using ticket id
 export const loadTicket = () => async (dispatch) => {
+  dispatch({
+    type: TICKET_LOADING,
+  });
   try {
     let res;
     if (!localStorage.ticketId) {
@@ -317,7 +321,9 @@ export const loadTicket = () => async (dispatch) => {
         type: TICKET_LOADING,
       });
     }
-    res = await axios.get(`/game/ticket/${localStorage.ticketId}`);
+    if (localStorage.ticketId !== "" && localStorage.ticketId !== undefined) {
+      res = await axios.get(`/game/ticket/${localStorage.ticketId}`);
+    }
 
     if (!res.data)
       dispatch(setAlert("There is not ticket Against this ticket id!"));
@@ -325,7 +331,7 @@ export const loadTicket = () => async (dispatch) => {
       type: TICKET_LOADED,
       payload: res.data,
     });
-    dispatch(loadGame());
+    // dispatch(loadGame());
   } catch (err) {
     dispatch({
       type: GENERATE_FAILED,

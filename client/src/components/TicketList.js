@@ -8,7 +8,7 @@ import { loadTicket } from "../actions/game";
 const TicketList = ({ game, tickets, loadTicket }) => {
   useEffect(() => {
     loadTicket();
-  });
+  }, [loadTicket]);
 
   return (
     <div>
