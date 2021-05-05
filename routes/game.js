@@ -2,7 +2,9 @@ const express = require("express");
 const { remove } = require("../models/Game");
 const router = express.Router();
 const Game = require("../models/Game");
-
+const tambola = require("tambola");
+const Ticket = require("../models/Ticket");
+const { generateTicket } = require("tambola");
 //route     POST /game
 //desc:     create a game
 //access:   public
@@ -65,20 +67,24 @@ router.put("/join/play", async (req, res) => {
     if (!game) {
       return res.status(400).json({ errors: [{ msg: "Invalid Game Id" }] });
     }
+    let flag = 0;
     game.players.map((player) => {
-      if (player.name === playerName)
+      if (player.name === playerName) {
+        flag = 1;
         return res
           .status(400)
           .json({ errors: [{ msg: "Use Unique Username" }] });
+      }
     });
+    if (flag === 0) {
+      game.players.push({
+        name: playerName,
+        timeofjoin: new Date(),
+      });
 
-    game.players.push({
-      name: playerName,
-      timeofjoin: new Date(),
-    });
-
-    await game.save();
-    res.status(200).json(game);
+      await game.save();
+      res.status(200).json(game);
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
@@ -114,6 +120,8 @@ router.post("/leave", async (req, res) => {
       if (player.name === username) removeIndex = index;
     });
     if (removeIndex === -2) return res.status(200).send("Player not found");
+    const ticketId = game.players[removeIndex].tickets;
+    await Ticket.findByIdAndDelete(ticketId);
 
     game.players.splice(removeIndex, 1);
     await game.save();
@@ -192,4 +200,105 @@ router.put("/:id/next", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//route     POST /generate/ticket
+//desc:     To generate particular number of tambola ticket
+//access:   public
+router.post("/generate/ticket/:number/:name", async (req, res) => {
+  const gameid = req.body.gameid;
+  const playerid = req.body.playerid;
+  try {
+    let i,
+      tickets = [];
+    let n = req.params.number;
+    let name = req.params.name;
+    let ticketId = Math.ceil(Math.random() * 999);
+    if (n >= 1 && n <= 6) {
+      for (i = 0001; i <= n; i++) {
+        let schemaOfTicketDisplay = tambola.generateTicket(); //generates the ticket
+        tickets.push(schemaOfTicketDisplay);
+      }
+      ticket = new Ticket({
+        name,
+        ticketId,
+        tickets,
+      });
+      if (gameid) ticket.gameId = gameid;
+      if (playerid) ticket.playerId = playerid;
+      await ticket.save();
+
+      //saving the ticket in the game schema for the respective player
+      const game = await Game.findOne({ gameID: gameid });
+      if (!game)
+        return res.status(400).json({
+          errors: [
+            {
+              msg: "The game is not available.",
+            },
+          ],
+        });
+      var reqIndex = -1;
+      game.players.map((player, index) => {
+        if (player.name === name) return (reqIndex = index);
+      });
+
+      // if(reqIndex<0) return res.status(400).json({errors: [{
+      //   msg:"The player has left the game."
+      // }]})
+      console.log(reqIndex);
+
+      game.players[reqIndex].tickets = ticket._id;
+
+      await game.save();
+      res.status(200).json(ticket);
+    } else {
+      res.status(400).json({
+        errors: [
+          {
+            msg:
+              "There is a limit of generating only min 1 and max 6 tickets for a player.",
+          },
+        ],
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+//route     GET /ticket/:ticketId
+//desc:     To fectch the ticket by the id
+//access:   public
+router.get("/ticket/:ticketId", async (req, res) => {
+  const ticketId = req.params.ticketId;
+  try {
+    let ticket = await Ticket.findById(ticketId);
+    if (!ticket)
+      return res.status(400).json({
+        errors: [
+          {
+            msg:
+              "There is no Ticket against this game ID. Either its deleted or expired",
+          },
+        ],
+      });
+    res.status(200).json(ticket);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+//route     DELETE /ticket/:ticketId
+//desc:     To delete the particular group of ticket
+//access:   public
+router.delete("/ticket/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await Ticket.findByIdAndDelete(id);
+    res.status(200).json({ msg: "Ticket Deleted Successfully!" });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 module.exports = router;

@@ -7,7 +7,6 @@ import HostForm from "./components/HostForm";
 import Alert from "./components/layout/Alert";
 import "bootstrap/dist/css/bootstrap.min.css";
 //Redux Tools
-
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadGame } from "./actions/game";
@@ -16,6 +15,11 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
+import { Error } from "./components/layout/Error";
+// import GenerateTicketForm from "./components/GenerateTicketForm";
+// import TicketList from "./components/TicketList";
+// import Ticket from "./components/Ticket";
+// import 'bootstrap/dist/css/bootstrap.min.js';
 
 function App() {
   useEffect(() => {
@@ -27,11 +31,16 @@ function App() {
         <Header />
         <Alert />
         <Route exact path="/" component={Home} />
+        <Route exact path="/join/:id" component={JoinGameForm} />
         <Route exact path="/join" component={JoinGameForm} />
         <Route exact path="/create" component={HostForm} />
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/help" component={Help} />
+        <Route exact path="/error" component={Error} />
+        {/* <Route exact path="/generate/ticket" component={GenerateTicketForm} /> */}
+        {/* <Route exact path="/ticketlist" component={TicketList} /> */}
         <PrivateRoute exact path="/play" component={Board} />
+        {/* <Redirect to="/error" /> */}
         <Footer></Footer>
       </Router>
     </Provider>
