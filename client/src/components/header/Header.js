@@ -38,13 +38,10 @@ export default function Header() {
   //Reset the app on local system
   const resetGame = (e) => {
     e.preventDefault();
-    window.confirm(
-      "Are you sure this can't be undone & all your previous history will be deleted!"
-    );
+    prompt("Are You sure?", "");
     localStorage.removeItem("playerid");
     localStorage.removeItem("gameid");
     localStorage.removeItem("username");
-    localStorage.removeItem("ticketid");
   };
 
   const [open, setOpen] = React.useState(false);
@@ -76,7 +73,6 @@ export default function Header() {
           </a>
           {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
           <Link to="/aboutus">About Us</Link>
-
           {/* </a> */}
           {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
           <Link to="/help">Help</Link>
