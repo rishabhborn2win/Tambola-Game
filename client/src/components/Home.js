@@ -62,7 +62,6 @@ function Home({ game }) {
 
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();
-    console.log("I am in!");
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
     else if (localStorage.username)
@@ -84,7 +83,8 @@ function Home({ game }) {
               <br></br>
             </Link>
             <div className="host-player">
-              <Host game={game.game} total={numCalled.length}></Host>
+
+             {game !== null ? (<Fragment><Host game={game.game} total={numCalled.length}></Host>
               {game.game ? (
                 localStorage.gameid === game.game._id ? (
                   <Player game={game.game ? game.game : {}} />
@@ -93,7 +93,7 @@ function Home({ game }) {
                 )
               ) : (
                 ""
-              )}
+              )}</Fragment>):(<div></div>)}
             </div>
           </div>
         )}
