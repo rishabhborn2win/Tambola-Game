@@ -64,13 +64,11 @@ function Board({
   var player;
   if(localStorage.username) player = findPlayerIndex(localStorage.username);
 
-  //loading ticket for the player on the go as on the host generates it and the ticket is loaded
+  var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets
 
-  // var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets
-
-  // useEffect(() => {
-  //   loadTicket()
-  // }, [updateIndex])
+  useEffect(() => {
+    loadTicket()
+  }, [updateIndex])
 
   //fucntion for deleting the game
   const deleteGame = () => {
