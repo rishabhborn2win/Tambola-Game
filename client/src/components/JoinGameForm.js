@@ -7,9 +7,10 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { notifyFill, joinGame } from "../actions/game";
 import Heading from "./Heading";
-const JoinGameForm = ({ notifyFill, joinGame, game }) => {
+const JoinGameForm = ({ match, notifyFill, joinGame, game }) => {
   const [formData, setFormData] = useState({
     host: "",
+    gameID: match.params.id,
   });
 
   if (game) {
@@ -50,6 +51,7 @@ const JoinGameForm = ({ notifyFill, joinGame, game }) => {
           <div class="omrs-input-group">
             <label class="omrs-input-underlined">
               <input
+                value={gameID}
                 className="input-fields"
                 placeholder="GameID"
                 type="text"

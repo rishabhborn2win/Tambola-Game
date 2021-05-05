@@ -139,7 +139,7 @@
       margin-top: 35px;
       margin-bottom: 10px;
       font-size: 35px;
-      margin-bottom: 100px;
+      margin-bottom: 10px;
       text-align: center;
       font-weight: 800;
   }
@@ -162,7 +162,7 @@
   .top-row{
       display: flex;
       flex-direction: row;
-      margin-top: -70px;
+      margin-top: 0px;
       justify-content: space-around;
   }
   .gameid{
