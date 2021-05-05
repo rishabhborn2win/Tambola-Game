@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Spinner from "./layout/Spinner";
 import { Button } from "react-bootstrap";
 import { loadGame } from "../actions/game";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import "./style.css";
 import Heading from "./Heading";
 import { Fragment } from "react";
@@ -32,33 +32,8 @@ function Home({ game }) {
 
   //find player in the game
   //we have the username as the player joins the game
-  const findPlayerIndex = (username) => {
-    var playerIndex = -1;
-    if (game.players) {
-      game.players.map((player, index) => {
-        if (player.name === username) {
-          playerIndex = index;
-        }
-        return 0;
-      });
-      return playerIndex;
-    } else {
-      return -1;
-    }
-  };
+  
 
-  //defing the player validity
-  var player = -1;
-  console.log(player);
-
-  if (localStorage.username) {
-    player = findPlayerIndex(localStorage.username);
-    console.log(player);
-
-    if (player < 0) {
-      <Redirect to="/error"></Redirect>;
-    }
-  }
 
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();

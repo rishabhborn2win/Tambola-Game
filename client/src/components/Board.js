@@ -45,8 +45,9 @@ function Board({
     // loadGame();
   }, [refreshGame]);
 
+
   //saved the function of validating the player
-  
+
 
   //fucntion for deleting the game
   const deleteGame = () => {
@@ -64,13 +65,19 @@ function Board({
     });
   }, [game]);
 
+  // useEffect(() => {
+  //   loadTicket()
+  // }, [localStorage.ticketId])
+
   useEffect(() => {
     var ticketId = "";
     game.players.map((player) => {
       if (player.name === localStorage.username) {
-        return (ticketId = player.tickets);
+         ticketId = player.tickets;
+         return 0;
       } else return 0;
     });
+    console.log("ticketid"+ticketId)
     localStorage.setItem("ticketId", ticketId);
   }, [game]);
 
@@ -93,6 +100,8 @@ function Board({
     return 0;
   });
 
+  //find ticketid on live game so that we can load the ticket
+  
   //calling necxt num should disable the necxt num button so that a user can't call it uneccesarily
   const nextNum = () => {
     nextNumber(localStorage.gameid);
@@ -163,17 +172,20 @@ function Board({
           <span className="gameid-value">{game.gameID} </span>
         </div>
 
-        {/* <div>
+         <div>
           <a
-            href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
+            href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
             target="_blank"
             rel="noreferrer"
           >
             {" "}
-            <WhatsappIcon size={32} round={true} />
+            <WhatsappIcon size={20} round={true} />
           </a>
-        </div> */}
+        </div> 
+        <div>
+          <span className="refresh-container" ><i class="fa fa-refresh btn" onClick={() => loadGame()}></i></span>
+        </div>
 
         {localStorage.gameid ? (
           <div className="trash">
@@ -217,9 +229,7 @@ function Board({
             )}
           </p>
         </div>
-        {/* <div>
-            <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
-        </div> */}
+        
         <br />
         {localStorage.playerid ? (
           <div>
@@ -235,7 +245,6 @@ function Board({
         ) : (
           ""
         )}
-
         <br />
         <table>
           <tr>

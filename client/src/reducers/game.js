@@ -75,7 +75,7 @@ export default function abc(state = initialState, action) {
       localStorage.removeItem("playerid");
       localStorage.removeItem("username");
       localStorage.removeItem("player");
-      localStorage.removeItem("ticketid");
+      localStorage.removeItem("ticketId");
       return {
         ...state,
         game: null,
@@ -91,6 +91,7 @@ export default function abc(state = initialState, action) {
     case TICKET_GENERATED:
       return {
         ...state,
+        loading: false,
         tickets: payload,
       };
     case TICKET_LOADING:

@@ -176,7 +176,7 @@ export const dropGame = (gameid) => async (dispatch) => {
           msg: "Game Deleted successfully",
         },
       });
-      dispatch(setAlert("Game Deleted", "danger"));
+      dispatch(setAlert("Game -leted", "danger"));
     } catch (err) {
       dispatch({
         type: CREATE_FAILED,
@@ -316,11 +316,6 @@ export const loadTicket = () => async (dispatch) => {
   });
   try {
     let res;
-    if (!localStorage.ticketId) {
-      dispatch({
-        type: TICKET_LOADING,
-      });
-    }
     if (localStorage.ticketId !== "" && localStorage.ticketId !== undefined) {
       res = await axios.get(`/game/ticket/${localStorage.ticketId}`);
     }
