@@ -64,7 +64,9 @@ function Board({
   var player;
   if(localStorage.username) player = findPlayerIndex(localStorage.username);
 
-  var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets
+  var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets;
+
+  console.log(updateIndex)
 
   // useEffect(() => {
   //   loadTicket()
