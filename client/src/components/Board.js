@@ -66,9 +66,9 @@ function Board({
 
   var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets
 
-  useEffect(() => {
-    loadTicket()
-  }, [updateIndex])
+  // useEffect(() => {
+  //   loadTicket()
+  // }, [updateIndex])
 
   //fucntion for deleting the game
   const deleteGame = () => {
