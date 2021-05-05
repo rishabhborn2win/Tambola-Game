@@ -45,32 +45,8 @@ function Board({
     // loadGame();
   }, [refreshGame]);
 
-  //find player in the game
-  //we have the username as the player joins the game
-  const findPlayerIndex = (username) => {
-    var playerIndex = -1;
-    if (game.players) {
-      game.players.map((player, index) => {
-        if (player.name === username) {
-          playerIndex = index;
-        }
-        return 0;
-      });
-      return playerIndex;
-    } else {
-      return -1;
-    }
-  };
-  // var player;
-  // if(localStorage.username) player = findPlayerIndex(localStorage.username);
-
-  // var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets;
-
-  // console.log(updateIndex)
-
-  // useEffect(() => {
-  //   loadTicket()
-  // }, [updateIndex])
+  //saved the function of validating the player
+  
 
   //fucntion for deleting the game
   const deleteGame = () => {
