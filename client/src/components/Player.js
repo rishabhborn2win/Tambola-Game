@@ -4,9 +4,14 @@ import { leaveGame } from "../actions/game";
 import players from "./player.png";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { WhatsappIcon } from "react-share";
+
 
 
 function Player({ game, leaveGame }) {
+
+  // With async/await
+  
   return (
     <div className="player-deatils">
       <div className="title-player">
@@ -39,8 +44,18 @@ function Player({ game, leaveGame }) {
                   </div>
                   
                 </div>
-                <div onClick={() => leaveGame(game.gameID, player.name)}>X</div>
-                <br />
+                <div onClick={() => leaveGame(game.gameID, player.name)} className="btn btn-primary">X</div>{" "}
+                <div>
+          <a
+            href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 GameID: ${game.gameID} ${window.location}/join/${player.tickets}/${game.gameID}/${player.name} http://www.example.com/image.jpg`}
+            data-action="share/whatsapp/share"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {" "}
+            <WhatsappIcon size={20} round={true} />
+          </a>
+        </div>                <br />
               </Fragment>
             </div>
           );

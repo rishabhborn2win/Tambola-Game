@@ -39,6 +39,7 @@ function Board({
   numberCalled,
   loadTicket,
   refreshGame,
+  notifyFill
 }) {
   // making it live as it will call the data from the database every 2.5s
   useEffect(() => {
@@ -88,7 +89,7 @@ function Board({
     localStorage.removeItem("username");
     localStorage.removeItem("ticketId");
     localStorage.removeItem("player");
-    notifyFill("Game Exit!")
+    notifyFill("Game Exit!");
   };
 
   //everytime saving all the called numbers from the database when it is updated
@@ -797,6 +798,7 @@ Board.propTypes = {
   numberCalled: PropTypes.array.isRequired,
   loadTicket: PropTypes.func.isRequired,
   refreshGame: PropTypes.func.isRequired,
+  notifyFill: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -811,4 +813,5 @@ export default connect(mapStateToProps, {
   leaveGame,
   loadTicket,
   refreshGame,
+  notifyFill
 })(Board);

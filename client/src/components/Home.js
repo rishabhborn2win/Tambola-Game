@@ -11,6 +11,9 @@ import Heading from "./Heading";
 import { Fragment } from "react";
 import Host from "./Host";
 import Player from "./Player";
+import QRCode from 'qrcode.react'
+import man from './man.png'
+
 
 function Home({ game }) {
   useEffect(() => {
@@ -18,6 +21,19 @@ function Home({ game }) {
   });
 
   // loadGame();
+
+  const downloadQR = () => {
+    const canvas = document.getElementById("123456");
+    const pngUrl = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    let downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = "123456.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   var numCalled = [];
   if (game.game) {
@@ -29,6 +45,9 @@ function Home({ game }) {
       return 0;
     });
   }
+
+
+
 
   //find player in the game
   //we have the username as the player joins the game
@@ -45,7 +64,6 @@ function Home({ game }) {
     return (
       <Fragment>
         <Heading text={`Game Dashboard (${typeOfPlayer})`} />
-
         {game.loading ? (
           <Spinner></Spinner>
         ) : (
@@ -80,14 +98,52 @@ function Home({ game }) {
     // }
   }
 
+  const handleOnSubmit= async()=> {
+    const response = await fetch(man);
+    // here image is url/location of image
+    const blob = await response.blob();
+    const file = new File([blob], 'share.jpg', {type: blob.type});
+    console.log(file);
+    if(navigator.share) {
+      await navigator.share({
+        title: "title",
+        text: "your text",
+        url: "url to share",
+        files: [file]     
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error in sharing', error));
+    }else {
+      console.log(`system does not support sharing files.`);
+    }
+  }
+  
+  // useEffect(()=> {
+  //   if (navigator.share === undefined) {
+  //     if (window.location.protocol === 'http:') {
+  //       window.location.replace(window.location.href.replace(/^http:/, 'https:'));
+  //     } 
+  //   }
+  // }, []);
+
   return (
     <Fragment>
       <Heading text="Welcome to Tambola," />
+      <QRCode
+    id="123456"
+    value="https://tambola-numbers.herokuapp.com"
+    size={290}
+    level={"H"}
+    includeMargin={true}
+  />
+  {/* <a onClick={downloadQR}> Download QR </a> */}
+  <a onClick={handleOnSubmit}> Download QR </a>
+
       <span class="text-span">Select Option:-</span>
       <div class="container">
         <Link to="/join">
           <Button variant="success" className="button-lg">
-            Join Game
+            Join Games
           </Button>
         </Link>{" "}
         <Link to="/create">

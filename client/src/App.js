@@ -16,6 +16,7 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
 import { Error } from "./components/layout/Error";
+import { Join } from "./components/Join";
 // import GenerateTicketForm from "./components/GenerateTicketForm";
 // import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
@@ -31,7 +32,7 @@ function App() {
         <Header />
         <Alert />
         <Route exact path="/" component={Home} />
-        <Route exact path="/join/:id" component={JoinGameForm} />
+        <Route exact path="/play/join/:ticketid/:gameid/:username" component={Join} />
         <Route exact path="/join" component={JoinGameForm} />
         <Route exact path="/create" component={HostForm} />
         <Route exact path="/aboutus" component={AboutUs} />
