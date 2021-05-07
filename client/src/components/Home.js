@@ -32,8 +32,6 @@ function Home({ game }) {
 
   //find player in the game
   //we have the username as the player joins the game
-  
-
 
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();
@@ -58,17 +56,22 @@ function Home({ game }) {
               <br></br>
             </Link>
             <div className="host-player">
-
-             {game !== null ? (<Fragment><Host game={game.game} total={numCalled.length}></Host>
-              {game.game ? (
-                localStorage.gameid === game.game._id ? (
-                  <Player game={game.game ? game.game : {}} />
-                ) : (
-                  ""
-                )
+              {game !== null ? (
+                <Fragment>
+                  <Host game={game.game} total={numCalled.length}></Host>
+                  {game.game ? (
+                    localStorage.gameid === game.game._id ? (
+                      <Player game={game.game ? game.game : {}} />
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
+                </Fragment>
               ) : (
-                ""
-              )}</Fragment>):(<div></div>)}
+                <div></div>
+              )}
             </div>
           </div>
         )}

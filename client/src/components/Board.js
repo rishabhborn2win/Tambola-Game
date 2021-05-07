@@ -45,9 +45,7 @@ function Board({
     // loadGame();
   }, [refreshGame]);
 
-
   //saved the function of validating the player
-
 
   //fucntion for deleting the game
   const deleteGame = () => {
@@ -73,11 +71,11 @@ function Board({
     var ticketId = "";
     game.players.map((player) => {
       if (player.name === localStorage.username) {
-         ticketId = player.tickets;
-         return 0;
+        ticketId = player.tickets;
+        return 0;
       } else return 0;
     });
-    console.log("ticketid"+ticketId)
+    console.log("ticketid" + ticketId);
     localStorage.setItem("ticketId", ticketId);
   }, [game]);
 
@@ -101,7 +99,7 @@ function Board({
   });
 
   //find ticketid on live game so that we can load the ticket
-  
+
   //calling necxt num should disable the necxt num button so that a user can't call it uneccesarily
   const nextNum = () => {
     nextNumber(localStorage.gameid);
@@ -172,7 +170,7 @@ function Board({
           <span className="gameid-value">{game.gameID} </span>
         </div>
 
-         <div>
+        <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 GameID: ${game.gameID}`}
             data-action="share/whatsapp/share"
@@ -182,9 +180,11 @@ function Board({
             {" "}
             <WhatsappIcon size={20} round={true} />
           </a>
-        </div> 
+        </div>
         <div>
-          <span className="refresh-container" ><i class="fa fa-refresh btn" onClick={() => loadGame()}></i></span>
+          <span className="refresh-container">
+            <i class="fa fa-refresh btn" onClick={() => loadGame()}></i>
+          </span>
         </div>
 
         {localStorage.gameid ? (
@@ -229,7 +229,7 @@ function Board({
             )}
           </p>
         </div>
-        
+
         <br />
         {localStorage.playerid ? (
           <div>

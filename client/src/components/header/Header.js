@@ -41,11 +41,11 @@ export default function Header() {
     var res = window.confirm(
       "Are you sure this can't be undone & all your previous history will be deleted!"
     );
-    if(res){
-    localStorage.removeItem("playerid");
-    localStorage.removeItem("gameid");
-    localStorage.removeItem("username");
-    localStorage.removeItem("ticketId");
+    if (res) {
+      localStorage.removeItem("playerid");
+      localStorage.removeItem("gameid");
+      localStorage.removeItem("username");
+      localStorage.removeItem("ticketId");
     }
   };
 
