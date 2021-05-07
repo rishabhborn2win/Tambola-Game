@@ -15,7 +15,7 @@ import {
   GAME_LOADING,
   JOIN_LOADING,
   ADD_PLAYER,
-  ADD_PLAYER_FAILED
+  ADD_PLAYER_FAILED,
 } from "../actions/types";
 
 const initialState = {
@@ -109,15 +109,15 @@ export default function abc(state = initialState, action) {
         loading: false,
         tickets: payload,
       };
-    case ADD_PLAYER: 
+    case ADD_PLAYER:
       return {
         ...state,
         game: payload,
-        loading: false
+        loading: false,
       };
     case ADD_PLAYER_FAILED:
       return {
-        ...state
+        ...state,
       };
     case GENERATE_FAILED:
     case CREATE_FAILED:

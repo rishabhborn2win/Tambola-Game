@@ -135,7 +135,7 @@ export const refreshGame = () => async (dispatch) => {
 //Notify to fill form for creating the game
 export const notifyFill = (msg) => async (dispatch) => {
   dispatch(setAlert(msg, "danger"));
-  loadGame()
+  loadGame();
 };
 
 //Create A game
@@ -230,7 +230,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
       payload: res.data,
     });
     localStorage.setItem("username", playername);
-    localStorage.setItem("playerid", gameID)
+    localStorage.setItem("playerid", gameID);
     // dispatch(setAlert("Joined Successfully", "success"));
   } catch (err) {
     dispatch({
@@ -264,7 +264,7 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
           msg: "Game Deleted successfully",
         },
       });
-      dispatch(loadGame())
+      dispatch(loadGame());
       dispatch(setAlert(`${username} Kicked Out!`, "danger"));
     } catch (err) {
       dispatch({
@@ -342,7 +342,6 @@ export const loadTicket = () => async (dispatch) => {
   }
 };
 
-
 //host can add the player to the game and can share the detail to the player to join the game
 export const addPlayer = (playername, id, noOfTickets) => async (dispatch) => {
   const config = {
@@ -360,20 +359,19 @@ export const addPlayer = (playername, id, noOfTickets) => async (dispatch) => {
 
     let game = res.data;
     var playerid = game.players.map((player) => {
-      if(player.name === playername) return player._id
+      if (player.name === playername) return player._id;
       else return 0;
-    })
+    });
 
     var roomId = game.gameID;
 
-    var formData ={
+    var formData = {
       gameID: roomId,
       playerid: playerid,
       noOfTickets: noOfTickets,
-      playername: playername
+      playername: playername,
     };
     dispatch(generateTicket(formData));
-    
   } catch (err) {
     dispatch({
       type: ADD_PLAYER_FAILED,
@@ -382,4 +380,4 @@ export const addPlayer = (playername, id, noOfTickets) => async (dispatch) => {
       },
     });
   }
-} 
+};

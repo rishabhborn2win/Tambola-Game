@@ -17,5 +17,3 @@ export const JOIN_LOADING = "JOIN_LOADING";
 export const GAME_LOADING = "GAME_LOADING";
 export const ADD_PLAYER = "ADD_PLAYER";
 export const ADD_PLAYER_FAILED = "ADD_PLAYER_FAILED";
-
-

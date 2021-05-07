@@ -1,5 +1,10 @@
 import React, { Fragment, useState } from "react";
-import { generateTicket, joinGame, notifyFill, addPlayer } from "../actions/game";
+import {
+  generateTicket,
+  joinGame,
+  notifyFill,
+  addPlayer,
+} from "../actions/game";
 import Heading from "./Heading";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -19,7 +24,7 @@ const AddPlayerForm = ({ game, generateTicket, notifyFill, addPlayer }) => {
   };
   const { playername, noOfTickets, gameID } = formData;
 
-  const onSubmit =  (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (playername.length < 3) {
       notifyFill("Player Name Should have more then 3 Char");
@@ -80,9 +85,11 @@ AddPlayerForm.prototype = {
   addPlayer: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
-      tickets: state.game.tickets,
+  tickets: state.game.tickets,
 });
 
-export default connect(mapStateToProps, { notifyFill, generateTicket, addPlayer })(
-  withRouter(AddPlayerForm)
-);
+export default connect(mapStateToProps, {
+  notifyFill,
+  generateTicket,
+  addPlayer,
+})(withRouter(AddPlayerForm));

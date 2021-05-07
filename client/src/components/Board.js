@@ -29,6 +29,7 @@ import ReactTooltip from "react-tooltip";
 import AddPlayerForm from "./AddPlayerForm";
 import JoinGameForm from "./JoinGameForm";
 // import Spinner from "./layout/Spinner";
+import * as htmlToImage from "html-to-image";
 
 function Board({
   game: { game, loading },
@@ -39,7 +40,7 @@ function Board({
   numberCalled,
   loadTicket,
   refreshGame,
-  notifyFill
+  notifyFill,
 }) {
   // making it live as it will call the data from the database every 2.5s
   useEffect(() => {
@@ -156,6 +157,43 @@ function Board({
     setOpen(true);
   };
 
+  // making the board SS
+  var node = document.getElementById("display");
+  var urlOfImage;
+  htmlToImage
+    .toPng(node)
+    .then(function (dataUrl) {
+      urlOfImage = dataUrl;
+      // var img = new Image();
+      // console.log(dataUrl);
+      // img.src = dataUrl;
+      // document.body.appendChild(img);
+    })
+    .catch(function (error) {
+      console.error("oops, something went wrong!", error);
+    });
+
+    //this is use to make the file shareable
+  const handleOnSubmit = async () => {
+    const response = await fetch(urlOfImage);
+    // here image is url/location of image
+    const blob = await response.blob();
+    const file = new File([blob], "share.jpg", { type: blob.type });
+    if (navigator.share) {
+      await navigator
+        .share({
+          title: "title",
+          text: `${numString} was last Number Called!`,
+          // url: "/join",
+          files: [file],
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error in sharing", error));
+    } else {
+      console.log(`system does not support sharing files.`);
+    }
+  };
+
   //returning JSX
   return (
     <Fragment>
@@ -250,7 +288,7 @@ function Board({
           ""
         )}
         <br />
-        <table>
+        <table id="table">
           <tr>
             <td>
               <button id="1" class="number-button" onclick="select(this.id)">
@@ -768,17 +806,18 @@ function Board({
           {/* <div>
             <span className="refresh-container" ><i class="fa fa-refresh btn-lg" onClick={() => loadGame() }></i></span>
         </div> */}
-          <div className="whatsapp-container">
-            <a
+          <div className="whatsapp-container" onClick={handleOnSubmit} >
+            {/* <a
               href={`whatsapp://send?text=${numString} is the last number called!`}
               data-action="share/whatsapp/share"
               target="_blank"
               rel="noreferrer"
               className="btn-lg"
-            >
+            > */}
               {" "}
-              <WhatsappIcon size={30} round={true} />
-            </a>
+              {/* <WhatsappIcon size={30} round={true} /> */}
+              <p className="btn btn-lg">Share It</p>
+            {/* </a> */}
           </div>
         </div>
         <br />
@@ -813,5 +852,5 @@ export default connect(mapStateToProps, {
   leaveGame,
   loadTicket,
   refreshGame,
-  notifyFill
+  notifyFill,
 })(Board);

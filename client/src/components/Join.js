@@ -1,26 +1,25 @@
-import React, {useState} from 'react'
-import { Redirect } from 'react-router'
-import { loadGame } from '../actions/game'
+import React, { useState } from "react";
+import { Redirect } from "react-router";
+import { loadGame } from "../actions/game";
 
-export const Join = ({match}) => {
-    const [formData, setFormData] = useState({
-        playername:  match.params.username,
-        gameID: match.params.gameid,
-        ticketId: match.params.ticketid
-    })
+export const Join = ({ match }) => {
+  const [formData, setFormData] = useState({
+    playername: match.params.username,
+    gameID: match.params.gameid,
+    ticketId: match.params.ticketid,
+  });
 
-    const {playername, gameID, ticketId} =  formData
+  const { playername, gameID, ticketId } = formData;
 
-    localStorage.setItem("username", playername)
-    localStorage.setItem("playerid", gameID)
-    localStorage.setItem("ticketId", ticketId);
+  localStorage.setItem("username", playername);
+  localStorage.setItem("playerid", gameID);
+  localStorage.setItem("ticketId", ticketId);
 
-    loadGame()
+  loadGame();
 
-   
-    return (
-        <div>
-           <Redirect to='/play' />
-        </div>
-    )
-}
+  return (
+    <div>
+      <Redirect to="/play" />
+    </div>
+  );
+};

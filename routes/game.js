@@ -155,8 +155,7 @@ router.get("/:id", async (req, res) => {
   try {
     let game = await Game.findById(gameid);
     if (!game) return res.status(400).json({ msg: "No game found!" });
-    else 
-    return res.status(200).json(game);
+    else return res.status(200).json(game);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("server Error");
@@ -301,16 +300,15 @@ router.delete("/ticket/:id", async (req, res) => {
   }
 });
 
-
 //route     PUT /add/player
 //desc:     Host can add the player with generating tickets
 //access:   private
-router.put('/add/play', async (req, res) => {
+router.put("/add/play", async (req, res) => {
   const playerName = req.body.playername;
   const gameid = req.body.id;
   const noOfTickets = req.body.noOfTickets;
   try {
-    let game = await Game.findById(gameid)
+    let game = await Game.findById(gameid);
     if (!game) {
       return res.status(400).json({ errors: [{ msg: "Invalid Game Id" }] });
     }
@@ -324,7 +322,7 @@ router.put('/add/play', async (req, res) => {
       }
     });
     if (flag === 0) {
-        game.players.push({
+      game.players.push({
         name: playerName,
         timeofjoin: new Date(),
       });
@@ -336,6 +334,6 @@ router.put('/add/play', async (req, res) => {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
-})
+});
 
 module.exports = router;

@@ -19,6 +19,7 @@
     "config": "^3.3.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "html-to-image": "^1.6.1",
     "mdbreact": "^5.0.1",
     "mongoose": "^5.11.7",
     "prettier": "^2.2.1",

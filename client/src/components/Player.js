@@ -1,19 +1,21 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Moment from "react-moment";
 import { leaveGame } from "../actions/game";
 import players from "./player.png";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { WhatsappIcon } from "react-share";
 
-
+import SinglePlayerDetail from "./SInglePlayerDetail";
 
 function Player({ game, leaveGame }) {
-
-  // With async/await
   
+
+  //open player details
+  const [openPlayer, setOpenPlayer] = useState(false);
+
   return (
     <div className="player-deatils">
+      <div className="hidden-qr"></div>
       <div className="title-player">
         <h2>Players Joined:-</h2>
       </div>
@@ -25,7 +27,7 @@ function Player({ game, leaveGame }) {
                 <div>
                   <img src={players} alt="player dp" />
                 </div>
-                <div className="play">
+                <div className="play"  onClick={() => setOpenPlayer(true)}>
                   <div>
                     <span>
                       <b>Name: </b>
@@ -42,20 +44,17 @@ function Player({ game, leaveGame }) {
                       <Moment format="hh:mm:ss">{player.timeofjoin}</Moment>
                     </span>
                   </div>
-                  
                 </div>
-                <div onClick={() => leaveGame(game.gameID, player.name)} className="btn btn-primary">X</div>{" "}
+                <div
+                  onClick={() => leaveGame(game.gameID, player.name)}
+                  className="btn btn-primary"
+                >
+                  X
+                </div>
                 <div>
-          <a
-            href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 GameID: ${game.gameID} ${window.location}/join/${player.tickets}/${game.gameID}/${player.name} http://www.example.com/image.jpg`}
-            data-action="share/whatsapp/share"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {" "}
-            <WhatsappIcon size={20} round={true} />
-          </a>
-        </div>                <br />
+                  {openPlayer ? <SinglePlayerDetail game={game} player={player} setOpenPlayer={setOpenPlayer} /> : ""}
+                </div>
+                <br />
               </Fragment>
             </div>
           );
@@ -67,9 +66,6 @@ function Player({ game, leaveGame }) {
 
 Player.prototype = {
   leaveGame: PropTypes.func.isRequired,
-  
 };
-
-
 
 export default connect(null, { leaveGame })(Player);

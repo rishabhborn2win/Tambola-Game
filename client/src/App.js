@@ -32,7 +32,11 @@ function App() {
         <Header />
         <Alert />
         <Route exact path="/" component={Home} />
-        <Route exact path="/play/join/:ticketid/:gameid/:username" component={Join} />
+        <Route
+          exact
+          path="/play/join/:ticketid/:gameid/:username"
+          component={Join}
+        />
         <Route exact path="/join" component={JoinGameForm} />
         <Route exact path="/create" component={HostForm} />
         <Route exact path="/aboutus" component={AboutUs} />
