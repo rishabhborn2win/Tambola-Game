@@ -17,6 +17,8 @@ import {
   TICKET_LOADING,
   GAME_LOADING,
   JOIN_LOADING,
+  ADD_PLAYER,
+  ADD_PLAYER_FAILED,
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -133,6 +135,7 @@ export const refreshGame = () => async (dispatch) => {
 //Notify to fill form for creating the game
 export const notifyFill = (msg) => async (dispatch) => {
   dispatch(setAlert(msg, "danger"));
+  loadGame()
 };
 
 //Create A game
@@ -176,7 +179,7 @@ export const dropGame = (gameid) => async (dispatch) => {
           msg: "Game Deleted successfully",
         },
       });
-      dispatch(setAlert("Game -leted", "danger"));
+      dispatch(setAlert("Game Deleted", "danger"));
     } catch (err) {
       dispatch({
         type: CREATE_FAILED,
@@ -227,6 +230,7 @@ export const joinGame = (playername, gameID) => async (dispatch) => {
       payload: res.data,
     });
     localStorage.setItem("username", playername);
+    localStorage.setItem("playerid", gameID)
     // dispatch(setAlert("Joined Successfully", "success"));
   } catch (err) {
     dispatch({
@@ -260,7 +264,8 @@ export const leaveGame = (gameid, username) => async (dispatch) => {
           msg: "Game Deleted successfully",
         },
       });
-      dispatch(setAlert("Game Left", "danger"));
+      dispatch(loadGame())
+      dispatch(setAlert(`${username} Kicked Out!`, "danger"));
     } catch (err) {
       dispatch({
         type: CREATE_FAILED,
@@ -336,3 +341,45 @@ export const loadTicket = () => async (dispatch) => {
     });
   }
 };
+
+
+//host can add the player to the game and can share the detail to the player to join the game
+export const addPlayer = (playername, id, noOfTickets) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ playername: playername, id: id });
+  try {
+    const res = await axios.put("/game/add/play", body, config);
+    dispatch({
+      type: ADD_PLAYER,
+      payload: res.data,
+    });
+
+    let game = res.data;
+    var playerid = game.players.map((player) => {
+      if(player.name === playername) return player._id
+      else return 0;
+    })
+
+    var roomId = game.gameID;
+
+    var formData ={
+      gameID: roomId,
+      playerid: playerid,
+      noOfTickets: noOfTickets,
+      playername: playername
+    };
+    dispatch(generateTicket(formData));
+    
+  } catch (err) {
+    dispatch({
+      type: ADD_PLAYER_FAILED,
+      payload: {
+        msg: err.message,
+      },
+    });
+  }
+} 

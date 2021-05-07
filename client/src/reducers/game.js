@@ -14,6 +14,8 @@ import {
   TICKET_LOADING,
   GAME_LOADING,
   JOIN_LOADING,
+  ADD_PLAYER,
+  ADD_PLAYER_FAILED
 } from "../actions/types";
 
 const initialState = {
@@ -64,8 +66,8 @@ export default function abc(state = initialState, action) {
         ...state,
       };
     case JOIN_GAME:
-      localStorage.setItem("playerid", payload.gameID);
-      localStorage.setItem("player", payload._id);
+      // localStorage.setItem("playerid", payload.gameID);
+      // localStorage.setItem("player", payload._id);
       return {
         ...state,
         game: payload,
@@ -106,6 +108,16 @@ export default function abc(state = initialState, action) {
         ...state,
         loading: false,
         tickets: payload,
+      };
+    case ADD_PLAYER: 
+      return {
+        ...state,
+        game: payload,
+        loading: false
+      };
+    case ADD_PLAYER_FAILED:
+      return {
+        ...state
       };
     case GENERATE_FAILED:
     case CREATE_FAILED:

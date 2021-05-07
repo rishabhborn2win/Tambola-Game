@@ -15,3 +15,7 @@ export const TICKET_LOADED = "TICKET_LOADED";
 export const TICKET_LOADING = "TICKET_LOADING";
 export const JOIN_LOADING = "JOIN_LOADING";
 export const GAME_LOADING = "GAME_LOADING";
+export const ADD_PLAYER = "ADD_PLAYER";
+export const ADD_PLAYER_FAILED = "ADD_PLAYER_FAILED";
+
+

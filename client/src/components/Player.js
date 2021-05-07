@@ -1,8 +1,12 @@
 import { Fragment } from "react";
 import Moment from "react-moment";
+import { leaveGame } from "../actions/game";
 import players from "./player.png";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-export default function Player({ game }) {
+
+function Player({ game, leaveGame }) {
   return (
     <div className="player-deatils">
       <div className="title-player">
@@ -33,7 +37,9 @@ export default function Player({ game }) {
                       <Moment format="hh:mm:ss">{player.timeofjoin}</Moment>
                     </span>
                   </div>
+                  
                 </div>
+                <div onClick={() => leaveGame(game.gameID, player.name)}>X</div>
                 <br />
               </Fragment>
             </div>
@@ -43,3 +49,12 @@ export default function Player({ game }) {
     </div>
   );
 }
+
+Player.prototype = {
+  leaveGame: PropTypes.func.isRequired,
+  
+};
+
+
+
+export default connect(null, { leaveGame })(Player);

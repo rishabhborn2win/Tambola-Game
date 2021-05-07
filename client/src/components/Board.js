@@ -11,6 +11,7 @@ import {
   leaveGame,
   loadTicket,
   refreshGame,
+  notifyFill,
 } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
@@ -25,6 +26,8 @@ import TicketList from "./TicketList";
 import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
+import AddPlayerForm from "./AddPlayerForm";
+import JoinGameForm from "./JoinGameForm";
 // import Spinner from "./layout/Spinner";
 
 function Board({
@@ -75,17 +78,17 @@ function Board({
         return 0;
       } else return 0;
     });
-    console.log("ticketid" + ticketId);
     localStorage.setItem("ticketId", ticketId);
   }, [game]);
 
   //leave the game for the player who has joined
   const leave = (e) => {
     e.preventDefault();
-    leaveGame(
-      localStorage.getItem("playerid"),
-      localStorage.getItem("username")
-    );
+    localStorage.removeItem("playerid");
+    localStorage.removeItem("username");
+    localStorage.removeItem("ticketId");
+    localStorage.removeItem("player");
+    notifyFill("Game Exit!")
   };
 
   //everytime saving all the called numbers from the database when it is updated
@@ -159,7 +162,7 @@ function Board({
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
       {localStorage.gameid ? (
         <Modal open={open} onClose={onCloseModal} center>
-          <GenerateTicketForm function={onCloseModal} game={game} />
+          <AddPlayerForm function={onCloseModal} game={game} />
         </Modal>
       ) : (
         ""
@@ -240,7 +243,7 @@ function Board({
         )}
         {localStorage.gameid ? (
           <Link to="#" className="btn-lg" onClick={onOpenModal}>
-            Generate Tickets
+            Add Player
           </Link>
         ) : (
           ""
