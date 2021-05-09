@@ -3,9 +3,10 @@ import Ticket from "./Ticket";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadTicket } from "../actions/game";
+import DividendsVerify  from "./DividendsVerify";
 // import Heading from "./Heading";
 
-const TicketList = ({ game, tickets, loadTicket }) => {
+const TicketList = ({ numCalled, tickets, loadTicket, game }) => {
   useEffect(() => {
     loadTicket();
   }, [loadTicket]);
@@ -26,7 +27,10 @@ const TicketList = ({ game, tickets, loadTicket }) => {
                     <Ticket
                       ticket={serial}
                       ticketId={`${tickets.ticketId}-${index + 1}`}
+                      numCalled={numCalled}
+      
                     />
+                    <DividendsVerify ticket={serial} numCalled={numCalled} playername={tickets.name} gameid={game._id}/>
                   </div>
                 );
               })

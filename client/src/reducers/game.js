@@ -14,6 +14,8 @@ import {
   TICKET_LOADING,
   GAME_LOADING,
   JOIN_LOADING,
+  DIVIDEND_UPDATED,
+  DIVIDEND_UPDATED_FAILED,
 } from "../actions/types";
 
 const initialState = {
@@ -106,6 +108,18 @@ export default function abc(state = initialState, action) {
         loading: false,
         tickets: payload,
       };
+    case DIVIDEND_UPDATED: 
+      return  {
+        ...state,
+        loading: false,
+        game: payload
+      };
+    case DIVIDEND_UPDATED_FAILED: 
+      return {
+        ...state,
+        error: payload,
+        loading: false
+      }
     case GENERATE_FAILED:
     case CREATE_FAILED:
     case GAME_ERROR:

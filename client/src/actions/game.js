@@ -17,6 +17,8 @@ import {
   TICKET_LOADING,
   GAME_LOADING,
   JOIN_LOADING,
+  DIVIDEND_UPDATED,
+  DIVIDEND_UPDATED_FAILED
 } from "./types";
 
 //load game if created(gamedid saved)
@@ -341,3 +343,25 @@ export const loadTicket = () => async (dispatch) => {
     });
   }
 };
+
+//to update the leaderboard
+export const updateDividend = (gameid, playername, score, nameOfPrize) =>  async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ gameid, playername, score, nameOfPrize});
+  try {
+    let res = await axios.put("/game/update/score/dividend", body, config);
+    dispatch({
+      type: DIVIDEND_UPDATED,
+      payload: res.data
+    })
+  } catch (error) {
+    dispatch({
+      type: DIVIDEND_UPDATED_FAILED,
+      payload: error.message
+    })
+  }
+}

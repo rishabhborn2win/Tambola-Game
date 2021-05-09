@@ -1,6 +1,7 @@
 import React from "react";
+import { DividendsVerify } from "./DividendsVerify";
 
-const Ticket = ({ ticket, ticketId }) => {
+const Ticket = ({ numCalled, ticket, ticketId }) => {
   const colorCell = (num, index) => {
     var classOfCell = `${ticketId}${num}cell${index}`;
     if (document.getElementById(classOfCell).style.backgroundColor === "red") {
@@ -38,6 +39,8 @@ const Ticket = ({ ticket, ticketId }) => {
           );
         })}
       </table>
+
+      
     </div>
   );
 };

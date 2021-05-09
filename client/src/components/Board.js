@@ -25,6 +25,7 @@ import TicketList from "./TicketList";
 import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
+import { Leadarboard } from "./Leadarboard";
 // import Spinner from "./layout/Spinner";
 
 function Board({
@@ -47,20 +48,20 @@ function Board({
 
   //find player in the game
   //we have the username as the player joins the game
-  const findPlayerIndex = (username) => {
-    var playerIndex = -1;
-    if (game.players) {
-      game.players.map((player, index) => {
-        if (player.name === username) {
-          playerIndex = index;
-        }
-        return 0;
-      });
-      return playerIndex;
-    } else {
-      return -1;
-    }
-  };
+  // const findPlayerIndex = (username) => {
+  //   var playerIndex = -1;
+  //   if (game.players) {
+  //     game.players.map((player, index) => {
+  //       if (player.name === username) {
+  //         playerIndex = index;
+  //       }
+  //       return 0;
+  //     });
+  //     return playerIndex;
+  //   } else {
+  //     return -1;
+  //   }
+  // };
   // var player;
   // if(localStorage.username) player = findPlayerIndex(localStorage.username);
 
@@ -159,6 +160,10 @@ function Board({
   //open numbers history
   const [openNumbers, setOpenNumbers] = useState(false);
 
+  //opens leadarboard
+  const [openLeadarboard, setOpenLeadarboard] = useState(false);
+  
+
   //modal function
   const [open, setOpen] = React.useState(false);
   const onCloseModal = () => {
@@ -168,6 +173,23 @@ function Board({
     e.preventDefault();
     setOpen(true);
   };
+
+
+  //if the dashboard is for player finding out the player information
+  var playerDetails;
+  if(localStorage.username){
+    game.players.map((player) => {
+      if(player.name === localStorage.username) return playerDetails = player;
+      else{
+        // localStorage.removeItem("username");
+        // localStorage.removeItem("playerid");
+        // localStorage.removeItem("player");
+        // localStorage.removeItem("ticketId");
+        return null;
+
+      } 
+    })
+  }
 
   //returning JSX
   return (
@@ -186,6 +208,11 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
+        {playerDetails ? <div className="gameid">
+          <span>Score: </span>
+          <span>{playerDetails.score}</span>
+        </div> : ""}
+        
 
         {/* <div>
           <a
@@ -234,7 +261,6 @@ function Board({
             {openNumbers ? (
               <NumberHistory
                 numCalled={numCalled}
-                setOpenNumbers={setOpenNumbers}
               />
             ) : (
               ""
@@ -247,7 +273,7 @@ function Board({
         <br />
         {localStorage.playerid ? (
           <div>
-            <TicketList tickets={game.tickets} game={game} />{" "}
+            <TicketList tickets={game.tickets} game={game} numCalled={numCalled} />{" "}
           </div>
         ) : (
           ""
@@ -259,7 +285,11 @@ function Board({
         ) : (
           ""
         )}
-
+        <br />
+        <div onClick={() => setOpenLeadarboard(!openLeadarboard)}>
+          <a className="btn-lg">Leadarboard</a>
+        </div>
+       {openLeadarboard ? <Leadarboard game={game} setOpenLeadarboard={setOpenLeadarboard}/> : ""}
         <br />
         <table>
           <tr>

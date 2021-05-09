@@ -160,10 +160,13 @@
 
   /* Board page Main Game page */
   .top-row{
+      margin-left: 20px;
+      margin-right: 20px;
       display: flex;
       flex-direction: row;
       margin-top: 0px;
       justify-content: space-around;
+      flex-wrap: nowrap;
   }
   .gameid{
      width: 50%;
