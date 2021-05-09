@@ -811,7 +811,7 @@ function Board({
         </div> */}
           <div className="whatsapp-container">
             <a
-              href={`whatsapp://send?text=${numString} is the last number called!`}
+              href={`whatsapp://send?text=${numString}`}
               data-action="share/whatsapp/share"
               target="_blank"
               rel="noreferrer"

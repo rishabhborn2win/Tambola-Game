@@ -17,9 +17,9 @@ export const Leadarboard = ({game, setOpenLeadarboard}) => {
         <div>
             <Modal open={open} onClose={onCloseModal} center>
             <div>
-            <table>
-                <tr>
-                    <td>Award</td>
+            <table className="score-board">
+                <tr class="top-row-table">
+                    <td >Award</td>
                     <td>Point</td>
                     <td>Winner</td>
                 </tr>
@@ -39,16 +39,36 @@ export const Leadarboard = ({game, setOpenLeadarboard}) => {
                     <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["thirdLine"].winner}</td>
                 </tr>
                 <tr>
+                    <td>Early 5</td>
+                    <td>30</td>
+                    <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["house"].winner}</td>
+                </tr>
+                <tr>
+                    <td>Four Corner</td>
+                    <td>40</td>
+                    <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["house"].winner}</td>
+                </tr>
+                <tr>
+                    <td>Middle Number</td>
+                    <td>30</td>
+                    <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["house"].winner}</td>
+                </tr>
+                <tr>
                     <td>Full House</td>
                     <td>100</td>
                     <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["house"].winner}</td>
                 </tr>
+                {game.players.length > 2 ? <tr>
+                    <td>Full House 2</td>
+                    <td>100</td>
+                    <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["house"].winner}</td>
+                </tr> : ""}
             </table>
            </div>
            <br />
             <div className="player-scoreboard">
                 <table>
-                    <tr>
+                    <tr className="top-row-table">
                         <td>Player</td>
                         <td>Score</td>
                     </tr>
