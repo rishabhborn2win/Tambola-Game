@@ -44,6 +44,33 @@ const GameSchema = new mongoose.Schema(
       },
     ],
     dividends: {
+      earlyFive: {
+          winner: {
+            type: String
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now()
+          }
+      },
+      fourCorner: {
+          winner: {
+            type: String
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now()
+          }
+      },
+      middleNumber: {
+          winner: {
+            type: String
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now()
+          }
+      },
       firstLine: {
         winner: {
           type: String
@@ -80,6 +107,15 @@ const GameSchema = new mongoose.Schema(
           default: Date.now()
         }
       },
+      house2 : {
+        winner: {
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        }
+      }
     },
     date: {
       type: Date,
