@@ -1,5 +1,5 @@
 import React from "react";
-import { DividendsVerify } from "./DividendsVerify";
+// import { DividendsVerify } from "./DividendsVerify";
 
 const Ticket = ({ numCalled, ticket, ticketId }) => {
   const colorCell = (num, index) => {

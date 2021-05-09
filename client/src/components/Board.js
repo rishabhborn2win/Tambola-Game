@@ -287,11 +287,11 @@ function Board({
         )}
         <br />
         <div onClick={() => setOpenLeadarboard(!openLeadarboard)}>
-          <a className="btn-lg">Leadarboard</a>
+          <a href="#top" className="btn-lg">Leadarboard</a>
         </div>
        {openLeadarboard ? <Leadarboard game={game} setOpenLeadarboard={setOpenLeadarboard}/> : ""}
         <br />
-        <table>
+        <table id="table">
           <tr>
             <td>
               <button id="1" class="number-button" onclick="select(this.id)">
