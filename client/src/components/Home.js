@@ -47,18 +47,16 @@ function Home({ game }) {
     }
   };
 
-  //defing the player validity
-  var player = -1;
-  console.log(player);
+  // //defing the player validity
+  // var player = -1;
+  // if (localStorage.username) {
+  //   player = findPlayerIndex(localStorage.username);
+  //   console.log(player);
 
-  if (localStorage.username) {
-    player = findPlayerIndex(localStorage.username);
-    console.log(player);
-
-    if (player < 0) {
-      <Redirect to="/error"></Redirect>;
-    }
-  }
+  //   if (player < 0) {
+  //     <Redirect to="/error"></Redirect>;
+  //   }
+  // }
 
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();

@@ -25,6 +25,7 @@ import TicketList from "./TicketList";
 import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
+import { Leadarboard } from "./Leadarboard";
 // import Spinner from "./layout/Spinner";
 
 function Board({
@@ -44,33 +45,6 @@ function Board({
     }, 5000);
     // loadGame();
   }, [refreshGame]);
-
-  //find player in the game
-  //we have the username as the player joins the game
-  const findPlayerIndex = (username) => {
-    var playerIndex = -1;
-    if (game.players) {
-      game.players.map((player, index) => {
-        if (player.name === username) {
-          playerIndex = index;
-        }
-        return 0;
-      });
-      return playerIndex;
-    } else {
-      return -1;
-    }
-  };
-  // var player;
-  // if(localStorage.username) player = findPlayerIndex(localStorage.username);
-
-  // var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets;
-
-  // console.log(updateIndex)
-
-  // useEffect(() => {
-  //   loadTicket()
-  // }, [updateIndex])
 
   //fucntion for deleting the game
   const deleteGame = () => {
@@ -119,6 +93,7 @@ function Board({
 
   //calling necxt num should disable the necxt num button so that a user can't call it uneccesarily
   const nextNum = () => {
+    if(game.players.length >0){
     nextNumber(localStorage.gameid);
     document.getElementById("nxt").disabled = true;
     document.getElementById("nxt").style.opacity = 0.5;
@@ -126,6 +101,10 @@ function Board({
       document.getElementById("nxt").disabled = false;
       document.getElementById("nxt").style.opacity = 1;
     }, 3000);
+  }else{
+    setAutomaticPlay(false);
+    alert("Let Players Joined the Game!");
+  }
   };
 
   //getting the index value
@@ -135,6 +114,17 @@ function Board({
   for (i = 0; i < 90; i++) {
     if (numbersArray[i].called === false) break;
   }
+
+
+  //adding feature of automatic calling numbers if the host pressed play button and if paused
+  //then the automatic calling should be unfollowed
+
+  const [automaticPlay, setAutomaticPlay] = useState(false)
+  // if(automaticPlay){
+  //   setInterval(function () {
+  //     nextNum();
+  //   }, 5000)
+  // }
 
   //coloring the current number to be red
   useEffect(() => {
@@ -159,6 +149,10 @@ function Board({
   //open numbers history
   const [openNumbers, setOpenNumbers] = useState(false);
 
+  //opens leadarboard
+  const [openLeadarboard, setOpenLeadarboard] = useState(false);
+  
+
   //modal function
   const [open, setOpen] = React.useState(false);
   const onCloseModal = () => {
@@ -169,6 +163,23 @@ function Board({
     setOpen(true);
   };
 
+
+  //if the dashboard is for player finding out the player information
+  var playerDetails;
+  if(localStorage.username){
+    game.players.map((player) => {
+      if(player.name === localStorage.username) return playerDetails = player;
+      else{
+        // localStorage.removeItem("username");
+        // localStorage.removeItem("playerid");
+        // localStorage.removeItem("player");
+        // localStorage.removeItem("ticketId");
+        return null;
+
+      } 
+    })
+  }
+
   //returning JSX
   return (
     <Fragment>
@@ -176,7 +187,7 @@ function Board({
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
       {localStorage.gameid ? (
         <Modal open={open} onClose={onCloseModal} center>
-          <GenerateTicketForm function={onCloseModal} game={game} />
+          <GenerateTicketForm onCloseModal={onCloseModal} game={game} />
         </Modal>
       ) : (
         ""
@@ -186,6 +197,11 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
+        {playerDetails ? <div className="gameid">
+          <span>Score: </span>
+          <span>{playerDetails.score}</span>
+        </div> : ""}
+        
 
         {/* <div>
           <a
@@ -234,7 +250,6 @@ function Board({
             {openNumbers ? (
               <NumberHistory
                 numCalled={numCalled}
-                setOpenNumbers={setOpenNumbers}
               />
             ) : (
               ""
@@ -247,21 +262,35 @@ function Board({
         <br />
         {localStorage.playerid ? (
           <div>
-            <TicketList tickets={game.tickets} game={game} />{" "}
+            <TicketList tickets={game.tickets} game={game} numCalled={numCalled} />{" "}
           </div>
         ) : (
           ""
         )}
         {localStorage.gameid ? (
+          <div>
           <Link to="#" className="btn-lg" onClick={onOpenModal}>
             Generate Tickets
           </Link>
+           {automaticPlay ? <a href="#top" class="" onClick={(e) => {setAutomaticPlay(!automaticPlay); alert("Feature is under maintainence!!")}}>
+           	{/* Pause button unicode */}
+          &#9208;
+          </a>: <a href="#top" class="" onClick={(e) => {setAutomaticPlay(!automaticPlay) ; alert("Feature is under maintainence!!")}}>
+            {/* play button unicode */}
+           &#9654; 
+          </a>}
+         </div>
+
         ) : (
           ""
         )}
-
         <br />
-        <table>
+        <div onClick={() => setOpenLeadarboard(!openLeadarboard)}>
+          <a href="#top" className="btn-lg">Leadarboard</a>
+        </div>
+       {openLeadarboard ? <Leadarboard game={game} setOpenLeadarboard={setOpenLeadarboard}/> : ""}
+        <br />
+        <table id="table">
           <tr>
             <td>
               <button id="1" class="number-button" onclick="select(this.id)">
@@ -781,7 +810,7 @@ function Board({
         </div> */}
           <div className="whatsapp-container">
             <a
-              href={`whatsapp://send?text=${numString} is the last number called!`}
+              href={`whatsapp://send?text=${numString}`}
               data-action="share/whatsapp/share"
               target="_blank"
               rel="noreferrer"

@@ -160,10 +160,13 @@
 
   /* Board page Main Game page */
   .top-row{
+      margin-left: 20px;
+      margin-right: 20px;
       display: flex;
       flex-direction: row;
       margin-top: 0px;
       justify-content: space-around;
+      flex-wrap: nowrap;
   }
   .gameid{
      width: 50%;
@@ -393,6 +396,28 @@
     
     /* padding: 50px; */
   }
+
+
+  /* leadarboard updadtion */
+.score-board{
+  font-size: 20px;
+}
+
+.top-row-table {
+  background-color: rgb(197, 194, 194);
+  text-align: center ;
+  font-weight: 800;
+
+}
+
+.score-board td {
+  padding: 10px;
+}
+
+.top-row-table td{
+  padding: 10px;
+}
+
 
   
 

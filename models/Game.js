@@ -37,8 +37,86 @@ const GameSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "ticket",
         },
+        score: {
+          type: Number,
+          default: 0
+        }
       },
     ],
+    dividends: {
+      earlyFive: {
+          winner: {
+            type: String
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now()
+          }
+      },
+      fourCorner: {
+          winner: {
+            type: String
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now()
+          }
+      },
+      middleNumber: {
+          winner: {
+            type: String
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now()
+          }
+      },
+      firstLine: {
+        winner: {
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        }
+      },
+      secondLine: {
+        winner: {
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        }
+      },
+      thirdLine: {
+        winner: {
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        }
+      },
+      house: {
+        winner: {
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        }
+      },
+      house2 : {
+        winner: {
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now()
+        }
+      }
+    },
     date: {
       type: Date,
       default: Date.now,
