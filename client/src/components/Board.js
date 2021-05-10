@@ -187,7 +187,7 @@ function Board({
       <Heading text={`Game Dashboard (${typeOfPlayer})`} />
       {localStorage.gameid ? (
         <Modal open={open} onClose={onCloseModal} center>
-          <GenerateTicketForm function={onCloseModal} game={game} />
+          <GenerateTicketForm onCloseModal={onCloseModal} game={game} />
         </Modal>
       ) : (
         ""

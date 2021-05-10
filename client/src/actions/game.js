@@ -295,12 +295,12 @@ export const generateTicket = (formData) => async (dispatch) => {
       type: TICKET_GENERATED,
       payload: res.data,
     });
-    dispatch(
-      setAlert(
+    
+      alert(
         `${res.data.name}, Your Tickets are successfully Generated!`,
         "success"
       )
-    );
+    
   } catch (err) {
     dispatch({
       type: GENERATE_FAILED,
