@@ -39,83 +39,83 @@ const GameSchema = new mongoose.Schema(
         },
         score: {
           type: Number,
-          default: 0
-        }
+          default: 0,
+        },
       },
     ],
     dividends: {
       earlyFive: {
-          winner: {
-            type: String
-          },
-          createdAt: {
-            type: Date,
-            default: Date.now()
-          }
+        winner: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now(),
+        },
       },
       fourCorner: {
-          winner: {
-            type: String
-          },
-          createdAt: {
-            type: Date,
-            default: Date.now()
-          }
+        winner: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now(),
+        },
       },
       middleNumber: {
-          winner: {
-            type: String
-          },
-          createdAt: {
-            type: Date,
-            default: Date.now()
-          }
+        winner: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now(),
+        },
       },
       firstLine: {
         winner: {
-          type: String
+          type: String,
         },
         createdAt: {
           type: Date,
-          default: Date.now()
-        }
+          default: Date.now(),
+        },
       },
       secondLine: {
         winner: {
-          type: String
+          type: String,
         },
         createdAt: {
           type: Date,
-          default: Date.now()
-        }
+          default: Date.now(),
+        },
       },
       thirdLine: {
         winner: {
-          type: String
+          type: String,
         },
         createdAt: {
           type: Date,
-          default: Date.now()
-        }
+          default: Date.now(),
+        },
       },
       house: {
         winner: {
-          type: String
+          type: String,
         },
         createdAt: {
           type: Date,
-          default: Date.now()
-        }
+          default: Date.now(),
+        },
       },
-      house2 : {
+      house2: {
         winner: {
-          type: String
+          type: String,
         },
         createdAt: {
           type: Date,
-          default: Date.now()
-        }
-      }
+          default: Date.now(),
+        },
+      },
     },
     date: {
       type: Date,

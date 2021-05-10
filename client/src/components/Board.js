@@ -93,18 +93,18 @@ function Board({
 
   //calling necxt num should disable the necxt num button so that a user can't call it uneccesarily
   const nextNum = () => {
-    if(game.players.length >0){
-    nextNumber(localStorage.gameid);
-    document.getElementById("nxt").disabled = true;
-    document.getElementById("nxt").style.opacity = 0.5;
-    setTimeout(function () {
-      document.getElementById("nxt").disabled = false;
-      document.getElementById("nxt").style.opacity = 1;
-    }, 3000);
-  }else{
-    setAutomaticPlay(false);
-    alert("Let Players Joined the Game!");
-  }
+    if (game.players.length > 0) {
+      nextNumber(localStorage.gameid);
+      document.getElementById("nxt").disabled = true;
+      document.getElementById("nxt").style.opacity = 0.5;
+      setTimeout(function () {
+        document.getElementById("nxt").disabled = false;
+        document.getElementById("nxt").style.opacity = 1;
+      }, 3000);
+    } else {
+      setAutomaticPlay(false);
+      alert("Let Players Joined the Game!");
+    }
   };
 
   //getting the index value
@@ -115,11 +115,10 @@ function Board({
     if (numbersArray[i].called === false) break;
   }
 
-
   //adding feature of automatic calling numbers if the host pressed play button and if paused
   //then the automatic calling should be unfollowed
 
-  const [automaticPlay, setAutomaticPlay] = useState(false)
+  const [automaticPlay, setAutomaticPlay] = useState(false);
   // if(automaticPlay){
   //   setInterval(function () {
   //     nextNum();
@@ -151,7 +150,6 @@ function Board({
 
   //opens leadarboard
   const [openLeadarboard, setOpenLeadarboard] = useState(false);
-  
 
   //modal function
   const [open, setOpen] = React.useState(false);
@@ -163,24 +161,33 @@ function Board({
     setOpen(true);
   };
 
-
   //if the dashboard is for player finding out the player information
   var playerDetails;
-  if(localStorage.username){
+  if (localStorage.username) {
     game.players.map((player) => {
-      if(player.name === localStorage.username) return playerDetails = player;
-      else{
+      if (player.name === localStorage.username)
+        return (playerDetails = player);
+      else {
         alert("Unauthorize Access!");
         return null;
-      } 
-    })
+      }
+    });
   }
 
   //alert all the player the winner of the game and to leave the game
-  if((numCalled.length === 90 || (game.dividends["firstLine"].winner && game.dividends["secondLine"].winner && game.dividends["thirdLine"].winner && game.dividends["earlyFive"].winner && game.dividends["fourCorner"].winner && game.dividends["middleNumber"].winner && game.dividends["house"].winner)) && localStorage.username){
-    window.location.href="/gameover" 
+  if (
+    (numCalled.length === 90 ||
+      (game.dividends["firstLine"].winner &&
+        game.dividends["secondLine"].winner &&
+        game.dividends["thirdLine"].winner &&
+        game.dividends["earlyFive"].winner &&
+        game.dividends["fourCorner"].winner &&
+        game.dividends["middleNumber"].winner &&
+        game.dividends["house"].winner)) &&
+    localStorage.username
+  ) {
+    window.location.href = "/gameover";
   }
-
 
   //returning JSX
   return (
@@ -199,11 +206,14 @@ function Board({
           <span>Game ID: </span>
           <span className="gameid-value">{game.gameID} </span>
         </div>
-        {playerDetails ? <div className="gameid">
-          <span>Score: </span>
-          <span>{playerDetails.score}</span>
-        </div> : ""}
-        
+        {playerDetails ? (
+          <div className="gameid">
+            <span>Score: </span>
+            <span>{playerDetails.score}</span>
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* <div>
           <a
@@ -249,13 +259,7 @@ function Board({
             <span className="current">
               {numCalled[numCalled.length - 1] || 0}
             </span>
-            {openNumbers ? (
-              <NumberHistory
-                numCalled={numCalled}
-              />
-            ) : (
-              ""
-            )}
+            {openNumbers ? <NumberHistory numCalled={numCalled} /> : ""}
           </p>
         </div>
         {/* <div>
@@ -264,33 +268,60 @@ function Board({
         <br />
         {localStorage.playerid ? (
           <div>
-            <TicketList tickets={game.tickets} game={game} numCalled={numCalled} />{" "}
+            <TicketList
+              tickets={game.tickets}
+              game={game}
+              numCalled={numCalled}
+            />{" "}
           </div>
         ) : (
           ""
         )}
         {localStorage.gameid ? (
           <div>
-          <Link to="#" className="btn-lg" onClick={onOpenModal}>
-            Generate Tickets
-          </Link>
-           {automaticPlay ? <a href="#top" class="" onClick={(e) => {setAutomaticPlay(!automaticPlay); alert("Feature is under maintainence!!")}}>
-           	{/* Pause button unicode */}
-          &#9208;
-          </a>: <a href="#top" class="" onClick={(e) => {setAutomaticPlay(!automaticPlay) ; alert("Feature is under maintainence!!")}}>
-            {/* play button unicode */}
-           &#9654; 
-          </a>}
-         </div>
-
+            <Link to="#" className="btn-lg" onClick={onOpenModal}>
+              Generate Tickets
+            </Link>
+            {automaticPlay ? (
+              <a
+                href="#top"
+                class=""
+                onClick={(e) => {
+                  setAutomaticPlay(!automaticPlay);
+                  alert("Feature is under maintainence!!");
+                }}
+              >
+                {/* Pause button unicode */}
+                &#9208;
+              </a>
+            ) : (
+              <a
+                href="#top"
+                class=""
+                onClick={(e) => {
+                  setAutomaticPlay(!automaticPlay);
+                  alert("Feature is under maintainence!!");
+                }}
+              >
+                {/* play button unicode */}
+                &#9654;
+              </a>
+            )}
+          </div>
         ) : (
           ""
         )}
         <br />
         <div onClick={() => setOpenLeadarboard(!openLeadarboard)}>
-          <a href="#top" className="btn-lg">Leadarboard</a>
+          <a href="#top" className="btn-lg">
+            Leadarboard
+          </a>
         </div>
-       {openLeadarboard ? <Leadarboard game={game} setOpenLeadarboard={setOpenLeadarboard}/> : ""}
+        {openLeadarboard ? (
+          <Leadarboard game={game} setOpenLeadarboard={setOpenLeadarboard} />
+        ) : (
+          ""
+        )}
         <br />
         <table id="table">
           <tr>
@@ -790,7 +821,16 @@ function Board({
           {game._id === localStorage.gameid ? (
             <Fragment>
               {numberCalled !== undefined ? (
-                !(numCalled.length === 90 || (game.dividends["firstLine"].winner && game.dividends["secondLine"].winner && game.dividends["thirdLine"].winner && game.dividends["earlyFive"].winner && game.dividends["fourCorner"].winner && game.dividends["middleNumber"].winner && game.dividends["house"].winner)) ? (
+                !(
+                  numCalled.length === 90 ||
+                  (game.dividends["firstLine"].winner &&
+                    game.dividends["secondLine"].winner &&
+                    game.dividends["thirdLine"].winner &&
+                    game.dividends["earlyFive"].winner &&
+                    game.dividends["fourCorner"].winner &&
+                    game.dividends["middleNumber"].winner &&
+                    game.dividends["house"].winner)
+                ) ? (
                   <button onClick={() => nextNum()} class="btn-lg" id="nxt">
                     Next Number (Wait 3s)
                   </button>

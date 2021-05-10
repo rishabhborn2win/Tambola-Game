@@ -21,7 +21,7 @@ export const transform = (n, gameid) => {
     if (num === 0) return (numString += "0️⃣");
     else return 0;
   });
-  numString+=" is the last number called!"
+  numString += " is the last number called!";
   if (numString === "0️⃣ is the last number called!")
     numString = `Game Is about to begin! Please Join The room (GameID: ${gameid} ) ASAP! https://tambola-numbers.herokuapp.com/join/${gameid}`;
   return numString;

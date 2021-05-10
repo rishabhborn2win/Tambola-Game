@@ -6,7 +6,12 @@ import { withRouter } from "react-router-dom";
 // import {Button} from 'react-bootstrap'
 import PropTypes from "prop-types";
 
-const GenerateTicketForm = ({ onCloseModal, game, generateTicket, notifyFill }) => {
+const GenerateTicketForm = ({
+  onCloseModal,
+  game,
+  generateTicket,
+  notifyFill,
+}) => {
   const players = game ? game.players : ["Loading.."];
   const [formData, setFormData] = useState({
     playername: {},
@@ -27,7 +32,7 @@ const GenerateTicketForm = ({ onCloseModal, game, generateTicket, notifyFill }) 
       notifyFill("No Of tickets can not be more then 6");
     } else {
       generateTicket(formData);
-      onCloseModal(false)
+      onCloseModal(false);
     }
   };
 

@@ -16,7 +16,7 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
 import { Error } from "./components/layout/Error";
-import  GameOver  from "./components/GameOver";
+import GameOver from "./components/GameOver";
 // import GenerateTicketForm from "./components/GenerateTicketForm";
 // import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
