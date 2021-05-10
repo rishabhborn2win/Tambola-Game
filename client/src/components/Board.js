@@ -46,33 +46,6 @@ function Board({
     // loadGame();
   }, [refreshGame]);
 
-  //find player in the game
-  //we have the username as the player joins the game
-  // const findPlayerIndex = (username) => {
-  //   var playerIndex = -1;
-  //   if (game.players) {
-  //     game.players.map((player, index) => {
-  //       if (player.name === username) {
-  //         playerIndex = index;
-  //       }
-  //       return 0;
-  //     });
-  //     return playerIndex;
-  //   } else {
-  //     return -1;
-  //   }
-  // };
-  // var player;
-  // if(localStorage.username) player = findPlayerIndex(localStorage.username);
-
-  // var updateIndex = localStorage.gameid ? "loadTicket" : game.players[player].tickets;
-
-  // console.log(updateIndex)
-
-  // useEffect(() => {
-  //   loadTicket()
-  // }, [updateIndex])
-
   //fucntion for deleting the game
   const deleteGame = () => {
     if (game.players.length === 0) dropGame(localStorage.gameid);
@@ -120,6 +93,7 @@ function Board({
 
   //calling necxt num should disable the necxt num button so that a user can't call it uneccesarily
   const nextNum = () => {
+    if(game.players.length >0){
     nextNumber(localStorage.gameid);
     document.getElementById("nxt").disabled = true;
     document.getElementById("nxt").style.opacity = 0.5;
@@ -127,6 +101,10 @@ function Board({
       document.getElementById("nxt").disabled = false;
       document.getElementById("nxt").style.opacity = 1;
     }, 3000);
+  }else{
+    setAutomaticPlay(false);
+    alert("Let Players Joined the Game!");
+  }
   };
 
   //getting the index value
@@ -136,6 +114,17 @@ function Board({
   for (i = 0; i < 90; i++) {
     if (numbersArray[i].called === false) break;
   }
+
+
+  //adding feature of automatic calling numbers if the host pressed play button and if paused
+  //then the automatic calling should be unfollowed
+
+  const [automaticPlay, setAutomaticPlay] = useState(false)
+  // if(automaticPlay){
+  //   setInterval(function () {
+  //     nextNum();
+  //   }, 5000)
+  // }
 
   //coloring the current number to be red
   useEffect(() => {
@@ -279,9 +268,19 @@ function Board({
           ""
         )}
         {localStorage.gameid ? (
+          <div>
           <Link to="#" className="btn-lg" onClick={onOpenModal}>
             Generate Tickets
           </Link>
+           {automaticPlay ? <a href="#top" class="" onClick={(e) => {setAutomaticPlay(!automaticPlay); alert("Feature is under maintainence!!")}}>
+           	{/* Pause button unicode */}
+          &#9208;
+          </a>: <a href="#top" class="" onClick={(e) => {setAutomaticPlay(!automaticPlay) ; alert("Feature is under maintainence!!")}}>
+            {/* play button unicode */}
+           &#9654; 
+          </a>}
+         </div>
+
         ) : (
           ""
         )}

@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
         return 0;
         })
         return 0;
-    })
+    });
 
 
     const verifyLine = (line) => {
@@ -60,7 +60,7 @@ import PropTypes from "prop-types";
         })
         return 0;
     })
-        if(flag === 5) {
+        if(flag >= 5) {
             alert("You Got early 5");
             updateDividend(gameid, playername, 30, "earlyFive")
         }
@@ -103,9 +103,9 @@ import PropTypes from "prop-types";
             if(middleNumber === num) flag++;
             return 0;
         })
-        if(flag === 4){
+        if(flag === 1){
             alert("You Got Middle Number");
-            updateDividend(gameid, playername, 30, "fourCorner");
+            updateDividend(gameid, playername, 30, "middleNumber");
         }else {
             alert("Boogie");
             updateDividend(gameid, playername, -5, "boogie")
