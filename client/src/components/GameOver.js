@@ -1,23 +1,39 @@
-import { Modal } from "react-responsive-modal";
-import "react-responsive-modal/styles.css";
-import React from 'react'
+import React, {useEffect} from 'react'
+import { Leadarboard } from './Leadarboard'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loadGame, leaveGame } from "../actions/game"
+import Gameover from './gameover.mp4'
+import Host from './Host';
 
-export const Leadarboard = ({game, setOpenLeadarboard}) => {
+ const GameOver = ({loadGame, game, leaveGame, numCalled}) => {
+    useEffect(() => {
+        loadGame()
+    }, [])
+   
 
-    const [open, setOpen] = React.useState(true);
-    const onCloseModal = () => {
-      setOpen(false);
-      if(setOpenLeadarboard){
-      setOpenLeadarboard(false);
-      }
-    };
-
-    
+    const leave = async (e) => {
+        e.preventDefault();
+        await leaveGame(
+          localStorage.getItem("playerid"),
+          localStorage.getItem("username")
+        );
+        window.location.href = '/'
+      };
     return (
-        <div>
-            <Modal open={open} onClose={onCloseModal} center>
+        <div className="container" style={{marginBottom: "30%"}}>
+            <video width="320" height="240" autoPlay loop={true}>
+                <source src={Gameover} type="video/mp4" />
+                    Your browser does not support the video tag.
+            </video> 
+            <h2>LEAVE GAME!</h2>
+            <div className="trash">
+            <a href="#top" class="" onClick={(e) => leave(e)}>
+              &#9166;
+            </a>
+            </div>
             <div>
-            <table className="score-board">
+            {game ? <table className="score-board">
                 <tr class="top-row-table">
                     <td >Award</td>
                     <td>Point</td>
@@ -63,29 +79,27 @@ export const Leadarboard = ({game, setOpenLeadarboard}) => {
                     <td>100</td>
                     <td>{!game.dividends["firstLine"].winner ? " " :  game.dividends["house"].winner}</td>
                 </tr> : ""} */}
-            </table>
+            </table> : "" }
+            <br/><br/>
            </div>
-           <br />
-            <div className="player-scoreboard">
-                <table>
-                    <tr className="top-row-table">
-                        <td>Player</td>
-                        <td>Score</td>
-                    </tr>
-                    {
-                    game.players.map((player) => {
-                        return (
-                            <tr>
-                                <td>{player.name}</td>
-                                <td>{player.score}</td>
-                            </tr>
-                        )
-                    })
-                }
-                </table>
-                
-            </div>
-            </Modal>
+           <Host game={game} total={numCalled.length} />
+            {/* {game ? game.dividends !== undefined ? <Leadarboard game={game} /> : "" : ""} */}
         </div>
     )
 }
+
+GameOver.prototype = {
+    loadGame: PropTypes.func.isRequired,
+    leaveGame: PropTypes.func.isRequired,
+    game: PropTypes.object.isRequired,
+    numCalled: PropTypes.object.isRequired,
+  };
+  
+  const mapStateToProps = (state) => ({
+    game: state.game.game,
+    numCalled: state.game.numCalled
+  });
+  
+  export default connect(mapStateToProps, {loadGame, leaveGame})(
+    GameOver
+  );

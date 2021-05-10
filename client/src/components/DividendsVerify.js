@@ -150,7 +150,6 @@ import PropTypes from "prop-types";
             {!game.dividends.fourCorner.winner ?<button onClick={() => verifyFourCorner()}>Four Corner</button> : ""}
             {!game.dividends.middleNumber.winner ?<button onClick={() => verifyMiddleNumber()}>Middle Number</button> : ""}
             {!game.dividends.house.winner ?<button onClick={() => verifyHouse()}>House 1</button> : ""}
-            {game.players.length >2 ? !game.dividends.house2.winner ?<button onClick={() => verifyHouse()}>House 2</button> : "" : ""}
         </div>
     )
 }

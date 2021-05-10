@@ -17,7 +17,7 @@ import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import GenerateTicketForm from "./GenerateTicketForm";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
@@ -26,6 +26,7 @@ import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
 import { Leadarboard } from "./Leadarboard";
+import  GameOver  from "./GameOver";
 // import Spinner from "./layout/Spinner";
 
 function Board({
@@ -179,6 +180,12 @@ function Board({
       } 
     })
   }
+
+  //alert all the player the winner of the game and to leave the game
+  if(numCalled.length === 90 || (game.dividends["firstLine"].winner && game.dividends["secondLine"].winner && game.dividends["thirdLine"].winner && game.dividends["earlyFive"].winner && game.dividends["fourCorner"].winner && game.dividends["middleNumber"].winner && game.dividends["house"].winner) && localStorage.username){
+    window.location.href="/gameover" 
+  }
+
 
   //returning JSX
   return (
@@ -788,7 +795,7 @@ function Board({
           {game._id === localStorage.gameid ? (
             <Fragment>
               {numberCalled !== undefined ? (
-                numberCalled.length < 90 ? (
+                !(numCalled.length === 90 || (game.dividends["firstLine"].winner && game.dividends["secondLine"].winner && game.dividends["thirdLine"].winner && game.dividends["earlyFive"].winner && game.dividends["fourCorner"].winner && game.dividends["middleNumber"].winner && game.dividends["house"].winner)) ? (
                   <button onClick={() => nextNum()} class="btn-lg" id="nxt">
                     Next Number (Wait 3s)
                   </button>

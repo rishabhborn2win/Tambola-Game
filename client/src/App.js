@@ -16,6 +16,7 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
 import { Error } from "./components/layout/Error";
+import  GameOver  from "./components/GameOver";
 // import GenerateTicketForm from "./components/GenerateTicketForm";
 // import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
@@ -40,6 +41,8 @@ function App() {
         {/* <Route exact path="/generate/ticket" component={GenerateTicketForm} /> */}
         {/* <Route exact path="/ticketlist" component={TicketList} /> */}
         <PrivateRoute exact path="/play" component={Board} />
+        <Route exact path="/gameover" component={GameOver} />
+
         {/* <Redirect to="/error" /> */}
         <Footer></Footer>
       </Router>
