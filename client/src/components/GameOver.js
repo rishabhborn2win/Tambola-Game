@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import { Leadarboard } from './Leadarboard'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadGame, leaveGame } from "../actions/game"
@@ -9,7 +8,7 @@ import Host from './Host';
  const GameOver = ({loadGame, game, leaveGame, numCalled}) => {
     useEffect(() => {
         loadGame()
-    }, [])
+    }, [loadGame])
    
 
     const leave = async (e) => {

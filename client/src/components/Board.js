@@ -17,7 +17,7 @@ import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
 import { WhatsappIcon } from "react-share";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GenerateTicketForm from "./GenerateTicketForm";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
@@ -26,7 +26,6 @@ import NumberHistory from "./NumberHistory";
 import { transform } from "./transformFunction";
 import ReactTooltip from "react-tooltip";
 import { Leadarboard } from "./Leadarboard";
-import  GameOver  from "./GameOver";
 // import Spinner from "./layout/Spinner";
 
 function Board({
@@ -171,18 +170,14 @@ function Board({
     game.players.map((player) => {
       if(player.name === localStorage.username) return playerDetails = player;
       else{
-        // localStorage.removeItem("username");
-        // localStorage.removeItem("playerid");
-        // localStorage.removeItem("player");
-        // localStorage.removeItem("ticketId");
+        alert("Unauthorize Access!");
         return null;
-
       } 
     })
   }
 
   //alert all the player the winner of the game and to leave the game
-  if(numCalled.length === 90 || (game.dividends["firstLine"].winner && game.dividends["secondLine"].winner && game.dividends["thirdLine"].winner && game.dividends["earlyFive"].winner && game.dividends["fourCorner"].winner && game.dividends["middleNumber"].winner && game.dividends["house"].winner) && localStorage.username){
+  if((numCalled.length === 90 || (game.dividends["firstLine"].winner && game.dividends["secondLine"].winner && game.dividends["thirdLine"].winner && game.dividends["earlyFive"].winner && game.dividends["fourCorner"].winner && game.dividends["middleNumber"].winner && game.dividends["house"].winner)) && localStorage.username){
     window.location.href="/gameover" 
   }
 
