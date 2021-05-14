@@ -9,6 +9,7 @@ const AboutUs = () => {
       <div className="container">
         <div className="detail-of-game">
           <div className="container">
+            <h1>The Site get updated daily with new features!</h1>
             {/* <img src={tambola} alt="Tambola Icon" class="rounded" /> */}
             <p className="text-details-game">
               This Game is designed to play the tambola live with your family
