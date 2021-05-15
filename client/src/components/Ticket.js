@@ -6,13 +6,13 @@ const Ticket = ({ numCalled, ticket, ticketId }) => {
     var classOfCell = `${ticketId}${num}cell${index}`;
     if (document.getElementById(classOfCell).style.backgroundColor === "red") {
       let res = window.confirm("Are You sure?");
-      if (res) {
-        if (index % 2 === 0)
-          return (document.getElementById(classOfCell).style.backgroundColor =
-            "#fff");
-        else
-          return (document.getElementById(classOfCell).style.backgroundColor =
-            "#ccc");
+      if(res){
+      if (index % 2 === 0)
+        return (document.getElementById(classOfCell).style.backgroundColor =
+          "#fff");
+      else
+        return (document.getElementById(classOfCell).style.backgroundColor =
+          "#ccc");
       }
     }
     if (num !== 0) {
@@ -41,6 +41,8 @@ const Ticket = ({ numCalled, ticket, ticketId }) => {
           );
         })}
       </table>
+
+      
     </div>
   );
 };

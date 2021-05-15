@@ -76,9 +76,10 @@ export default function Header() {
           </a>
           {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
           <Link to="/aboutus">About Us</Link>
-          <Link to="/scanqr">Scan QR</Link>
+
           {/* </a> */}
           {/* <a href="/aboutus" onClick={(e) => e.preventDefault()}> */}
+          <Link to="/help">Help</Link>
           {/* </a> */}
           <button>
             <a href="#top" onClick={(e) => resetGame(e)}>

@@ -305,32 +305,33 @@ router.delete("/ticket/:id", async (req, res) => {
 //desc:     To give the score to the player and add make the list
 //access:   public
 router.put("/update/score/dividend", async (req, res) => {
-  const gameid = req.body.gameid;
-  const playername = req.body.playername;
-  const score = req.body.score;
-  const nameOfPrize = req.body.nameOfPrize;
+  const gameid =req.body.gameid
+  const playername =req.body.playername
+  const score = req.body.score
+  const nameOfPrize = req.body.nameOfPrize
   try {
     let game = await Game.findById(gameid);
     var reqIndex = -1;
-    game.players.map((player, index) => {
-      if (player.name === playername) return (reqIndex = index);
-    });
-    game.players[reqIndex].score += score;
-    if (nameOfPrize !== "boogie") {
-      if (!game.dividends[nameOfPrize].winner) {
-        game.dividends[nameOfPrize].winner = game.players[reqIndex].name;
-      } else {
-        return res.status(400).json({
-          errors: [{ msg: "This claim has already been claimed" }],
-        });
-      }
-    }
+      game.players.map((player, index) => {
+        if (player.name === playername) return (reqIndex = index);
+      });
+    game.players[reqIndex].score+=score;
+    if(nameOfPrize !== "boogie") {
+    if(!game.dividends[nameOfPrize].winner){
+    game.dividends[nameOfPrize].winner = game.players[reqIndex].name;
+    }else {
+      return res.status(400).json({
+        errors:[
+          {msg: "This claim has already been claimed"}
+        ]
+      })
+    }}
     await game.save();
     res.status(200).json(game);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server Error");
   }
-});
+})
 
 module.exports = router;
