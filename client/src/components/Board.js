@@ -16,6 +16,7 @@ import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
+import { WhatsappIcon } from "react-share";
 import { Link } from "react-router-dom";
 import GenerateTicketForm from "./GenerateTicketForm";
 import { Modal } from "react-responsive-modal";
@@ -161,17 +162,17 @@ function Board({
   };
 
   //if the dashboard is for player finding out the player information
-  var playerDetails;
-  if (localStorage.username) {
-    game.players.map((player) => {
-      if (player.name === localStorage.username)
-        return (playerDetails = player);
-      else {
-        alert("Unauthorize Access!");
-        return null;
-      }
-    });
-  }
+  // var playerDetails;
+  // if (localStorage.username) {
+  //   game.players.map((player) => {
+  //     if (player.name === localStorage.username)
+  //       return (playerDetails = player);
+  //     else {
+  //       alert("Unauthorize Access!");
+  //       return null;
+  //     }
+  //   });
+  // }
 
   //alert all the player the winner of the game and to leave the game
   if (
@@ -858,7 +859,7 @@ function Board({
               className="btn-lg"
             >
               {" "}
-              Share
+              <WhatsappIcon size={30} round={true} />
             </a>
           </div>
         </div>

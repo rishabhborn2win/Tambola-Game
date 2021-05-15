@@ -91,27 +91,59 @@ export const TicketScan = () => {
             <div className="container-ticket">
             {tickets ? tickets.map((ticket) => {
                 return (
-                    <div className="ticket">
-                        <span>Tambola Numbers</span>
-                        <p>
-                         {ticketDetails[2]} - {ticketDetails[3]} - {++ticketDetails[4]}
-                        </p>
-                        <table className="tambola-ticket">
-                        <tr>
-                            {firstRow.map((address) => {
-                                return (<td id={`${ticket[address]}cell${address}`} onClick={() => colorCell(address, ticket[address])}>{ticket[address] !== 0 ?ticket[address] : ""}</td>)
-                            })}
-                        </tr>
-                        <tr>
-                            {secondRow.map((address) => {
-                                return (<td id={`${ticket[address]}cell${address}`} onClick={() => colorCell(address, ticket[address])}>{ticket[address] !== 0 ?ticket[address] : ""}</td>)
-                            })}
-                        </tr>
-                        <tr>
-                            {thirdRow.map((address) => {
-                                return (<td id={`${ticket[address]}cell${address}`} onClick={() => colorCell(address, ticket[address])}>{ticket[address] !== 0 ?ticket[address] : ""}</td>)
-                            })}
-                        </tr>
+                  <div className="ticket">
+                    <span>Tambola Numbers</span>
+                    {playerDetails ? (<p>
+                      {playerDetails[5]} - {playerDetails[6]} -{" "}
+                      {ticketDetailsTambolaBook[0]++}
+                    </p>) :(<p>
+                      ({ticketDetails[2]} - {ticketDetails[3]} -{" "}
+                      {ticketDetails[4]++})
+                    </p>)}
+                    <table className="tambola-ticket">
+                      <tr>
+                        {firstRow.map((address) => {
+                          return (
+                            <td
+                              id={`${ticket[address]}cell${address}`}
+                              onClick={() =>
+                                colorCell(address, ticket[address])
+                              }
+                            >
+                              {ticket[address] !== 0 ? ticket[address] : ""}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      <tr>
+                        {secondRow.map((address) => {
+                          return (
+                            <td
+                              id={`${ticket[address]}cell${address}`}
+                              onClick={() =>
+                                colorCell(address, ticket[address])
+                              }
+                            >
+                              {ticket[address] !== 0 ? ticket[address] : ""}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      <tr>
+                        {thirdRow.map((address) => {
+                          return (
+                            <td
+                              id={`${ticket[address]}cell${address}`}
+                              onClick={() =>
+                                colorCell(address, ticket[address])
+                              }
+                            >
+                              {ticket[address] !== 0 ? ticket[address] : ""}
+                            </td>
+                          );
+                        })}
+                      </tr>
+
                     </table>
                     </div>
                 )
