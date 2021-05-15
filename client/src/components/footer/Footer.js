@@ -16,7 +16,7 @@ const Footer = () => {
                     class="icoFacebook"
                     title="Facebook"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                   >
                     <i class="fa fa-facebook"></i>
                   </a>
