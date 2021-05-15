@@ -136,7 +136,7 @@ export const TicketScan = () => {
                     <span>Tambola Numbers</span>
                     {playerDetails ? (<p>
                       {playerDetails[5]} - {playerDetails[6]} -{" "}
-                      {ticketDetails[0]++}
+                      {ticketDetailsTambolaBook[0]++}
                     </p>) :(<p>
                       ({ticketDetails[2]} - {ticketDetails[3]} -{" "}
                       {ticketDetails[4]++})
