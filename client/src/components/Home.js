@@ -91,7 +91,7 @@ function Home({ game }) {
       <span class="text-span">Select Option:-</span>
       <div class="container">
         <Link to="/scanqr">
-          <Button variant="success">Scan Tambola Host QR</Button>
+          <Button variant="success">Scan Tambola Host/Book QR</Button>
         </Link>{" "}
         <Link to="/join">
           <Button variant="success" className="button-lg">
