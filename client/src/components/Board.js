@@ -16,6 +16,7 @@ import Moment from "react-moment";
 import Player from "./Player";
 import Heading from "./Heading";
 import Host from "./Host";
+import { WhatsappIcon } from "react-share";
 import { Link } from "react-router-dom";
 import GenerateTicketForm from "./GenerateTicketForm";
 import { Modal } from "react-responsive-modal";
@@ -857,7 +858,7 @@ function Board({
               className="btn-lg"
             >
               {" "}
-              Share
+              <WhatsappIcon size={30} round={true} />
             </a>
           </div>
         </div>
