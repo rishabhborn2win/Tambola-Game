@@ -1,9 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import Heading from "../Heading";
 
 
 export const TicketScan = () => {
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") {
+      if (navigator.share === undefined) {
+        if (window.location.protocol === "http:") {
+          window.location.replace(
+            window.location.href.replace(/^http:/, "https:")
+          );
+        }
+      }
+    }
+  }, []);
   const [data, setData] = React.useState(localStorage.getItem("data"));
   console.log(data);
   var string = localStorage.data ? localStorage.data : "";
