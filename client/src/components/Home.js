@@ -17,6 +17,17 @@ function Home({ game }) {
     loadGame();
   });
 
+  //always open the page using https protocol
+  useEffect(() => {
+    if (navigator.share === undefined) {
+      if (window.location.protocol === "http:") {
+        window.location.replace(
+          window.location.href.replace(/^http:/, "https:")
+        );
+      }
+    }
+  }, []);
+
   // loadGame();
 
   var numCalled = [];
