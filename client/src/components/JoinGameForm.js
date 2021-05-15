@@ -1,4 +1,5 @@
-import React from "react";
+
+import React from 'react'
 import { Fragment, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -28,7 +29,7 @@ const JoinGameForm = ({ match, notifyFill, joinGame, game }) => {
       notifyFill("Player Name Should have more then 6 Char");
     } else {
       joinGame(playername, gameID);
-      return <Redirect to="/play" />;
+      return (<Redirect to="/play" />);
     }
   };
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { connect } from "react-redux";
@@ -20,14 +20,14 @@ function Home({ game }) {
   //always open the page using https protocol
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
-      if (navigator.share === undefined) {
-        if (window.location.protocol === "http:") {
-          window.location.replace(
-            window.location.href.replace(/^http:/, "https:")
-          );
-        }
+    if (navigator.share === undefined) {
+      if (window.location.protocol === "http:") {
+        window.location.replace(
+          window.location.href.replace(/^http:/, "https:")
+        );
       }
     }
+  }
   }, []);
 
   // loadGame();
