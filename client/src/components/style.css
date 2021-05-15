@@ -69,14 +69,15 @@ font-size: 15px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: #ABB7F8 1px;
-  border-style: solid ;
+  border: black 1px solid;
   padding: 10px;
   margin: 10px;
+  background-color: #ABB7F8;
 }
 
 .ticket p{
- background-color: #ABB7F8;
+color: rgb(42, 68, 42);
+font-weight: 700;
  width: 100%;
  text-align: center;
  text-transform: uppercase ;
@@ -93,6 +94,15 @@ font-size: 15px;
   font-size: 20px;
   padding: 10px;
   cursor: pointer;
+}
+
+/* scanning ticket styling */
+.container-ticket{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 
