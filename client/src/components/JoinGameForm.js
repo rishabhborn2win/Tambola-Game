@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -14,7 +14,7 @@ const JoinGameForm = ({ match, notifyFill, joinGame, game }) => {
   });
 
   if (game) {
-    return <Redirect to="/play"></Redirect>;
+    return (<Redirect to="/play"></Redirect>);
   }
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +27,7 @@ const JoinGameForm = ({ match, notifyFill, joinGame, game }) => {
       notifyFill("Player Name Should have more then 6 Char");
     } else {
       joinGame(playername, gameID);
-      <Redirect to="/play" />;
+      return (<Redirect to="/play" />);
     }
   };
   return (
