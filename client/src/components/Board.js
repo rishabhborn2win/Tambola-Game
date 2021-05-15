@@ -162,17 +162,16 @@ function Board({
   };
 
   //if the dashboard is for player finding out the player information
-  // var playerDetails;
-  // if (localStorage.username) {
-  //   game.players.map((player) => {
-  //     if (player.name === localStorage.username)
-  //       return (playerDetails = player);
-  //     else {
-  //       alert("Unauthorize Access!");
-  //       return null;
-  //     }
-  //   });
-  // }
+  var playerDetails;
+  if (localStorage.username) {
+    game.players.map((player) => {
+      if (player.name === localStorage.username)
+        return (playerDetails = player);
+      else {
+        return null;
+      }
+    });
+  }
 
   //alert all the player the winner of the game and to leave the game
   if (
