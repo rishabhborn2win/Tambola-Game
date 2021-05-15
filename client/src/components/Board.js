@@ -167,7 +167,6 @@ function Board({
       if (player.name === localStorage.username)
         return (playerDetails = player);
       else {
-        alert("Unauthorize Access!");
         return null;
       }
     });
