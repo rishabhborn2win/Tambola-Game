@@ -138,33 +138,35 @@ export const notifyFill = (msg) => async (dispatch) => {
 };
 
 //Create A game
-export const createGame = ({ host }) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const body = JSON.stringify({ host });
-  dispatch({
-    type: GAME_LOADING,
-  });
-  try {
-    const res = await axios.post("/game", body, config);
-
-    dispatch({
-      type: CREATE_GAME,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: CREATE_FAILED,
-      payload: {
-        msg: "Game Already exist from the host name you entered!",
+export const createGame =
+  ({ host }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
       },
+    };
+    const body = JSON.stringify({ host });
+    dispatch({
+      type: GAME_LOADING,
     });
-    dispatch(setAlert("Type Unique Game Name", "danger"));
-  }
-};
+    try {
+      const res = await axios.post("/game", body, config);
+
+      dispatch({
+        type: CREATE_GAME,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: CREATE_FAILED,
+        payload: {
+          msg: "Game Already exist from the host name you entered!",
+        },
+      });
+      dispatch(setAlert("Type Unique Game Name", "danger"));
+    }
+  };
 
 //Delete the Game
 export const dropGame = (gameid) => async (dispatch) => {
@@ -344,28 +346,24 @@ export const loadTicket = () => async (dispatch) => {
 };
 
 //to update the leaderboard
-export const updateDividend = (
-  gameid,
-  playername,
-  score,
-  nameOfPrize
-) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const updateDividend =
+  (gameid, playername, score, nameOfPrize) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ gameid, playername, score, nameOfPrize });
+    try {
+      let res = await axios.put("/game/update/score/dividend", body, config);
+      dispatch({
+        type: DIVIDEND_UPDATED,
+        payload: res.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: DIVIDEND_UPDATED_FAILED,
+        payload: error.message,
+      });
+    }
   };
-  const body = JSON.stringify({ gameid, playername, score, nameOfPrize });
-  try {
-    let res = await axios.put("/game/update/score/dividend", body, config);
-    dispatch({
-      type: DIVIDEND_UPDATED,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: DIVIDEND_UPDATED_FAILED,
-      payload: error.message,
-    });
-  }
-};
