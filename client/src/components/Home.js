@@ -18,17 +18,6 @@ function Home({ game }) {
   });
 
   //always open the page using https protocol
-  useEffect(() => {
-    if (process.env.NODE_ENV === "production") {
-      if (navigator.share === undefined) {
-        if (window.location.protocol === "http:") {
-          window.location.replace(
-            window.location.href.replace(/^http:/, "https:")
-          );
-        }
-      }
-    }
-  }, []);
 
   // loadGame();
 
