@@ -76,6 +76,11 @@ function Home({ game }) {
       <Heading text="Welcome to Tambola," />
       <span class="text-span">Select Option:-</span>
       <div class="container">
+      <Link to="/scanqr">
+          <Button variant="success">
+            Scan Tambola Host QR
+          </Button>
+        </Link>{" "}
         <Link to="/join">
           <Button variant="success" className="button-lg">
             Join Game

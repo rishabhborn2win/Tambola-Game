@@ -17,6 +17,7 @@ import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
 import { Error } from "./components/layout/Error";
 import GameOver from "./components/GameOver";
+import { TicketScan } from "./components/scanQR/Ticket";
 // import GenerateTicketForm from "./components/GenerateTicketForm";
 // import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/aboutus" component={AboutUs} />
         <Route exact path="/help" component={Help} />
         <Route exact path="/error" component={Error} />
+        <Route exact path="/scanqr" component={TicketScan} />
         {/* <Route exact path="/generate/ticket" component={GenerateTicketForm} /> */}
         {/* <Route exact path="/ticketlist" component={TicketList} /> */}
         <PrivateRoute exact path="/play" component={Board} />
