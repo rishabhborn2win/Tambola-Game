@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import { Fragment } from "react";
 import Moment from "react-moment";
 import players from "./player.png";

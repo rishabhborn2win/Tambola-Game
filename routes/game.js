@@ -255,7 +255,8 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
       res.status(400).json({
         errors: [
           {
-            msg: "There is a limit of generating only min 1 and max 6 tickets for a player.",
+            msg:
+              "There is a limit of generating only min 1 and max 6 tickets for a player.",
           },
         ],
       });
@@ -276,7 +277,8 @@ router.get("/ticket/:ticketId", async (req, res) => {
       return res.status(400).json({
         errors: [
           {
-            msg: "There is no Ticket against this game ID. Either its deleted or expired",
+            msg:
+              "There is no Ticket against this game ID. Either its deleted or expired",
           },
         ],
       });

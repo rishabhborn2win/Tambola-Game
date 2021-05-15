@@ -18,8 +18,6 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^2.1.8",
-    "react-speech": "^1.0.2",
-    "react-speech-recognition": "^3.8.0",
     "react-tooltip": "^4.2.19",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
