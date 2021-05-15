@@ -854,7 +854,7 @@ function Board({
               href={`whatsapp://send?text=${numString}`}
               data-action="share/whatsapp/share"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
               className="btn-lg"
             >
               {" "}
