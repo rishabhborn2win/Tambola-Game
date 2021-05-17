@@ -290,6 +290,7 @@
   .desc-input {
     opacity: 1;
     height: 30px;
+    width: 100%;
     color: red
   }
 

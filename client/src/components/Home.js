@@ -117,9 +117,10 @@ function Home({ game }) {
        <div className="share-btn" >
           <a id="share" href="#top"><img width={"30px"} alt="share" src={"https://cdn.icon-icons.com/icons2/2036/PNG/512/sharing_share_icon_124236.png"} /></a>
         </div>
-      <span class="text-span"><a href="/howtoplay">How to Play?</a></span>
       <div class="container">
-        
+        <div>
+          <a href="/howtoplay">How to Play?</a>
+      </div>
         <Link to="/scanqr">
           <Button variant="success">Scan Tambola Host/Book QR</Button>
         </Link>{" "}
