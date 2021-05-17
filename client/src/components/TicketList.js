@@ -16,7 +16,7 @@ const TicketList = ({ numCalled, tickets, loadTicket, game }) => {
       {/* <Heading text="Ticket List!" /> */}
       <div className="ticket-list">
         {tickets
-          ? tickets.tickets !== undefined
+          ? tickets.tickets !== undefined && tickets.tickets.length>0
             ? tickets.tickets.map((serial, index) => {
                 return (
                   <div class="ticket">
@@ -38,8 +38,8 @@ const TicketList = ({ numCalled, tickets, loadTicket, game }) => {
                   </div>
                 );
               })
-            : "You haven't Generated The Ticket Still!"
-          : "Please Refresh the Page..."}
+            : <button onClick={loadTicket}>Reload</button>
+          :<button onClick={loadTicket}>Reload</button>}
       </div>
     </div>
   );

@@ -3,12 +3,12 @@
   "name": "Play Tambola with Family and Friends.",
   "icons": [
     {
-      "src": "tambola.png",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "tambola-write.png",
+      "sizes": "256x256",
       "type": "image/x-icon"
     },
     {
-      "src": "tambola-write.png",
+      "src": "tambola.png",
       "type": "image/png",
       "sizes": "192x192"
     },
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#ABB7F8",
-  "background_color": "#ABB7F8"
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
 }

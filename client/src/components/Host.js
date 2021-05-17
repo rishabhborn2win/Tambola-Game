@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
+import Spinner from "./layout/Spinner";
 import man from "./man.png";
 
 export default function Host({ game, style, total }) {
@@ -9,7 +10,9 @@ export default function Host({ game, style, total }) {
     msg = "Game is Yet To Start!";
   }
   return (
-    <div className="game-details">
+    <>
+    {game ? game.date !== null ? 
+      <div className="game-details">
       <h2 style={{ color: "white" }}>Game Details:- </h2>
       <div className="profile">
         <img src={man} alt="Dp" />
@@ -29,6 +32,7 @@ export default function Host({ game, style, total }) {
         <Moment format="D MMM YYYY">{game ? game.date : ""}</Moment>{" "}
         <Moment format="hh:mm:ss">{game ? game.date : ""}</Moment>
       </div>
-    </div>
+    </div> : <Spinner /> : <Spinner />}
+    </>
   );
 }

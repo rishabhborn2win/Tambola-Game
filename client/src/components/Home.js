@@ -42,6 +42,25 @@ function Home({ game }) {
       return 0;
     });
   }
+  var shareButton =document.getElementById("share");
+  if(shareButton){
+    shareButton.addEventListener('click', event => {
+      event.preventDefault();
+      if (navigator.share) {
+        navigator.share({
+          title: 'Tambola Numbers',
+          url: 'https://tambola-numbers.herokuapp.com'
+        }).then(() => {
+          alert('Thanks for sharing!');
+        })
+        .catch(console.error);
+      } else {
+        // fallback
+      }
+    });
+  }
+
+
 
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();
@@ -88,8 +107,12 @@ function Home({ game }) {
   return (
     <Fragment>
       <Heading text="Welcome to Tambola," />
-      <span class="text-span">Select Option:-</span>
+       <div className="share-btn" >
+          <a id="share"><img width={"30px"} src={"https://cdn.icon-icons.com/icons2/2036/PNG/512/sharing_share_icon_124236.png"} /></a>
+        </div>
+      <span class="text-span"><a href="/howtoplay">How to Play?</a></span>
       <div class="container">
+        
         <Link to="/scanqr">
           <Button variant="success">Scan Tambola Host/Book QR</Button>
         </Link>{" "}
