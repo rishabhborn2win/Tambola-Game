@@ -4,20 +4,16 @@ import React from "react";
 const Ticket = ({ numCalled, ticket, ticketId }) => {
   const colorCell = (num, index) => {
     var classOfCell = `${ticketId}${num}cell${index}`;
-    if (document.getElementById(classOfCell).style.backgroundColor === "red") {
+    if (document.getElementById(classOfCell).style.backgroundColor === "pink") {
       let res = window.confirm("Are You sure?");
       if (res) {
-        if (index % 2 === 0)
-          return (document.getElementById(classOfCell).style.backgroundColor =
-            "#fff");
-        else
-          return (document.getElementById(classOfCell).style.backgroundColor =
-            "#ccc");
+        return (document.getElementById(classOfCell).style.backgroundColor =
+        "white");
       }
     }
     if (num !== 0) {
       return (document.getElementById(classOfCell).style.backgroundColor =
-        "red");
+        "pink");
     }
   };
 

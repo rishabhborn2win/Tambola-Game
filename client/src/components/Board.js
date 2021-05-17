@@ -42,7 +42,7 @@ function Board({
   useEffect(() => {
     setInterval(function () {
       refreshGame();
-    }, 5000);
+    }, 2500);
     // loadGame();
   }, [refreshGame]);
 
@@ -140,7 +140,7 @@ function Board({
   var typeOfPlayer;
   if (localStorage.gameid) typeOfPlayer = "Host";
   else if (localStorage.username)
-    typeOfPlayer = `Player : ${localStorage.username}`;
+    typeOfPlayer = `Player`;
 
   //transform the number using emoji
   var numString = transform(numCalled[numCalled.length - 1] || 0, game.gameID);
@@ -213,7 +213,9 @@ function Board({
         ) : (
           ""
         )}
-
+        <div onClick={() => setOpenLeadarboard(true)}>
+          <span>👤 </span><span>{game.players.length}</span>
+        </div>
         {/* <div>
           <a
             href={`whatsapp://send?text=This is a Invite to Tambola Numbers!🙏🏻 \n GameID: ${game.gameID}`}
@@ -243,9 +245,6 @@ function Board({
 
       <div className="container">
         <div className="second-row">
-          <div class="absolute-loading">
-            {/* {loading ? <Spinner></Spinner> : ""} */}
-          </div>
           <p
             data-tip="Click Here, For History!!"
             onClick={() => setOpenNumbers(!openNumbers)}
@@ -266,13 +265,12 @@ function Board({
         </div> */}
         <br />
         {localStorage.playerid ? (
-          <div>
             <TicketList
               tickets={game.tickets}
               game={game}
               numCalled={numCalled}
-            />{" "}
-          </div>
+            />
+          
         ) : (
           ""
         )}
@@ -281,7 +279,7 @@ function Board({
             <Link to="#" className="btn-lg" onClick={onOpenModal}>
               Generate Tickets
             </Link>
-            {automaticPlay ? (
+            {/* {automaticPlay ? (
               <a
                 href="#top"
                 class=""
@@ -289,9 +287,9 @@ function Board({
                   setAutomaticPlay(!automaticPlay);
                   alert("Feature is under maintainence!!");
                 }}
-              >
+              > */}
                 {/* Pause button unicode */}
-                &#9208;
+                {/* &#9208;
               </a>
             ) : (
               <a
@@ -301,11 +299,11 @@ function Board({
                   setAutomaticPlay(!automaticPlay);
                   alert("Feature is under maintainence!!");
                 }}
-              >
+              > */}
                 {/* play button unicode */}
-                &#9654;
+                {/* &#9654;
               </a>
-            )}
+            )} */}
           </div>
         ) : (
           ""

@@ -1,6 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import Spinner from "./layout/Spinner";
+import { Leadarboard } from "./Leadarboard";
 import man from "./man.png";
 
 export default function Host({ game, style, total }) {
@@ -9,6 +10,8 @@ export default function Host({ game, style, total }) {
   } else {
     msg = "Game is Yet To Start!";
   }
+
+  var players = game ? game.players : [];
   return (
     <>
     {game ? game.date !== null ? 
@@ -16,7 +19,7 @@ export default function Host({ game, style, total }) {
       <h2 style={{ color: "white" }}>Game Details:- </h2>
       <div className="profile">
         <img src={man} alt="Dp" />
-        <span className="host-details">{game ? game.host : ""}</span>
+        <span className="host-details" >{game ? game.host : ""}</span>
       </div>
       <div className="desc">
         <input
@@ -24,6 +27,13 @@ export default function Host({ game, style, total }) {
           className="desc-input"
           placeholder="Description"
           value={msg}
+          disabled
+        ></input>
+         <input
+          type="textarea"
+          className="desc-input"
+          placeholder="Description"
+          value={`Total Players: ${players.length}`}
           disabled
         ></input>
       </div>

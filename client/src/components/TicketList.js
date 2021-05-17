@@ -12,34 +12,39 @@ const TicketList = ({ numCalled, tickets, loadTicket, game }) => {
   }, [loadTicket]);
 
   return (
-    <div>
+    <div className="container">
       {/* <Heading text="Ticket List!" /> */}
       <div className="ticket-list">
         {tickets
           ? tickets.tickets !== undefined && tickets.tickets.length>0
             ? tickets.tickets.map((serial, index) => {
                 return (
+                  <div className="container">
                   <div class="ticket">
+                    <span>Tambola Numbers</span>
                     <p>
-                      Name: {tickets.name} ({`${tickets.ticketId}-${index + 1}`}
+                      {tickets.name} ({`${tickets.ticketId}-${index + 1}`}
                       )
                     </p>
                     <Ticket
                       ticket={serial}
-                      ticketId={`${tickets.ticketId}-${index + 1}`}
+                      ticketId={`${tickets.tickestId}-${index + 1}`}
                       numCalled={numCalled}
-                    />
-                    <DividendsVerify
-                      ticket={serial}
-                      numCalled={numCalled}
-                      playername={tickets.name}
-                      gameid={game._id}
                     />
                   </div>
+                  <div>
+                  <DividendsVerify
+                  ticket={serial}
+                  numCalled={numCalled}
+                  playername={tickets.name}
+                  gameid={game._id}
+                />
+                </div>
+                </div>
                 );
               })
-            : <button onClick={loadTicket}>Reload</button>
-          :<button onClick={loadTicket}>Reload</button>}
+            : <button onClick={loadTicket}>Reload To get Your Ticket</button>
+          :<button onClick={loadTicket}>Reload To Get Your Ticket</button>}
       </div>
     </div>
   );

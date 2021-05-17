@@ -71,20 +71,15 @@ export const TicketScan = () => {
   //function to color the cell on click
   const colorCell = (index, num) => {
     var classOfCell = `${num}cell${index}`;
-    if (document.getElementById(classOfCell).style.backgroundColor === "red") {
+    if (document.getElementById(classOfCell).style.backgroundColor === "pink") {
       let res = window.confirm("Are You sure?");
       if (res) {
-        if (index % 2 === 0)
-          return (document.getElementById(classOfCell).style.backgroundColor =
+        return (document.getElementById(classOfCell).style.backgroundColor =
             "#fff");
-        else
-          return (document.getElementById(classOfCell).style.backgroundColor =
-            "#ccc");
       }
     }
     if (num !== 0) {
-      document.getElementById(classOfCell).style.backgroundColor = "red";
-      document.getElementById(classOfCell).style.color = "black";
+      document.getElementById(classOfCell).style.backgroundColor = "pink";
     }
   };
 

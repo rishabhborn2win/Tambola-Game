@@ -64,11 +64,10 @@ function Home({ game }) {
 
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();
-    console.log("I am in!");
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
     else if (localStorage.username)
-      typeOfPlayer = `Player : ${localStorage.username}`;
+      typeOfPlayer = `Player`;
 
     // if(game.game === null) return <Fragment><Spinner></Spinner></Fragment>;
     // else {
@@ -79,6 +78,13 @@ function Home({ game }) {
         {game.loading ? (
           <Spinner></Spinner>
         ) : (
+          <>
+          <div className="top-row">
+              <div className="gameid">
+                <span>Game ID: </span>
+                <span className="gameid-value">{game.game ? game.game.gameID : ""}</span>
+              </div>
+            </div>
           <div className="container">
             <Link to="/play">
               <button className="btn btn-lg">Resume Game</button>
@@ -98,6 +104,7 @@ function Home({ game }) {
               )}
             </div>
           </div>
+          </>
         )}
       </Fragment>
     );
@@ -108,7 +115,7 @@ function Home({ game }) {
     <Fragment>
       <Heading text="Welcome to Tambola," />
        <div className="share-btn" >
-          <a id="share"><img width={"30px"} src={"https://cdn.icon-icons.com/icons2/2036/PNG/512/sharing_share_icon_124236.png"} /></a>
+          <a id="share" href="#top"><img width={"30px"} alt="share" src={"https://cdn.icon-icons.com/icons2/2036/PNG/512/sharing_share_icon_124236.png"} /></a>
         </div>
       <span class="text-span"><a href="/howtoplay">How to Play?</a></span>
       <div class="container">

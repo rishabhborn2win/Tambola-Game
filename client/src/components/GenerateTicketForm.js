@@ -15,7 +15,7 @@ const GenerateTicketForm = ({
   const players = game ? game.players : ["Loading.."];
   const [formData, setFormData] = useState({
     playername: {},
-    noOfTickets: 0,
+    noOfTickets: 1,
     gameID: game ? game.gameID : "",
     playerid: "",
   });
@@ -30,7 +30,9 @@ const GenerateTicketForm = ({
       notifyFill("Player Name Should have more then 6 Char");
     } else if (noOfTickets < 1 || noOfTickets > 6) {
       notifyFill("No Of tickets can not be more then 6");
-    } else {
+    } else if(playername === "not allowed"){
+      notifyFill("Please select the player...");
+    }else {
       generateTicket(formData);
       onCloseModal(false);
     }
@@ -45,6 +47,15 @@ const GenerateTicketForm = ({
     console.log(data);
     setFormData(data);
   };
+  const decrement = () => {
+    if(noOfTickets > 0)
+    setFormData({...formData, noOfTickets: noOfTickets-1});
+  }
+
+  const increment = () => {
+    if(noOfTickets < 6)
+    setFormData({...formData, noOfTickets: noOfTickets+1});
+  }
   return (
     <div className="content-post">
       <Fragment>
@@ -52,26 +63,14 @@ const GenerateTicketForm = ({
         {/* <span class="text-span">Join Game Form:-</span> */}
         <div className="container">
           <form onSubmit={(e) => onSubmit(e)}>
-            <div class="form-input-group">
-              {/* <label class="omrs-input-underlined">
-                <input
-                  type="select"
-                  className="i"
-                  placeholder="Name"
-                  type="text"
-                  id="playername"
-                  name="playername"
-                  value={playername}
-                  disabled
-                  onChange={(e) => onChange(e)}
-                ></input>
-              </label> */}
+            <div class="select-list">
               <select
                 value={playername}
+                className="custom-select"
                 id={playerid}
                 onChange={(e) => handleChange(e)}
               >
-                <option value={""} title={""}>
+                <option value={"not allowed"} title={""}>
                   *Select Player!
                 </option>
                 {players.map((player) => {
@@ -85,8 +84,12 @@ const GenerateTicketForm = ({
                 })}
               </select>
             </div>
-            <div class="omrs-input-group">
-              <label class="omrs-input-underlined">
+            <div class="number-selector">
+              <span onClick={decrement} >-</span>
+              <span>{noOfTickets}</span>
+              <span onClick={increment}>+</span>
+              {/* onClick={setFormData({...formData, noOfTickets: noOfTickets+1})} */}
+              {/* <label class="omrs-input-underlined">
                 <input
                   className="input"
                   placeholder="No. Of Tickets"
@@ -95,12 +98,12 @@ const GenerateTicketForm = ({
                   name="noOfTickets"
                   onChange={(e) => onChange(e)}
                 ></input>
-              </label>
+              </label> */}
             </div>
             <input
               type="submit"
               value="Generate"
-              className="btn-lg btn-primary float-right"
+              className="btn btn-primary btn-m-20"
             ></input>
           </form>
         </div>
