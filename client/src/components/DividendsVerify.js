@@ -153,39 +153,39 @@ const DividendsVerify = ({
   };
 
   return (
-    <div>
+    <div class="verify-btn-list">
       {!game.dividends.firstLine.winner ? (
-        <button onClick={() => verifyLine(0)}>First Line</button>
+        <button className="verify-btn" onClick={() => verifyLine(0)}>First Line</button>
       ) : (
         ""
       )}
       {!game.dividends.secondLine.winner ? (
-        <button onClick={() => verifyLine(1)}>Second Line</button>
+        <button className="verify-btn" onClick={() => verifyLine(1)}>Second Line</button>
       ) : (
         ""
       )}
       {!game.dividends.thirdLine.winner ? (
-        <button onClick={() => verifyLine(2)}>Third Line</button>
+        <button className="verify-btn" onClick={() => verifyLine(2)}>Third Line</button>
       ) : (
         ""
       )}
       {!game.dividends.earlyFive.winner ? (
-        <button onClick={() => verifyEarlyFive()}>Early 5</button>
+        <button className="verify-btn" onClick={() => verifyEarlyFive()}>Early 5</button>
       ) : (
         ""
       )}
       {!game.dividends.fourCorner.winner ? (
-        <button onClick={() => verifyFourCorner()}>Four Corner</button>
+        <button className="verify-btn" onClick={() => verifyFourCorner()}>Four Corner</button>
       ) : (
         ""
       )}
       {!game.dividends.middleNumber.winner ? (
-        <button onClick={() => verifyMiddleNumber()}>Middle Number</button>
+        <button className="verify-btn" onClick={() => verifyMiddleNumber()}>Middle Number</button>
       ) : (
         ""
       )}
       {!game.dividends.house.winner ? (
-        <button onClick={() => verifyHouse()}>House 1</button>
+        <button className="verify-btn" onClick={() => verifyHouse()}>House 1</button>
       ) : (
         ""
       )}

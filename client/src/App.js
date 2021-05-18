@@ -18,6 +18,8 @@ import Help from "./components/Help";
 import { Error } from "./components/layout/Error";
 import GameOver from "./components/GameOver";
 import { TicketScan } from "./components/scanQR/Ticket";
+import Dictaphone from "./components/speechRecognition/SpeechRecognition";
+import { HowToPlay } from "./components/HowToPlay";
 // import GenerateTicketForm from "./components/GenerateTicketForm";
 // import TicketList from "./components/TicketList";
 // import Ticket from "./components/Ticket";
@@ -40,11 +42,10 @@ function App() {
         <Route exact path="/help" component={Help} />
         <Route exact path="/error" component={Error} />
         <Route exact path="/scanqr" component={TicketScan} />
-        {/* <Route exact path="/generate/ticket" component={GenerateTicketForm} /> */}
-        {/* <Route exact path="/ticketlist" component={TicketList} /> */}
+        <Route exact path="/speech" component={Dictaphone} />
         <PrivateRoute exact path="/play" component={Board} />
+        <Route exact path="/howtoplay" component={HowToPlay} />
         <Route exact path="/gameover" component={GameOver} />
-
         {/* <Redirect to="/error" /> */}
         <Footer></Footer>
       </Router>

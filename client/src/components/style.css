@@ -69,31 +69,52 @@ font-size: 15px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: black 1px solid;
-  padding: 10px;
+  border: black 3px solid;
+  padding: 5px;
   margin: 10px;
   background-color: #ABB7F8;
 }
 
 .ticket p{
-color: rgb(42, 68, 42);
+color: black;
 font-weight: 700;
- width: 100%;
  text-align: center;
  text-transform: uppercase ;
+ margin: 0px;
 }
 .ticket-list{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin-bottom: 6%;
+  
 }
-.tambola-ticket td:nth-child(even) {background: #CCC; }
-.tambola-ticket td:nth-child(odd) {background: #FFF; }
 .tambola-ticket td {
+  background-color: white;
   font-size: 20px;
   padding: 10px;
   cursor: pointer;
+}
+
+/* dividends verufy buttons md list */
+.verify-btn-list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.verify-btn{
+  margin: 3px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #ABB7F8;
+  font-weight: 700;
+}
+
+.verify-btn:hover{
+  transition: 0.5s;
+  font-size: 20px;
+  background-color: green;
 }
 
 /* scanning ticket styling */
