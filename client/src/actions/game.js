@@ -349,6 +349,28 @@ export const loadTicket = () => async (dispatch) => {
   }
 };
 
+//fetch all player tickets for host
+export const loadTicketPlayer = (ticketid) => async (dispatch) => {
+  try {
+      let res = await axios.get(`/game/ticket/${ticketid}}`);
+      if (!res.data)
+      dispatch(setAlert("There is not ticket Against this ticket id!"));
+    dispatch({
+      type: TICKET_LOADED,
+      payload: res.data,
+    });
+    // dispatch(loadGame());
+  } catch (err) {
+    dispatch({
+      type: GENERATE_FAILED,
+      payload: {
+        msg: err.message,
+      },
+    });
+  }
+};
+
+
 //to update the leaderboard
 export const updateDividend =
   (gameid, playername, score, nameOfPrize) => async (dispatch) => {
@@ -371,3 +393,6 @@ export const updateDividend =
       });
     }
   };
+
+
+  

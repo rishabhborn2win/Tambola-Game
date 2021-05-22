@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import { Fragment } from "react";
 import Moment from "react-moment";
 import players from "./player.png";
+import { PlayerDetail } from "./PlayerDetail";
 
-export default function Player({ game }) {
+export default function Player({ game, numCalled }) {
+
+  const [showPlayer, setshowPlayer] = useState(false)
   return (
     <div className="player-deatils">
       <div className="title-player">
@@ -35,6 +38,10 @@ export default function Player({ game }) {
                     </span>
                   </div>
                 </div>
+                <div className="info" onClick={() => setshowPlayer(!showPlayer)}>
+                  <i className="fa fa-info" />
+                </div>
+                {showPlayer ? <PlayerDetail setshowPlayer={setshowPlayer} player={player} numCalled={numCalled} /> : ""}
                 <br />
               </Fragment>
             </div>

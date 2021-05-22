@@ -11,6 +11,7 @@ import {
   leaveGame,
   loadTicket,
   refreshGame,
+  loadTicketPlayer,
 } from "../actions/game";
 import Moment from "react-moment";
 import Player from "./Player";
@@ -42,7 +43,7 @@ function Board({
   useEffect(() => {
     setInterval(function () {
       refreshGame();
-    }, 2500);
+    }, 10000);
     // loadGame();
   }, [refreshGame]);
 
@@ -863,7 +864,7 @@ function Board({
         <br />
         <div className="host-player">
           <Host game={game} total={numCalled.length} />
-          {localStorage.gameid === game._id ? <Player game={game} /> : ""}
+          {localStorage.gameid === game._id ? <Player game={game} numCalled={numCalled} /> : ""}
         </div>
       </div>
     </Fragment>
@@ -877,6 +878,7 @@ Board.propTypes = {
   numberCalled: PropTypes.array.isRequired,
   loadTicket: PropTypes.func.isRequired,
   refreshGame: PropTypes.func.isRequired,
+  loadTicketPlayer:PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -891,4 +893,5 @@ export default connect(mapStateToProps, {
   leaveGame,
   loadTicket,
   refreshGame,
+  loadTicketPlayer
 })(Board);
