@@ -47,7 +47,7 @@ function App() {
         <Route exact path="/howtoplay" component={HowToPlay} />
         <Route exact path="/gameover" component={GameOver} />
         <Footer></Footer>
-      </Router>
+      </Router>  
     </Provider>
   );
 }
