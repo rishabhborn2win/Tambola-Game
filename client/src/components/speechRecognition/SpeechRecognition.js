@@ -9,20 +9,18 @@ const Dictaphone = () => {
   const [netflix, setNetflix] = useState(false);
   const [numberCalled, setNumCalled] = useState([]);
 
-
   const commands = [
     {
       command: "* Tambola *",
       callback: () => alert(`You are soo good`),
     },
     {
-        command: "Number *",
-        callback: (number, { resetTranscript }) => {
-                if(number < 91 && number > 1)
-                setNumCalled([...numberCalled, number]);
-                resetTranscript();
-        },
+      command: "Number *",
+      callback: (number, { resetTranscript }) => {
+        if (number < 91 && number > 1) setNumCalled([...numberCalled, number]);
+        resetTranscript();
       },
+    },
     {
       command: "I would like to order *",
       callback: (food) => setMessage(`Your order is for: ${food}`),
@@ -96,9 +94,11 @@ const Dictaphone = () => {
       <p>{message}</p>
       <p>{transcript}</p>
       <hr></hr>
-      <p>{numberCalled.map((num) => {
-          return (<span>{num}{" "}</span>)
-      })}</p>
+      <p>
+        {numberCalled.map((num) => {
+          return <span>{num} </span>;
+        })}
+      </p>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const Ticket = ({ numCalled, ticket, ticketId }) => {
       let res = window.confirm("Are You sure?");
       if (res) {
         return (document.getElementById(classOfCell).style.backgroundColor =
-        "white");
+          "white");
       }
     }
     if (num !== 0) {

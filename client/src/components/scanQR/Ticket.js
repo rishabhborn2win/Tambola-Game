@@ -2,63 +2,63 @@ import React from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import Heading from "../Heading";
 
-
 export const TicketScan = () => {
   const [data, setData] = React.useState(localStorage.getItem("data"));
   console.log(data);
   var string = localStorage.data ? localStorage.data : "";
-  var tickets =[];
+  var tickets = [];
 
   //Case for tambola book
-  if(string[1]==="." || string[2]==="." || string[3] === "."){
-    var ticketDetailsTambolaBook= string.split('.,.');
-    var playerDetails = ticketDetailsTambolaBook[3].split(',,,');
+  if (string[1] === "." || string[2] === "." || string[3] === ".") {
+    var ticketDetailsTambolaBook = string.split(".,.");
+    var playerDetails = ticketDetailsTambolaBook[3].split(",,,");
     for (var r = 1; r < ticketDetailsTambolaBook.length - 1; r++) {
-        var ticket1TambolaBook = ticketDetailsTambolaBook[r].split("");
-        var numbersTambolaBook = [];
-        for (var a = 0, b = 0; a < 45; a = a + 3, b++) {
-          numbersTambolaBook[b] = ticket1TambolaBook[a + 1] + "" + ticket1TambolaBook[a + 2];
-        }
-        var ticketTambolaBook = [];
-        for (var skipTambolaBook = 0, c = 0, valueTambolaBook = -1; c < 15; skipTambolaBook = skipTambolaBook + 3, c++) {
-          var d = ticket1TambolaBook[skipTambolaBook];
-          while (d > 0) {
-            valueTambolaBook++;
-            ticketTambolaBook[valueTambolaBook] = 0;
-            d--;
-          }
+      var ticket1TambolaBook = ticketDetailsTambolaBook[r].split("");
+      var numbersTambolaBook = [];
+      for (var a = 0, b = 0; a < 45; a = a + 3, b++) {
+        numbersTambolaBook[b] =
+          ticket1TambolaBook[a + 1] + "" + ticket1TambolaBook[a + 2];
+      }
+      var ticketTambolaBook = [];
+      for (
+        var skipTambolaBook = 0, c = 0, valueTambolaBook = -1;
+        c < 15;
+        skipTambolaBook = skipTambolaBook + 3, c++
+      ) {
+        var d = ticket1TambolaBook[skipTambolaBook];
+        while (d > 0) {
           valueTambolaBook++;
-          ticketTambolaBook[valueTambolaBook] = numbersTambolaBook[c];
+          ticketTambolaBook[valueTambolaBook] = 0;
+          d--;
         }
-        tickets.push(ticketTambolaBook);
+        valueTambolaBook++;
+        ticketTambolaBook[valueTambolaBook] = numbersTambolaBook[c];
       }
-
-
-  }else {
-  //if the qr is of tambola host
-  var ticketDetails = string.split("@@");
-  for (var z = 5; z < ticketDetails.length - 1; z++) {
-    var ticket1 = ticketDetails[z].split("");
-    var numbers = [];
-    for (var i = 0, j = 0; i < 45; i = i + 3, j++) {
-      numbers[j] = ticket1[i + 1] + "" + ticket1[i + 2];
+      tickets.push(ticketTambolaBook);
     }
-    var ticket = [];
-    for (var skip = 0, k = 0, value = -1; k < 15; skip = skip + 3, k++) {
-      var t = ticket1[skip];
-      while (t > 0) {
+  } else {
+    //if the qr is of tambola host
+    var ticketDetails = string.split("@@");
+    for (var z = 5; z < ticketDetails.length - 1; z++) {
+      var ticket1 = ticketDetails[z].split("");
+      var numbers = [];
+      for (var i = 0, j = 0; i < 45; i = i + 3, j++) {
+        numbers[j] = ticket1[i + 1] + "" + ticket1[i + 2];
+      }
+      var ticket = [];
+      for (var skip = 0, k = 0, value = -1; k < 15; skip = skip + 3, k++) {
+        var t = ticket1[skip];
+        while (t > 0) {
+          value++;
+          ticket[value] = 0;
+          t--;
+        }
         value++;
-        ticket[value] = 0;
-        t--;
+        ticket[value] = numbers[k];
       }
-      value++;
-      ticket[value] = numbers[k];
+      tickets.push(ticket);
     }
-    tickets.push(ticket);
   }
-}
-
-
 
   //function to stop scanning
   const [hide, setHide] = React.useState(localStorage.data ? true : false);
@@ -75,7 +75,7 @@ export const TicketScan = () => {
       let res = window.confirm("Are You sure?");
       if (res) {
         return (document.getElementById(classOfCell).style.backgroundColor =
-            "#fff");
+          "#fff");
       }
     }
     if (num !== 0) {
@@ -129,13 +129,17 @@ export const TicketScan = () => {
                 return (
                   <div className="ticket">
                     <span>Tambola Numbers</span>
-                    {playerDetails ? (<p>
-                      {playerDetails[5]} - {playerDetails[6]} -{" "}
-                      {ticketDetailsTambolaBook[0]++}
-                    </p>) :(<p>
-                      ({ticketDetails[2]} - {ticketDetails[3]} -{" "}
-                      {ticketDetails[4]++})
-                    </p>)}
+                    {playerDetails ? (
+                      <p>
+                        {playerDetails[5]} - {playerDetails[6]} -{" "}
+                        {ticketDetailsTambolaBook[0]++}
+                      </p>
+                    ) : (
+                      <p>
+                        ({ticketDetails[2]} - {ticketDetails[3]} -{" "}
+                        {ticketDetails[4]++})
+                      </p>
+                    )}
                     <table className="tambola-ticket">
                       <tr>
                         {firstRow.map((address) => {

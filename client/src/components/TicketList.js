@@ -15,16 +15,15 @@ const TicketList = ({ numCalled, tickets, loadTicket, game }) => {
     <div className="container">
       {/* <Heading text="Ticket List!" /> */}
       <div className="ticket-list">
-        {tickets
-          ? tickets.tickets !== undefined && tickets.tickets.length>0
-            ? tickets.tickets.map((serial, index) => {
-                return (
-                  <div className="container">
+        {tickets ? (
+          tickets.tickets !== undefined && tickets.tickets.length > 0 ? (
+            tickets.tickets.map((serial, index) => {
+              return (
+                <div className="container">
                   <div class="ticket">
                     <span>Tambola Numbers</span>
                     <p>
-                      {tickets.name} ({`${tickets.ticketId}-${index + 1}`}
-                      )
+                      {tickets.name} ({`${tickets.ticketId}-${index + 1}`})
                     </p>
                     <Ticket
                       ticket={serial}
@@ -33,18 +32,22 @@ const TicketList = ({ numCalled, tickets, loadTicket, game }) => {
                     />
                   </div>
                   <div>
-                  <DividendsVerify
-                  ticket={serial}
-                  numCalled={numCalled}
-                  playername={tickets.name}
-                  gameid={game._id}
-                />
+                    <DividendsVerify
+                      ticket={serial}
+                      numCalled={numCalled}
+                      playername={tickets.name}
+                      gameid={game._id}
+                    />
+                  </div>
                 </div>
-                </div>
-                );
-              })
-            : <button onClick={loadTicket}>Reload To get Your Ticket</button>
-          :<button onClick={loadTicket}>Reload To Get Your Ticket</button>}
+              );
+            })
+          ) : (
+            <button onClick={loadTicket}>Reload To get Your Ticket</button>
+          )
+        ) : (
+          <button onClick={loadTicket}>Reload To Get Your Ticket</button>
+        )}
       </div>
     </div>
   );

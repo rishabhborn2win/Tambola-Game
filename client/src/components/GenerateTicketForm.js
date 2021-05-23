@@ -19,9 +19,9 @@ const GenerateTicketForm = ({
     gameID: game ? game.gameID : "",
     playerid: "",
   });
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const onChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
   const { playername, noOfTickets, playerid } = formData;
 
   const onSubmit = async (e) => {
@@ -30,9 +30,9 @@ const GenerateTicketForm = ({
       notifyFill("Player Name Should have more then 6 Char");
     } else if (noOfTickets < 1 || noOfTickets > 6) {
       notifyFill("No Of tickets can not be more then 6");
-    } else if(playername === "not allowed"){
+    } else if (playername === "not allowed") {
       notifyFill("Please select the player...");
-    }else {
+    } else {
       generateTicket(formData);
       onCloseModal(false);
     }
@@ -48,14 +48,14 @@ const GenerateTicketForm = ({
     setFormData(data);
   };
   const decrement = () => {
-    if(noOfTickets > 0)
-    setFormData({...formData, noOfTickets: noOfTickets-1});
-  }
+    if (noOfTickets > 0)
+      setFormData({ ...formData, noOfTickets: noOfTickets - 1 });
+  };
 
   const increment = () => {
-    if(noOfTickets < 6)
-    setFormData({...formData, noOfTickets: noOfTickets+1});
-  }
+    if (noOfTickets < 6)
+      setFormData({ ...formData, noOfTickets: noOfTickets + 1 });
+  };
   return (
     <div className="content-post">
       <Fragment>
@@ -85,7 +85,7 @@ const GenerateTicketForm = ({
               </select>
             </div>
             <div class="number-selector">
-              <span onClick={decrement} >-</span>
+              <span onClick={decrement}>-</span>
               <span>{noOfTickets}</span>
               <span onClick={increment}>+</span>
               {/* onClick={setFormData({...formData, noOfTickets: noOfTickets+1})} */}

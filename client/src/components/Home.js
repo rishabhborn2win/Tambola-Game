@@ -42,32 +42,31 @@ function Home({ game }) {
       return 0;
     });
   }
-  var shareButton =document.getElementById("share");
-  if(shareButton){
-    shareButton.addEventListener('click', event => {
+  var shareButton = document.getElementById("share");
+  if (shareButton) {
+    shareButton.addEventListener("click", (event) => {
       event.preventDefault();
       if (navigator.share) {
-        navigator.share({
-          title: 'Tambola Numbers',
-          url: 'https://tambola-numbers.herokuapp.com'
-        }).then(() => {
-          alert('Thanks for sharing!');
-        })
-        .catch(console.error);
+        navigator
+          .share({
+            title: "Tambola Numbers",
+            url: "https://tambola-numbers.herokuapp.com",
+          })
+          .then(() => {
+            alert("Thanks for sharing!");
+          })
+          .catch(console.error);
       } else {
         // fallback
       }
     });
   }
 
-
-
   if (localStorage.gameid || localStorage.playerid) {
     loadGame();
     var typeOfPlayer;
     if (localStorage.gameid) typeOfPlayer = "Host";
-    else if (localStorage.username)
-      typeOfPlayer = `Player`;
+    else if (localStorage.username) typeOfPlayer = `Player`;
 
     // if(game.game === null) return <Fragment><Spinner></Spinner></Fragment>;
     // else {
@@ -79,31 +78,33 @@ function Home({ game }) {
           <Spinner></Spinner>
         ) : (
           <>
-          <div className="top-row">
+            <div className="top-row">
               <div className="gameid">
                 <span>Game ID: </span>
-                <span className="gameid-value">{game.game ? game.game.gameID : ""}</span>
+                <span className="gameid-value">
+                  {game.game ? game.game.gameID : ""}
+                </span>
               </div>
             </div>
-          <div className="container">
-            <Link to="/play">
-              <button className="btn btn-lg">Resume Game</button>
-              <br></br>
-              <br></br>
-            </Link>
-            <div className="host-player">
-              <Host game={game.game} total={numCalled.length}></Host>
-              {game.game ? (
-                localStorage.gameid === game.game._id ? (
-                  <Player game={game.game ? game.game : {}} />
+            <div className="container">
+              <Link to="/play">
+                <button className="btn btn-lg">Resume Game</button>
+                <br></br>
+                <br></br>
+              </Link>
+              <div className="host-player">
+                <Host game={game.game} total={numCalled.length}></Host>
+                {game.game ? (
+                  localStorage.gameid === game.game._id ? (
+                    <Player game={game.game ? game.game : {}} />
+                  ) : (
+                    ""
+                  )
                 ) : (
                   ""
-                )
-              ) : (
-                ""
-              )}
+                )}
+              </div>
             </div>
-          </div>
           </>
         )}
       </Fragment>
@@ -114,13 +115,21 @@ function Home({ game }) {
   return (
     <Fragment>
       <Heading text="Welcome to Tambola," />
-       <div className="share-btn" >
-          <a id="share" href="#top"><img width={"30px"} alt="share" src={"https://cdn.icon-icons.com/icons2/2036/PNG/512/sharing_share_icon_124236.png"} /></a>
-        </div>
+      <div className="share-btn">
+        <a id="share" href="#top">
+          <img
+            width={"30px"}
+            alt="share"
+            src={
+              "https://cdn.icon-icons.com/icons2/2036/PNG/512/sharing_share_icon_124236.png"
+            }
+          />
+        </a>
+      </div>
       <div class="container">
         <div>
           <a href="/howtoplay">How to Play?</a>
-      </div>
+        </div>
         <Link to="/scanqr">
           <Button variant="success">Scan Tambola Host/Book QR</Button>
         </Link>{" "}

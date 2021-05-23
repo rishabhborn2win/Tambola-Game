@@ -120,6 +120,7 @@ function Board({
   //then the automatic calling should be unfollowed
 
   const [automaticPlay, setAutomaticPlay] = useState(false);
+  console.log(automaticPlay);
   // if(automaticPlay){
   //   setInterval(function () {
   //     nextNum();
@@ -140,8 +141,7 @@ function Board({
   //declaring the type of player
   var typeOfPlayer;
   if (localStorage.gameid) typeOfPlayer = "Host";
-  else if (localStorage.username)
-    typeOfPlayer = `Player`;
+  else if (localStorage.username) typeOfPlayer = `Player`;
 
   //transform the number using emoji
   var numString = transform(numCalled[numCalled.length - 1] || 0, game.gameID);
@@ -215,7 +215,8 @@ function Board({
           ""
         )}
         <div onClick={() => setOpenLeadarboard(true)}>
-          <span>👤 </span><span>{game.players.length}</span>
+          <span>👤 </span>
+          <span>{game.players.length}</span>
         </div>
         {/* <div>
           <a
@@ -266,12 +267,11 @@ function Board({
         </div> */}
         <br />
         {localStorage.playerid ? (
-            <TicketList
-              tickets={game.tickets}
-              game={game}
-              numCalled={numCalled}
-            />
-          
+          <TicketList
+            tickets={game.tickets}
+            game={game}
+            numCalled={numCalled}
+          />
         ) : (
           ""
         )}
@@ -289,8 +289,8 @@ function Board({
                   alert("Feature is under maintainence!!");
                 }}
               > */}
-                {/* Pause button unicode */}
-                {/* &#9208;
+            {/* Pause button unicode */}
+            {/* &#9208;
               </a>
             ) : (
               <a
@@ -301,8 +301,8 @@ function Board({
                   alert("Feature is under maintainence!!");
                 }}
               > */}
-                {/* play button unicode */}
-                {/* &#9654;
+            {/* play button unicode */}
+            {/* &#9654;
               </a>
             )} */}
           </div>

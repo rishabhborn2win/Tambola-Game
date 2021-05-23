@@ -141,10 +141,9 @@ export const notifyFill = (msg) => async (dispatch) => {
 export const createGame =
   ({ host }) =>
   async (dispatch) => {
-
     dispatch({
-      type: GAME_LOADING
-    })
+      type: GAME_LOADING,
+    });
     const config = {
       headers: {
         "Content-Type": "application/json",
