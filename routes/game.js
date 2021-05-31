@@ -4,7 +4,8 @@ const router = express.Router();
 const Game = require("../models/Game");
 const tambola = require("tambola");
 const Ticket = require("../models/Ticket");
-const { generateTicket } = require("tambola");
+
+
 //route     POST /game
 //desc:     create a game
 //access:   public
