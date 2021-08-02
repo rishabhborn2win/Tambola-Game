@@ -2,9 +2,10 @@ const express = require("express");
 const { remove } = require("../models/Game");
 const router = express.Router();
 const Game = require("../models/Game");
-const tambola = require("tambola");
 const Ticket = require("../models/Ticket");
-const { generateTicket } = require("tambola");
+const { generateTicket } = require("../utils/generateTicket");
+const tambola = require('tambola')
+
 //route     POST /game
 //desc:     create a game
 //access:   public
@@ -28,20 +29,7 @@ router.post("/", async (req, res) => {
       players: [],
     });
 
-    function pick(n, min, max) {
-      var values = [],
-        i = max;
-      while (i >= min) values.push(i--);
-      var results = [];
-      var maxIndex = max;
-      for (i = 1; i <= n; i++) {
-        maxIndex--;
-        var index = Math.floor(maxIndex * Math.random());
-        results.push(values[index]);
-        values[index] = values[maxIndex];
-      }
-      return results;
-    }
+    
     var list = pick(90, 1, 90);
 
     list.forEach((num) => {
@@ -215,7 +203,7 @@ router.post("/generate/ticket/:number/:name", async (req, res) => {
     let ticketId = Math.ceil(Math.random() * 999);
     if (n >= 1 && n <= 6) {
       for (i = 0001; i <= n; i++) {
-        let schemaOfTicketDisplay = tambola.generateTicket(); //generates the ticket
+        let schemaOfTicketDisplay = await generateTicket() //generates the ticket
         tickets.push(schemaOfTicketDisplay);
       }
       ticket = new Ticket({
@@ -330,5 +318,43 @@ router.put("/update/score/dividend", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+
+function pick(n, min, max) {
+  var values = [],
+    i = max;
+  while (i >= min) values.push(i--);
+  var results = [];
+  var maxIndex = max;
+  for (i = 1; i <= n; i++) {
+    maxIndex--;
+    var index = Math.floor(maxIndex * Math.random());
+    results.push(values[index]);
+    values[index] = values[maxIndex];
+  }
+  return results;
+}
+
+function generateUniqueSortedNumbers(n, min, max) {
+  var arr = [];
+  while(arr.length < n){
+      var r = Math.floor(Math.random() * max) + 1;
+      if(arr.indexOf(r) === -1 && r>=min && r<=max) arr.push(r);
+  }
+  arr.sort();
+  return arr
+}
+
+function consecutive(array) {
+  var i = 2, d;
+  while (i < array.length) {
+      d = array[i - 1] - array[i - 2];
+      if (Math.abs(d) === 1 && d === array[i] - array[i - 1]) {
+          return false;
+      }
+      i++;
+  }
+  return true;
+}
 
 module.exports = router;
